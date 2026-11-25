@@ -1,0 +1,332 @@
+﻿@model MealPlanner.Models.ViewModels.MealPlans.MealPlanItemEditViewModel
+@{
+ViewData["Title"] = MealLocalizer["EditMeal"];
+
+var mealPlanId = ViewData["MealPlanId"];
+var mealPlanName = ViewData["MealPlanName"];
+var recipes = ViewData["RecipeId"] as SelectList;
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>@MealLocalizer["EditMeal"] - @mealPlanName</h1>
+        <a asp-action="Details" asp-route-id="@Model.MealPlanId" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @MealLocalizer["BackToPlan"]
+        </a>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">@MealLocalizer["MealDetails"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditItem" method="post" id="editMealForm">
+                        @Html.AntiForgeryToken()
+                        <div id="validationSummary" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input type="hidden" asp-for="MealPlanItem.Id" />
+                        <input type="hidden" asp-for="MealPlanId" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MealPlanItem.PlannedDate" class="form-label">@MealLocalizer["Date"]</label>
+                            <input asp-for="MealPlanItem.PlannedDate" class="form-control" type="date" required />
+                            <span asp-validation-for="MealPlanItem.PlannedDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MealPlanItem.MealType" class="form-label">@MealLocalizer["MealType"]</label>
+                            <select asp-for="MealPlanItem.MealType" class="form-select" required>
+                                <option value="">@MealLocalizer["SelectMealType"]</option>
+                                @{
+                                var mealTypes = new List<string> {
+                                MealLocalizer["Breakfast"],
+                                MealLocalizer["MorningSnack"],
+                                MealLocalizer["Lunch"],
+                                MealLocalizer["AfternoonSnack"],
+                                MealLocalizer["Dinner"],
+                                MealLocalizer["Dessert"],
+                                MealLocalizer["EveningSnack"]
+                                };
+
+                                foreach (var mealType in mealTypes)
+                                {
+                                <option value="@mealType">@mealType</option>
+                                }
+                                }
+                            </select>
+                            <span asp-validation-for="MealPlanItem.MealType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MealPlanItem.RecipeId" class="form-label">@MealLocalizer["Recipe"]</label>
+                            <select asp-for="MealPlanItem.RecipeId" asp-items="recipes" class="form-select" required>
+                                <option value="">@MealLocalizer["SelectRecipe"]</option>
+                            </select>
+                            <span asp-validation-for="MealPlanItem.RecipeId" class="text-danger"></span>
+                            <div class="mt-2">
+                                <a asp-controller="Recipes" asp-action="Create" class="btn btn-sm btn-outline-primary" target="_blank">
+                                    <i class="bi bi-plus-circle"></i> @MealLocalizer["CreateNewRecipe"]
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MealPlanItem.Servings" class="form-label">@MealLocalizer["NumberOfServings"]</label>
+                            <input asp-for="MealPlanItem.Servings" class="form-control" type="number" min="1" required />
+                            <span asp-validation-for="MealPlanItem.Servings" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mt-4 d-flex justify-content-between">
+                            <a asp-action="Details" asp-route-id="@Model.MealPlanId" class="btn btn-secondary">
+                                <i class="bi bi-x-circle"></i> @Localizer["Cancel"]
+                            </a>
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save"></i> @Localizer["Save"]
+                                </button>
+                                <button type="button" id="ajaxSubmitBtn" class="btn btn-success">
+                                    <i class="bi bi-save"></i> @Localizer["Save"] (Ajax)
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">@MealLocalizer["RecipeDetails"]</h4>
+                </div>
+                <div class="card-body">
+                    <div id="recipeDetails">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i> @MealLocalizer["SelectRecipeForDetails"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function() {
+        // Initialize recipe details if already selected
+        const initialRecipeId = $("#RecipeId").val();
+        if (initialRecipeId) {
+            loadRecipeDetails(initialRecipeId);
+        }
+
+        // Handle recipe selection change
+        $("#RecipeId").change(function() {
+            const recipeId = $(this).val();
+            if (recipeId) {
+                loadRecipeDetails(recipeId);
+            } else {
+                // Clear recipe details
+                $("#recipeDetails").html(`
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i> @MealLocalizer["SelectRecipeForDetails"]
+                        </div>
+                    `);
+            }
+        });
+
+        function loadRecipeDetails(recipeId) {
+            // Show loading indicator
+            $("#recipeDetails").html(`
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                `);
+
+            // Load recipe details via BLL service
+            $.get('@Url.Action("GetRecipeDetails", "Recipes")', { id: recipeId }, function(data) {
+                if (data.success) {
+                    // Update recipe details
+                    let nutritionHtml = '';
+                    if (data.caloriesPerServing) {
+                        nutritionHtml = `
+                                <div class="alert alert-info">
+                                    <p class="mb-0 d-flex justify-content-between">
+                                        <span><strong>@NutritionLocalizer["CaloriesPerServing"]:</strong></span>
+                                        <span>${data.caloriesPerServing} kcal</span>
+                                    </p>
+                                </div>
+                            `;
+                    }
+
+                    const html = `
+                            <div class="recipe-details">
+                                <h5 class="mb-3">${data.name}</h5>
+                                <p>${data.description || '@MealLocalizer["NoDescription"]'}</p>
+                                
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span><i class="bi bi-clock"></i> ${data.prepTimeMinutes} @MealLocalizer["Minutes"]</span>
+                                    <span><i class="bi bi-people"></i> ${data.defaultServings} @MealLocalizer["Servings"]</span>
+                                </div>
+                                
+                                ${nutritionHtml}
+                                
+                                <a href="${data.detailsUrl}" class="btn btn-outline-info btn-sm" target="_blank">
+                                    <i class="bi bi-eye"></i> @MealLocalizer["ViewFullRecipe"]
+                                </a>
+                            </div>
+                        `;
+
+                    $("#recipeDetails").html(html);
+
+                    // Update servings default if empty
+                    if (data.defaultServings && $("#Servings").val() == "") {
+                        $("#Servings").val(data.defaultServings);
+                    }
+                } else {
+                    $("#recipeDetails").html(`
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i> ${data.message || '@MealLocalizer["ErrorLoadingRecipe"]'}
+                            </div>
+                        `);
+                }
+            }).fail(function() {
+                $("#recipeDetails").html(`
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i> @MealLocalizer["ErrorLoadingRecipe"]
+                        </div>
+                    `);
+            });
+        }
+
+        // Handle Ajax button click
+        $("#ajaxSubmitBtn").click(function(e) {
+            e.preventDefault();
+
+            // Clear previous validation errors
+            $(".text-danger:not(.validation-summary-errors)").text("");
+            $("#validationSummary").text("");
+
+            // Gather form data
+            var formData = {
+                Id: $("#Id").val(),
+                MealPlanId: $("#MealPlanId").val(),
+                RecipeId: $("#RecipeId").val(),
+                PlannedDate: $("#PlannedDate").val(),
+                MealType: $("#MealType").val(),
+                Servings: $("#Servings").val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+
+            // Validate the form
+            let isValid = true;
+
+            if (!formData.RecipeId) {
+                $("[data-valmsg-for='RecipeId']").text("@MealLocalizer["RecipeRequired"]");
+                isValid = false;
+            }
+
+            if (!formData.PlannedDate) {
+                $("[data-valmsg-for='PlannedDate']").text("@MealLocalizer["DateRequired"]");
+                isValid = false;
+            }
+
+            if (!formData.MealType) {
+                $("[data-valmsg-for='MealType']").text("@MealLocalizer["MealTypeRequired"]");
+                isValid = false;
+            }
+
+            if (!formData.Servings || formData.Servings < 1) {
+                $("[data-valmsg-for='Servings']").text("@MealLocalizer["ServingsRequired"]");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            $("#ajaxSubmitBtn").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> @Localizer["Saving"]...');
+
+            // Submit via Ajax
+            $.ajax({
+                url: '@Url.Action("EditItemAjax")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    if (result.success) {
+                        // Show success message and redirect
+                        Swal.fire({
+                            title: '@MealLocalizer["Success"]!',
+                            text: '@MealLocalizer["MealUpdated"]',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(function() {
+                            window.location.href = '@Url.Action("Details", new { id = Model.MealPlanId })';
+                        });
+                    } else {
+                        // Show error message
+                        $("#ajaxSubmitBtn").prop("disabled", false).html('<i class="bi bi-save"></i> @Localizer["Save"] (Ajax)');
+                        $("#validationSummary").text(result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Reset button state
+                    $("#ajaxSubmitBtn").prop("disabled", false).html('<i class="bi bi-save"></i> @Localizer["Save"] (Ajax)');
+                    console.error('Ajax error:', xhr, status, error);
+                    $("#validationSummary").text("@MealLocalizer["ErrorOccurred"]: " + error);
+                }
+            });
+        });
+
+        // Handle regular form submission with AJAX
+        $("#editMealForm").submit(function(e) {
+            e.preventDefault();
+
+            // Show loading state
+            $("button[type='submit']").prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> @Localizer["Saving"]...');
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '@Url.Action("EditItem")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    // If the response is a redirect to the details page, follow it
+                    if (result.redirectUrl) {
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        window.location.href = '@Url.Action("Details", new { id = Model.MealPlanId })';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Reset button state
+                    $("button[type='submit']").prop("disabled", false).html('<i class="bi bi-save"></i> @Localizer["Save"]');
+
+                    console.error('Form submission error:', xhr, status, error);
+
+                    // Handle validation errors
+                    if (xhr.status === 400 && xhr.responseJSON) {
+                        const errors = xhr.responseJSON.errors;
+                        for (const key in errors) {
+                            $(`[data-valmsg-for='${key}']`).text(errors[key][0]);
+                        }
+                        $("#validationSummary").text("@MealLocalizer["PleaseFixErrors"]");
+                    } else {
+                        $("#validationSummary").text("@MealLocalizer["ErrorOccurred"]: " + error);
+                    }
+                }
+            });
+        });
+    });
+</script>
+}

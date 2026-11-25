@@ -1,0 +1,306 @@
+@using System.Linq;
+@using System.Collections.Generic;
+@using MealPlanner.Dto
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MealPlanner.Models.ViewModels.ShoppingLists.ShoppingListDetailViewModel
+@{
+var title = ShoppingLocalizer["ShoppingListDetails"];
+
+// Group items by category (if available)
+    var items = Model.ShoppingList.Items?.OrderBy(i => i.IngredientName)?.ToList() ?? new List<ShoppingListItemDto>();
+    
+    // Then manually create groups with explicit string keys
+    var manualGroups = new Dictionary<string, List<ShoppingListItemDto>>();
+    
+    foreach (var item in items)
+    {
+        string category = "Uncategorized";
+
+        if (Model.IngredientCategories.TryGetValue(item.IngredientId, out var resolvedCategory))
+        {
+            category = resolvedCategory;
+        }
+
+        
+        if (!manualGroups.ContainsKey(category))
+        {
+            manualGroups[category] = new List<ShoppingListItemDto>();
+        }
+        
+        manualGroups[category].Add(item);
+    }
+    
+    // Sort the groups by category name
+    var sortedGroups = manualGroups.OrderBy(g => g.Key).ToList();
+
+var purchasedCount = Model.ShoppingList.PurchasedItems;
+var totalCount = Model.ShoppingList.TotalItems;
+var completionPercentage = totalCount > 0 ? (purchasedCount * 100 / totalCount) : 0;
+}
+<h2>@title</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@Model.ShoppingList.Name</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ShoppingList.Id" class="btn btn-outline-primary me-2">
+            <i class="bi bi-pencil"></i> @Localizer["Edit"]
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @ShoppingLocalizer["BackToList"]
+        </a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["ListInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">@ShoppingLocalizer["CreatedDate"]</dt>
+                    <dd class="col-sm-8">@Model.ShoppingList.CreatedDate.ToString("dddd, MMMM d, yyyy")</dd>
+
+                    <dt class="col-sm-4">@ShoppingLocalizer["TotalItems"]</dt>
+                    <dd class="col-sm-8">@String.Format(ShoppingLocalizer["ItemsCount"], totalCount)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["ShoppingProgress"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>@ShoppingLocalizer["Progress"]: @purchasedCount / @totalCount @ShoppingLocalizer["items"]</span>
+                    <span>@completionPercentage%</span>
+                </div>
+                <div class="progress" style="height: 25px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @completionPercentage%"
+                         aria-valuenow="@completionPercentage" aria-valuemin="0" aria-valuemax="100">
+                        @completionPercentage%
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <a href="#" class="btn btn-outline-success" id="toggleAllItemsBtn">
+                        <i class="bi bi-check-all"></i> @ShoppingLocalizer["ToggleAllItems"]
+                    </a>
+                    <button type="button" class="btn btn-outline-danger" id="clearCompletedBtn">
+                        <i class="bi bi-trash"></i> @ShoppingLocalizer["ClearCompleted"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">@ShoppingLocalizer["ShoppingItems"]</h4>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+            <i class="bi bi-plus"></i> @ShoppingLocalizer["AddItem"]
+        </button>
+    </div>
+    <div class="card-body p-0">
+        @if (Model.ShoppingList.Items != null && Model.ShoppingList.Items.Any())
+        {
+        <form id="shoppingForm" method="post">
+            <input type="hidden" name="shoppingListId" value="@Model.ShoppingList.Id" />
+
+            <div class="list-group list-group-flush">
+                @foreach (var group in sortedGroups)
+                {
+                    <div class="list-group-item bg-light">
+                        <strong>@group.Key</strong>
+                    </div>
+
+                    @foreach (var item in group.Value)
+                    {
+                        <div class="list-group-item d-flex justify-content-between align-items-center px-3 py-2 @(item.Purchased ? "bg-light text-muted" : "")">
+                            <!-- Item rendering logic stays the same -->
+                            <div class="form-check">
+                                <input class="form-check-input item-checkbox" type="checkbox"
+                                       id="item_@item.Id" data-item-id="@item.Id"
+                                       @(item.Purchased ? "checked" : "")>
+                                <label class="form-check-label @(item.Purchased ? "text-decoration-line-through" : "")" for="item_@item.Id">
+                                    @item.IngredientName
+                                </label>
+                            </div>
+                            <div>
+                                <span class="badge bg-secondary me-2">@item.Amount</span>
+                                <button type="button" class="btn btn-outline-danger btn-sm delete-item-btn" data-item-id="@item.Id">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </form>
+        }
+        else
+        {
+        <div class="alert alert-info m-3">
+            <p>@ShoppingLocalizer["NoItemsInList"]</p>
+        </div>
+        }
+    </div>
+</div>
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">@ShoppingLocalizer["AddItemToShoppingList"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddItem" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="shoppingListId" value="@Model.ShoppingList.Id" />
+
+                    <div class="mb-3">
+                        <label for="ingredientId" class="form-label">@ShoppingLocalizer["Ingredient"]</label>
+                        <select name="ingredientId" id="ingredientId" class="form-select" required>
+                            <option value="">@ShoppingLocalizer["SelectIngredient"]</option>
+                            @foreach (var ingredient in Model.Ingredients)
+                            {
+                                <option value="@ingredient.Id">@ingredient.Name</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">@Localizer["Amount"]</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" value="1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@ShoppingLocalizer["AddItem"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Handle checkbox changes
+        $(".item-checkbox").change(function() {
+            const itemId = $(this).data("item-id");
+            const isPurchased = $(this).prop("checked");
+
+            // Toggle visual appearance
+            if (isPurchased) {
+                $(this).closest(".list-group-item").addClass("bg-light text-muted");
+                $(this).siblings("label").addClass("text-decoration-line-through");
+            } else {
+                $(this).closest(".list-group-item").removeClass("bg-light text-muted");
+                $(this).siblings("label").removeClass("text-decoration-line-through");
+            }
+
+            // Send AJAX request to update the item's purchased status
+            $.post("/ShoppingLists/ToggleItem", { itemId: itemId, purchased: isPurchased })
+                .done(function(response) {
+                    if (response.success) {
+                        // Update progress bar
+                        const newPurchasedCount = response.purchasedCount;
+                        const totalCount = response.totalCount;
+                        const newPercentage = Math.round((newPurchasedCount / totalCount) * 100);
+
+                        $(".progress-bar").css("width", newPercentage + "%");
+                        $(".progress-bar").text(newPercentage + "%");
+                        $(".progress-bar").attr("aria-valuenow", newPercentage);
+                        $("span:contains('Progress:')").text(`@ShoppingLocalizer["Progress"]: ${newPurchasedCount} / ${totalCount} @ShoppingLocalizer["items"]`);
+                        $("span:contains('%')").first().text(`${newPercentage}%`);
+                    }
+                })
+                .fail(function() {
+                    // Revert the checkbox state if the request fails
+                    $(this).prop("checked", !isPurchased);
+                    alert("Failed to update item. Please try again.");
+                });
+        });
+
+        // Toggle all items
+        $("#toggleAllItemsBtn").click(function(e) {
+            e.preventDefault();
+
+            // Count how many items are currently checked
+            const totalItems = $(".item-checkbox").length;
+            const checkedItems = $(".item-checkbox:checked").length;
+
+            // If all or most items are checked, uncheck all; otherwise, check all
+            const checkAll = checkedItems < totalItems / 2;
+
+            $(".item-checkbox").each(function() {
+                const currentlyChecked = $(this).prop("checked");
+                if (checkAll !== currentlyChecked) {
+                    $(this).prop("checked", checkAll).trigger("change");
+                }
+            });
+        });
+
+        // Clear completed items
+        $("#clearCompletedBtn").click(function() {
+            if (confirm("@ShoppingLocalizer["ConfirmRemoveCompleted"]")) {
+                const completedItemIds = [];
+
+                $(".item-checkbox:checked").each(function() {
+                    completedItemIds.push($(this).data("item-id"));
+                });
+
+                if (completedItemIds.length > 0) {
+                    $.post("/ShoppingLists/RemoveCompletedItems", {
+                        shoppingListId: @Model.ShoppingList.Id,
+                        itemIds: completedItemIds
+                    })
+                        .done(function(response) {
+                            if (response.success) {
+                                // Remove items from the DOM
+                                for (const itemId of completedItemIds) {
+                                    $(`#item_${itemId}`).closest(".list-group-item").remove();
+                                }
+
+                                // Reload page to update everything properly
+                                location.reload();
+                            }
+                        })
+                        .fail(function() {
+                            alert("Failed to remove completed items. Please try again.");
+                        });
+                }
+            }
+        });
+
+        // Delete individual item
+        $(".delete-item-btn").click(function() {
+            const itemId = $(this).data("item-id");
+
+            if (confirm("@ShoppingLocalizer["ConfirmRemoveItem"]")) {
+                $.post("/ShoppingLists/RemoveItem", { itemId: itemId })
+                    .done(function(response) {
+                        if (response.success) {
+                            // Remove item from the DOM
+                            $(`#item_${itemId}`).closest(".list-group-item").remove();
+
+                            // Reload page to update everything properly
+                            location.reload();
+                        }
+                    })
+                    .fail(function() {
+                        alert("Failed to remove item. Please try again.");
+                    });
+            }
+        });
+    });
+</script>
+}

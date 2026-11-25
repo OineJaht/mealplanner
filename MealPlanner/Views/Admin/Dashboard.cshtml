@@ -1,0 +1,249 @@
+﻿@* Views/Admin/Dashboard.cshtml *@
+@model MealPlanner.Models.ViewModels.Admin.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+            </h1>
+            
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+            
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">@Model.TotalUsers</h4>
+                            <p class="card-text">Total Users</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">@Model.TotalRecipes</h4>
+                            <p class="card-text">Total Recipes</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-utensils fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">@Model.TotalIngredients</h4>
+                            <p class="card-text">Total Ingredients</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-apple-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title">@Model.TotalCategories</h4>
+                            <p class="card-text">Total Categories</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-tags fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Role Distribution -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">User Roles</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-danger">@Model.AdminUsers</h4>
+                                <p>Admins</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-warning">@Model.ModeratorUsers</h4>
+                                <p>Moderators</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-info">@Model.PremiumUsers</h4>
+                                <p>Premium</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-secondary">@Model.RegularUsers</h4>
+                                <p>Regular</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Recent Activity (30 days)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-primary">@Model.RecentUsers</h4>
+                                <p>New Users</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center">
+                                <h4 class="text-success">@Model.RecentRecipes</h4>
+                                <p>New Recipes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="/Admin/Users" class="btn btn-outline-primary btn-block">
+                                <i class="fas fa-users"></i> Manage Users
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/Admin/Content" class="btn btn-outline-success btn-block">
+                                <i class="fas fa-cogs"></i> Manage Content
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/Admin/SystemInfo" class="btn btn-outline-info btn-block">
+                                <i class="fas fa-info-circle"></i> System Info
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/Admin/TestAuth" class="btn btn-outline-warning btn-block">
+                                <i class="fas fa-bug"></i> Debug Auth
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Users -->
+    @if (Model.LatestUsers.Any())
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Latest Users</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Created</th>
+                                        <th>Confirmed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var user in Model.LatestUsers)
+                                    {
+                                        <tr>
+                                            <td>@user.UserName</td>
+                                            <td>@user.Email</td>
+                                            <td>@user.FirstName @user.LastName</td>
+                                            <td>@user.Created.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                @if (user.EmailConfirmed)
+                                                {
+                                                    <span class="badge badge-success">Yes</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-warning">No</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

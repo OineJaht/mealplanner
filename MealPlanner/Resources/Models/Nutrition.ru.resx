@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- IngredientNutrition View -->
+    <data name="IngredientNutrition" xml:space="preserve">
+    <value>Пищевая ценность ингредиента</value>
+  </data>
+    <data name="BackToIngredient" xml:space="preserve">
+    <value>Вернуться к ингредиенту</value>
+  </data>
+    <data name="EditNutritionInformation" xml:space="preserve">
+    <value>Редактировать информацию о пищевой ценности</value>
+  </data>
+  <data name="NutritionInformation" xml:space="preserve">
+    <value>Информация о пищевой ценности</value>
+  </data>
+    <data name="ValuesPerPortion" xml:space="preserve">
+    <value>Значения на 100г ингредиента</value>
+  </data>
+    <data name="CaloriesPer100g" xml:space="preserve">
+    <value>Калории (на 100г)</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Белки</value>
+  </data>
+    <data name="Carbohydrates" xml:space="preserve">
+    <value>Углеводы</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Жиры</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Клетчатка</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Сахар</value>
+  </data>
+    <data name="Sodium" xml:space="preserve">
+    <value>Натрий</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+    <data name="DataSources" xml:space="preserve">
+    <value>Источники данных</value>
+  </data>
+    <data name="NutritionDataSources" xml:space="preserve">
+    <value>Вы можете найти достоверную информацию о пищевой ценности из следующих источников:</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Пищевая ценность</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>На 100г порцию</value>
+  </data>
+    <data name="ServingSize" xml:space="preserve">
+    <value>Размер порции: 100г</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Калории</value>
+  </data>
+    <data name="AmountPerServing" xml:space="preserve">
+    <value>Количество на порцию</value>
+  </data>
+    <data name="TotalFat" xml:space="preserve">
+    <value>Жиры всего</value>
+  </data>
+    <data name="TotalCarbohydrates" xml:space="preserve">
+    <value>Углеводы всего</value>
+  </data>
+    <data name="DietaryFiber" xml:space="preserve">
+    <value>Пищевые волокна</value>
+  </data>
+    <data name="Sugars" xml:space="preserve">
+    <value>Сахара</value>
+  </data>
+    <data name="WhyThisMatters" xml:space="preserve">
+    <value>Почему это важно</value>
+  </data>
+    <data name="NutritionMattersDescription" xml:space="preserve">
+    <value>Точная информация о пищевой ценности ингредиентов позволяет вам:</value>
+  </data>
+    <data name="PackagingLabels" xml:space="preserve">
+    <value>Этикетки на упаковке продуктов</value>
+  </data>
+    <data name="ManufacturerWebsites" xml:space="preserve">
+    <value>Веб-сайты производителей</value>
+  </data>
+    <data name="NutritionDatabases" xml:space="preserve">
+    <value>Надежные базы данных о пищевой ценности</value>
+  </data>
+    <data name="NutritionVariation" xml:space="preserve">
+    <value>Помните, что значения пищевой ценности могут варьироваться в зависимости от методов приготовления, сортов и брендов.</value>
+  </data>
+
+    <!-- RecipeNutrition View -->
+    <data name="RecipeNutrition" xml:space="preserve">
+    <value>Пищевая ценность рецепта</value>
+  </data>
+    <data name="BackToRecipe" xml:space="preserve">
+    <value>Вернуться к рецепту</value>
+  </data>
+    <data name="CalculateFromIngredients" xml:space="preserve">
+    <value>Рассчитать из ингредиентов</value>
+  </data>
+    <data name="TotalCalories" xml:space="preserve">
+    <value>Всего калорий</value>
+  </data>
+    <data name="CaloriesPerServing" xml:space="preserve">
+    <value>Калорий на порцию</value>
+  </data>
+    <data name="TotalProtein" xml:space="preserve">
+    <value>Всего белков</value>
+  </data>
+    <data name="TotalFiber" xml:space="preserve">
+    <value>Всего клетчатки</value>
+  </data>
+    <data name="TotalSugar" xml:space="preserve">
+    <value>Всего сахара</value>
+  </data>
+    <data name="TotalSodium" xml:space="preserve">
+    <value>Всего натрия</value>
+  </data>
+    <data name="Tips" xml:space="preserve">
+    <value>Советы</value>
+  </data>
+    <data name="TipsCalculate" xml:space="preserve">
+    <value>Нажмите "Рассчитать из ингредиентов", чтобы автоматически вычислить пищевую ценность на основе ингредиентов</value>
+  </data>
+    <data name="TipsManual" xml:space="preserve">
+    <value>Можно вносить ручные корректировки для точной настройки значений</value>
+  </data>
+    <data name="TipsServings" xml:space="preserve">
+    <value>Убедитесь, что рецепт содержит информацию о размере порции для точных расчетов на порцию</value>
+  </data>
+    <data name="TipsIngredients" xml:space="preserve">
+    <value>Для точных расчетов убедитесь, что ваши ингредиенты имеют информацию о пищевой ценности</value>
+  </data>
+
+    <!-- NutritionSummary View -->
+    <data name="NutritionSummary" xml:space="preserve">
+    <value>Сводка пищевой ценности</value>
+  </data>
+    <data name="DailyTargetRanges" xml:space="preserve">
+    <value>Дневные целевые диапазоны</value>
+  </data>
+    <data name="Nutrient" xml:space="preserve">
+    <value>Питательное вещество</value>
+  </data>
+    <data name="TargetRangeAdult" xml:space="preserve">
+    <value>Целевой диапазон (для взрослых)</value>
+  </data>
+    <data name="GeneralGuidelines" xml:space="preserve">
+    <value>Это общие рекомендации. Индивидуальные потребности различаются в зависимости от возраста, пола, уровня активности и целей здоровья.</value>
+  </data>
+    <data name="MealPlanNutritionTips" xml:space="preserve">
+    <value>Советы по пищевой ценности плана питания</value>
+  </data>
+    <data name="TipBalancedMacros" xml:space="preserve">
+    <value>Стремитесь к сбалансированному распределению макронутриентов (белки, углеводы, жиры)</value>
+  </data>
+    <data name="TipVariety" xml:space="preserve">
+    <value>Включайте разнообразие пищевых групп в каждый план питания</value>
+  </data>
+    <data name="TipTiming" xml:space="preserve">
+    <value>Учитывайте время питания, богатого питательными веществами, во время физических упражнений</value>
+  </data>
+    <data name="TipNutritionInfo" xml:space="preserve">
+    <value>Добавляйте информацию о пищевой ценности ингредиентов для более точных расчетов</value>
+  </data>
+    <data name="TipCalculate" xml:space="preserve">
+    <value>Используйте функцию "Рассчитать" для рецептов, чтобы обновить данные о пищевой ценности</value>
+  </data>
+    <data name="RecentMealPlansAnalysis" xml:space="preserve">
+    <value>Недавние планы питания - Анализ пищевой ценности</value>
+  </data>
+    <data name="Active" xml:space="preserve">
+    <value>Активный</value>
+  </data>
+    <data name="DailyAverageNutrition" xml:space="preserve">
+    <value>Средние дневные показатели питания</value>
+  </data>
+    <data name="Duration" xml:space="preserve">
+    <value>Продолжительность</value>
+  </data>
+    <data name="Days" xml:space="preserve">
+    <value>дней</value>
+  </data>
+    <data name="MacronutrientDistribution" xml:space="preserve">
+    <value>Распределение макронутриентов</value>
+  </data>
+    <data name="ViewPlanDetails" xml:space="preserve">
+    <value>Просмотреть детали плана</value>
+  </data>
+    <data name="NoMealPlansFound" xml:space="preserve">
+    <value>Планы питания не найдены. Создайте план питания, чтобы увидеть анализ пищевой ценности.</value>
+  </data>
+    <data name="CreateMealPlan" xml:space="preserve">
+    <value>Создать план питания</value>
+  </data>
+    <data name="NutritionTrends" xml:space="preserve">
+    <value>Тенденции питания</value>
+  </data>
+    <data name="NeedMoreMealPlans" xml:space="preserve">
+    <value>Необходимо не менее двух планов питания для отображения тенденций питания.</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Углеводы</value>
+  </data>
+    <data name="UsedInRecipes" xml:space="preserve">
+    <value>Используется в рецептах</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>Посмотреть рецепт</value>
+  </data>
+
+    <!-- Additional common terms -->
+    <data name="Ingredients" xml:space="preserve">
+    <value>Ингредиенты</value>
+  </data>
+    <data name="AddNutrition" xml:space="preserve">
+    <value>Добавить пищевую ценность</value>
+  </data>
+    <data name="CalculateNutrition" xml:space="preserve">
+    <value>Рассчитать пищевую ценность</value>
+  </data>
+    <data name="AutoCalculateDescription" xml:space="preserve">
+    <value>Когда вы добавляете информацию о пищевой ценности ингредиентов, рецепты, использующие эти ингредиенты, будут иметь более точные данные о пищевой ценности.</value>
+  </data>
+  <!-- Russian -->
+  <data name="NoIngredientsFound" xml:space="preserve">
+  <value>Ингредиенты не найдены. Создайте свой первый ингредиент, чтобы начать.</value>
+</data>
+  <data name="TrackDailyNutrientIntake" xml:space="preserve">
+  <value>Отслеживать ежедневное потребление питательных веществ</value>
+</data>
+  <data name="MakeInformedChoices" xml:space="preserve">
+  <value>Принимать обоснованные решения о планировании питания</value>
+</data>
+  <data name="CompareIngredients" xml:space="preserve">
+  <value>Сравнивать различные ингредиенты для создания рецептов</value>
+</data>
+</root>

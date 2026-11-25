@@ -1,0 +1,73 @@
+# Secrets and Environment Files
+.env
+.env.local
+.env.production
+.env.development
+*.env
+appsettings.Production.json
+appsettings.Staging.json
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# IDE and Editor Files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Node.js (for frontends)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build Outputs
+bin/
+obj/
+dist/
+build/
+out/
+
+# Docker
+.dockerignore
+
+# Certificates and Keys
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Personal notes and documentation
+TODO.md
+NOTES.md
+personal/
+
+# Azure and Cloud specific
+.azure/
+*.publishsettings
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates

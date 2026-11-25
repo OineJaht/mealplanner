@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Validation -->
+    <data name="NameRequired" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
+    <data name="NameLength" xml:space="preserve">
+    <value>Name must be between 2 and 100 characters</value>
+  </data>
+    <data name="CategoryLength" xml:space="preserve">
+    <value>Category must be 50 characters or less</value>
+  </data>
+
+    <!-- Ingredient-specific screen names/titles -->
+    <data name="AddIngredient" xml:space="preserve">
+    <value>Add Ingredient</value>
+  </data>
+    <data name="EditIngredient" xml:space="preserve">
+    <value>Edit Ingredient</value>
+  </data>
+    <data name="IngredientDetails" xml:space="preserve">
+    <value>Ingredient Details</value>
+  </data>
+    <data name="DeleteIngredient" xml:space="preserve">
+    <value>Delete Ingredient</value>
+  </data>
+    <data name="IngredientInformation" xml:space="preserve">
+    <value>Ingredient Information</value>
+  </data>
+
+    <!-- Ingredient nutrition elements -->
+    <data name="NutritionInformation" xml:space="preserve">
+    <value>Nutrition Information</value>
+  </data>
+    <data name="AddNutrition" xml:space="preserve">
+    <value>Add Nutrition</value>
+  </data>
+    <data name="ViewNutrition" xml:space="preserve">
+    <value>View Nutrition</value>
+  </data>
+    <data name="AddNutritionData" xml:space="preserve">
+    <value>Add Nutrition Data</value>
+  </data>
+    <data name="EditNutritionData" xml:space="preserve">
+    <value>Edit Nutrition Data</value>
+  </data>
+    <data name="NutritionOptional" xml:space="preserve">
+    <value>Nutrition Information (Optional)</value>
+  </data>
+    <data name="NutritionLaterNote" xml:space="preserve">
+    <value>You can add or update nutrition information later</value>
+  </data>
+    <data name="NoNutritionInfo" xml:space="preserve">
+    <value>No nutrition information available for this ingredient yet.</value>
+  </data>
+    <data name="HasNutritionInfo" xml:space="preserve">
+    <value>This ingredient has nutrition information. Use the button above to manage it.</value>
+  </data>
+
+    <!-- Nutrition properties -->
+    <data name="CaloriesPer100g" xml:space="preserve">
+    <value>Calories (per 100g)</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Protein (g)</value>
+  </data>
+    <data name="Carbohydrates" xml:space="preserve">
+    <value>Carbohydrates (g)</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Fat (g)</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Fiber (g)</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Sugar (g)</value>
+  </data>
+    <data name="Sodium" xml:space="preserve">
+    <value>Sodium (mg)</value>
+  </data>
+
+    <!-- Relationship labels -->
+    <data name="UsedInRecipes" xml:space="preserve">
+    <value>Used in Recipes</value>
+  </data>
+    <data name="IngredientUsedInRecipes" xml:space="preserve">
+    <value>This ingredient is used in the following recipes:</value>
+  </data>
+    <data name="IngredientNotUsed" xml:space="preserve">
+    <value>This ingredient is not used in any recipes yet.</value>
+  </data>
+    <data name="InYourPantry" xml:space="preserve">
+    <value>In Your Pantry</value>
+  </data>
+    <data name="IngredientInPantry" xml:space="preserve">
+    <value>This ingredient exists in your pantry with the following entries:</value>
+  </data>
+    <data name="IngredientInShoppingLists" xml:space="preserve">
+    <value>This ingredient appears in {0} shopping list item(s).</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>View Recipe</value>
+  </data>
+
+    <!-- Delete confirmations and warnings -->
+    <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete this ingredient?</value>
+  </data>
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>This action cannot be undone. Deleting this ingredient will remove it from all recipes, your pantry, and shopping lists.</value>
+  </data>
+    <data name="RecipesWarning" xml:space="preserve">
+    <value>Warning: Used in Recipes</value>
+  </data>
+    <data name="PantryWarning" xml:space="preserve">
+    <value>Warning: In Your Pantry</value>
+  </data>
+    <data name="ShoppingListWarning" xml:space="preserve">
+    <value>Warning: In Shopping Lists</value>
+  </data>
+    <data name="DeleteFromAllRecipes" xml:space="preserve">
+    <value>Deleting this ingredient will remove it from all these recipes.</value>
+  </data>
+    <data name="DeleteFromPantry" xml:space="preserve">
+    <value>Deleting this ingredient will remove all these entries from your pantry.</value>
+  </data>
+    <data name="DeleteFromAllShoppingLists" xml:space="preserve">
+    <value>Deleting this ingredient will remove it from all shopping lists.</value>
+  </data>
+
+    <!-- Ingredient tips -->
+    <data name="IngredientsCreationTips" xml:space="preserve">
+    <value>Creating ingredients is the first step to building your recipe collection. Here are some tips:</value>
+  </data>
+    <data name="BeSpecificWithNames" xml:space="preserve">
+    <value>Be specific with ingredient names (e.g., "Red Bell Pepper" instead of just "Pepper")</value>
+  </data>
+    <data name="ChooseAppropriateCategory" xml:space="preserve">
+    <value>Choose an appropriate category to make ingredients easier to find</value>
+  </data>
+    <data name="AddNutritionIfTracking" xml:space="preserve">
+    <value>Add nutrition information if you plan to track nutritional content</value>
+  </data>
+    <data name="CanEditNutritionLater" xml:space="preserve">
+    <value>You can always edit nutrition information later</value>
+  </data>
+    <data name="WhenEditingIngredients" xml:space="preserve">
+    <value>When editing ingredients:</value>
+  </data>
+    <data name="ChangesToName" xml:space="preserve">
+    <value>Changes to the ingredient name will be reflected in all recipes using this ingredient</value>
+  </data>
+    <data name="UpdateNutritionForRecipes" xml:space="preserve">
+    <value>If this ingredient is used in recipes, consider updating nutrition data for accurate meal planning</value>
+  </data>
+    <data name="UseAppropriateCategories" xml:space="preserve">
+    <value>Use appropriate categories to keep your ingredients organized</value>
+  </data>
+
+    <!-- UI specific - Search, etc. -->
+    <data name="SearchIngredientsPlaceholder" xml:space="preserve">
+    <value>Search ingredients...</value>
+  </data>
+    <data name="NoIngredientsFound" xml:space="preserve">
+    <value>No ingredients found. Create your first ingredient to get started.</value>
+  </data>
+</root>

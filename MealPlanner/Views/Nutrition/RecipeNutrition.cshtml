@@ -1,0 +1,267 @@
+﻿@model MealPlanner.Models.ViewModels.Nutrition.RecipeNutritionViewModel
+@{
+    ViewData["Title"] = NutritionLocalizer["RecipeNutrition"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@NutritionLocalizer["RecipeNutrition"] - @Model.RecipeName</h1>
+    <div>
+        <a asp-controller="Recipes" asp-action="Details" asp-route-id="@Model.RecipeId" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @NutritionLocalizer["BackToRecipe"]
+        </a>
+        <a asp-action="CalculateRecipeNutrition" asp-route-id="@Model.RecipeId" class="btn btn-primary">
+            <i class="bi bi-calculator"></i> @NutritionLocalizer["CalculateFromIngredients"]
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@NutritionLocalizer["EditNutritionInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="UpdateRecipeNutrition">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Nutrition.Id" />
+                    <input type="hidden" asp-for="Nutrition.RecipeId" />
+                    <input type="hidden" asp-for="RecipeId" />
+                    <input type="hidden" asp-for="RecipeName" />
+                    <input type="hidden" asp-for="DefaultServings" />
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalCalories" class="form-label">@NutritionLocalizer["TotalCalories"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalCalories" class="form-control" />
+                                    <span class="input-group-text">kcal</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalCalories" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.CaloriesPerServing" class="form-label">@NutritionLocalizer["CaloriesPerServing"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.CaloriesPerServing" class="form-control" />
+                                    <span class="input-group-text">kcal</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.CaloriesPerServing" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalProteinG" class="form-label">@NutritionLocalizer["TotalProtein"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalProteinG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalProteinG" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalCarbsG" class="form-label">@NutritionLocalizer["TotalCarbohydrates"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalCarbsG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalCarbsG" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalFatG" class="form-label">@NutritionLocalizer["TotalFat"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalFatG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalFatG" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalFiberG" class="form-label">@NutritionLocalizer["TotalFiber"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalFiberG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalFiberG" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalSugarG" class="form-label">@NutritionLocalizer["TotalSugar"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalSugarG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalSugarG" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Nutrition.TotalSodiumG" class="form-label">@NutritionLocalizer["TotalSodium"]</label>
+                                <div class="input-group">
+                                    <input asp-for="Nutrition.TotalSodiumG" class="form-control" />
+                                    <span class="input-group-text">g</span>
+                                </div>
+                                <span asp-validation-for="Nutrition.TotalSodiumG" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">@NutritionLocalizer["SaveChanges"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@NutritionLocalizer["NutritionFacts"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="nutrition-facts">
+                    <div class="nutrition-facts-header">
+                        <h2 class="nutrition-facts-title">@NutritionLocalizer["NutritionFacts"]</h2>
+                        <p>@NutritionLocalizer["ServingSize"]: 1 serving (@(Model.DefaultServings) servings per recipe)</p>
+                        <p class="nutrition-facts-calories">@NutritionLocalizer["Calories"]: @Model.Nutrition.CaloriesPerServing</p>
+                    </div>
+
+                    <table class="table nutrition-table">
+                        <tr>
+                            <th colspan="3" class="nutrition-facts-header-element">@NutritionLocalizer["AmountPerServing"]</th>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["TotalFat"]</th>
+                            <td>@(Model.Nutrition.TotalFatG / Model.DefaultServings) g</td>
+                            <td>@(Model.Nutrition.CaloriesPerServing == 0 ? "0" : Math.Round(((Model.Nutrition.TotalFatG / Model.DefaultServings) * 9 / Model.Nutrition.CaloriesPerServing) * 100, 1))%</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["TotalCarbohydrates"]</th>
+                            <td>@(Model.Nutrition.TotalCarbsG / Model.DefaultServings) g</td>
+                            <td>@(Model.Nutrition.CaloriesPerServing == 0 ? "0" : Math.Round(((Model.Nutrition.TotalCarbsG / Model.DefaultServings) * 4 / Model.Nutrition.CaloriesPerServing) * 100, 1))%</td>
+                        </tr>
+                        <tr>
+                            <th class="ps-4">@NutritionLocalizer["DietaryFiber"]</th>
+                            <td>@(Model.Nutrition.TotalFiberG / Model.DefaultServings) g</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th class="ps-4">@NutritionLocalizer["Sugars"]</th>
+                            <td>@(Model.Nutrition.TotalSugarG / Model.DefaultServings) g</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Protein"]</th>
+                            <td>@(Model.Nutrition.TotalProteinG / Model.DefaultServings) g</td>
+                            <td>@(Model.Nutrition.CaloriesPerServing == 0 ? "0" : Math.Round(((Model.Nutrition.TotalProteinG / Model.DefaultServings) * 4 / Model.Nutrition.CaloriesPerServing) * 100, 1))%</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Sodium"]</th>
+                            <td>@(Model.Nutrition.TotalSodiumG * 1000 / Model.DefaultServings) mg</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <div class="mt-3">
+                        <div class="progress mb-3" style="height: 25px;">
+                            @{
+                                decimal proteinPercentage = Model.Nutrition.CaloriesPerServing == 0 ? 0 : Math.Round(((Model.Nutrition.TotalProteinG / Model.DefaultServings) * 4 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+                                decimal carbPercentage = Model.Nutrition.CaloriesPerServing == 0 ? 0 : Math.Round(((Model.Nutrition.TotalCarbsG / Model.DefaultServings) * 4 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+                                decimal fatPercentage = Model.Nutrition.CaloriesPerServing == 0 ? 0 : Math.Round(((Model.Nutrition.TotalFatG / Model.DefaultServings) * 9 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+                            }
+                            <div class="progress-bar bg-success" role="progressbar"
+                                 style="width: @proteinPercentage%">
+                                @NutritionLocalizer["Protein"]
+                            </div>
+                            <div class="progress-bar bg-warning" role="progressbar"
+                                 style="width: @carbPercentage%">
+                                @NutritionLocalizer["Carbs"]
+                            </div>
+                            <div class="progress-bar bg-danger" role="progressbar"
+                                 style="width: @fatPercentage%">
+                                @NutritionLocalizer["Fat"]
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <small>@NutritionLocalizer["Protein"]: @proteinPercentage%</small>
+                            <small>@NutritionLocalizer["Carbs"]: @carbPercentage%</small>
+                            <small>@NutritionLocalizer["Fat"]: @fatPercentage%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@NutritionLocalizer["Tips"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>@NutritionLocalizer["TipsCalculate"]</li>
+                    <li>@NutritionLocalizer["TipsManual"]</li>
+                    <li>@NutritionLocalizer["TipsServings"]</li>
+                    <li>@NutritionLocalizer["TipsIngredients"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+<style>
+    .nutrition-facts {
+        border: 1px solid #333;
+        padding: 0.5rem;
+        font-family: 'Helvetica', 'Arial', sans-serif;
+    }
+
+    .nutrition-facts-header {
+        border-bottom: 8px solid #333;
+        padding-bottom: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .nutrition-facts-title {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .nutrition-facts-calories {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .nutrition-facts-header-element {
+        border-bottom: 4px solid #333;
+        font-weight: bold;
+    }
+
+    .nutrition-table {
+        width: 100%;
+        border-bottom: 8px solid #333;
+    }
+</style>
+}
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

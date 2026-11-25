@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Auth Test";
+}
+
+<h2>Authentication Test</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h5>Authentication Info:</h5>
+        <pre>@Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Debug, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }))</pre>
+        
+        @if (ViewBag.DatabaseUser != null)
+        {
+            <h5>Database User:</h5>
+            <pre>@Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.DatabaseUser, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }))</pre>
+            
+            <h5>User Roles:</h5>
+            <pre>@Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.UserRoles, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }))</pre>
+        }
+    </div>
+</div>

@@ -1,0 +1,161 @@
+﻿@model MealPlanner.BLL.DTO.IngredientDetail
+@{
+    ViewData["Title"] = IngredientLocalizer["IngredientDetails"];
+}
+
+<h1>@IngredientLocalizer["IngredientDetails"]</h1>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@Localizer["BasicInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">@Localizer["Name"]</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">@Localizer["Category"]</dt>
+                    <dd class="col-sm-9">@Model.Category</dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">@Localizer["Edit"]</a>
+                <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>@NutritionLocalizer["NutritionInformation"]</h4>
+                @if (Model.Nutrition == null)
+                {
+                <a asp-controller="Nutrition" asp-action="IngredientNutrition" asp-route-id="@Model.Id" class="btn btn-sm btn-success">
+                    @NutritionLocalizer["AddNutritionData"]
+                </a>
+                }
+                else
+                {
+                <a asp-controller="Nutrition" asp-action="IngredientNutrition" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">
+                    @NutritionLocalizer["EditNutritionData"]
+                </a>
+                }
+            </div>
+            <div class="card-body">
+                @if (Model.Nutrition != null)
+                {
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>@NutritionLocalizer["Calories"]</th>
+                            <td>@Model.Nutrition.CaloriesPer100g kcal per 100g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Protein"]</th>
+                            <td>@Model.Nutrition.ProteinG g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Carbohydrates"]</th>
+                            <td>@Model.Nutrition.CarbsG g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Fat"]</th>
+                            <td>@Model.Nutrition.FatG g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Fiber"]</th>
+                            <td>@Model.Nutrition.FiberG g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Sugar"]</th>
+                            <td>@Model.Nutrition.SugarG g</td>
+                        </tr>
+                        <tr>
+                            <th>@NutritionLocalizer["Sodium"]</th>
+                            <td>@Model.Nutrition.SodiumMg mg</td>
+                        </tr>
+                    </table>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-info">
+                    @NutritionLocalizer["NoNutritionInfo"]
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.RecipeCount > 0)
+{
+<div class="card mt-3">
+    <div class="card-header">
+        <h4>@Localizer["UsedInRecipes"]</h4>
+    </div>
+    <div class="card-body">
+        <p>@Localizer["IngredientUsedIn", ViewBag.RecipeCount]</p>
+        @if (ViewBag.RecipeCount > 0 && ViewBag.SampleRecipes != null)
+        {
+            <div class="list-group mb-3">
+                @foreach (var recipe in ViewBag.SampleRecipes)
+                {
+                    <a href="@Url.Action("Details", "Recipes", new { id = recipe.Id })" class="list-group-item list-group-item-action">
+                        @recipe.Name
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+}
+else
+{
+<div class="alert alert-info mt-3">
+    <p>@Localizer["IngredientNotUsed"]</p>
+</div>
+}
+
+@if (ViewBag.PantryItems != null && ViewBag.PantryItems.Any())
+{
+<div class="card mt-3">
+    <div class="card-header">
+        <h4>@Localizer["InYourPantry"]</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>@Localizer["Amount"]</th>
+                    <th>@Localizer["Unit"]</th>
+                    <th>@Localizer["Location"]</th>
+                    <th>@Localizer["ExpiryDate"]</th>
+                    <th>@Localizer["Action"]</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var pantryItem in ViewBag.PantryItems)
+                {
+                <tr>
+                    <td>@pantryItem.AmountInStock</td>
+                    <td>@pantryItem.Unit</td>
+                    <td>@pantryItem.Location</td>
+                    <td>@pantryItem.ExpiryDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-controller="UserPantry" asp-action="Edit" asp-route-id="@pantryItem.Id" class="btn btn-sm btn-outline-primary">
+                            @Localizer["Edit"]
+                        </a>
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+}

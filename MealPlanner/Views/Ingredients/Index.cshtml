@@ -1,0 +1,105 @@
+@model IEnumerable<MealPlanner.BLL.DTO.Ingredient>
+@{
+ViewData["Title"] = Localizer["Ingredients"];
+}
+
+<h1>@Localizer["Ingredients"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">@IngredientLocalizer["AddIngredient"]</a>
+</p>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="input-group">
+            <input type="text" id="searchInput" class="form-control" placeholder="@IngredientLocalizer["SearchIngredientsPlaceholder"]">
+            <button class="btn btn-outline-secondary" type="button" id="searchButton">
+                <i class="bi bi-search"></i> @Localizer["Search"]
+            </button>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <select id="categoryFilter" class="form-select">
+            <option value="">@Localizer["AllCategories"]</option>
+            @{
+            var categories = Model.Select(i => i.Category).Distinct().OrderBy(c => c);
+            foreach (var category in categories)
+            {
+            if (!string.IsNullOrEmpty(category))
+            {
+            <option value="@category">@category</option>
+            }
+            }
+            }
+        </select>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+<div class="table-responsive">
+    <table class="table table-striped table-hover" id="ingredientsTable">
+        <thead class="table-light">
+        <tr>
+            <th>@Localizer["Name"]</th>
+            <th>@Localizer["Category"]</th>
+            <th>@Localizer["Actions"]</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.OrderBy(i => i.Name))
+        {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Category</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil"></i> @Localizer["Edit"]
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-info-circle"></i> @Localizer["Details"]
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i> @Localizer["Delete"]
+                    </a>
+                    <a asp-controller="Nutrition" asp-action="IngredientNutrition" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-bar-chart"></i> @IngredientLocalizer["ManageNutrition"]
+                    </a>
+                </div>
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+}
+else
+{
+<div class="alert alert-info">
+    <p>@IngredientLocalizer["NoIngredientsFound"]</p>
+</div>
+}
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Search functionality
+        $("#searchInput, #categoryFilter").on("keyup change", function() {
+            var searchText = $("#searchInput").val().toLowerCase();
+            var category = $("#categoryFilter").val().toLowerCase();
+
+            $("#ingredientsTable tbody tr").filter(function() {
+                var nameMatch = $(this).children("td").eq(0).text().toLowerCase().indexOf(searchText) > -1;
+                var categoryMatch = category === "" || $(this).children("td").eq(1).text().toLowerCase() === category;
+                $(this).toggle(nameMatch && categoryMatch);
+            });
+        });
+
+        // Button click also triggers search
+        $("#searchButton").click(function() {
+            $("#searchInput").trigger("keyup");
+        });
+    });
+</script>
+}

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page Titles -->
+    <data name="MealPlans" xml:space="preserve">
+    <value>Meal Plans</value>
+  </data>
+    <data name="CreateMealPlan" xml:space="preserve">
+    <value>Create Meal Plan</value>
+  </data>
+    <data name="EditMealPlan" xml:space="preserve">
+    <value>Edit Meal Plan</value>
+  </data>
+    <data name="DeleteMealPlan" xml:space="preserve">
+    <value>Delete Meal Plan</value>
+  </data>
+    <data name="MealPlanDetails" xml:space="preserve">
+    <value>Meal Plan Details</value>
+  </data>
+    <data name="AddMealToPlan" xml:space="preserve">
+    <value>Add Meal to Plan</value>
+  </data>
+    <data name="EditMeal" xml:space="preserve">
+    <value>Edit Meal</value>
+  </data>
+
+    <!-- MealPlan Properties -->
+    <data name="PlanName" xml:space="preserve">
+    <value>Plan Name</value>
+  </data>
+    <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+    <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+    <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+    <data name="Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+    <data name="CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+    <data name="PlanDetails" xml:space="preserve">
+    <value>Plan Details</value>
+  </data>
+    <data name="PlanOverview" xml:space="preserve">
+    <value>Plan Overview</value>
+  </data>
+    <data name="TotalMealsPlanned" xml:space="preserve">
+    <value>Total Meals Planned</value>
+  </data>
+
+    <!-- Meal Properties -->
+    <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+    <data name="MealType" xml:space="preserve">
+    <value>Meal Type</value>
+  </data>
+    <data name="Recipe" xml:space="preserve">
+    <value>Recipe</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Servings</value>
+  </data>
+    <data name="NumberOfServings" xml:space="preserve">
+    <value>Number of Servings</value>
+  </data>
+    <data name="MealDetails" xml:space="preserve">
+    <value>Meal Details</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Recipe Details</value>
+  </data>
+    <data name="PlannedMeals" xml:space="preserve">
+    <value>Planned Meals</value>
+  </data>
+
+    <!-- Meal Types -->
+    <data name="Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+    <data name="MorningSnack" xml:space="preserve">
+    <value>Morning Snack</value>
+  </data>
+    <data name="Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+    <data name="AfternoonSnack" xml:space="preserve">
+    <value>Afternoon Snack</value>
+  </data>
+    <data name="Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+    <data name="Dessert" xml:space="preserve">
+    <value>Dessert</value>
+  </data>
+    <data name="EveningSnack" xml:space="preserve">
+    <value>Evening Snack</value>
+  </data>
+    <data name="SelectMealType" xml:space="preserve">
+    <value>-- Select Meal Type --</value>
+  </data>
+
+    <!-- Buttons and Actions -->
+    <data name="CreatePlan" xml:space="preserve">
+    <value>Create Plan</value>
+  </data>
+    <data name="EditPlan" xml:space="preserve">
+    <value>Edit Plan</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+    <data name="AddMeal" xml:space="preserve">
+    <value>Add Meal</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Add to Plan</value>
+  </data>
+    <data name="GenerateShoppingList" xml:space="preserve">
+    <value>Generate Shopping List</value>
+  </data>
+    <data name="CreateNewRecipe" xml:space="preserve">
+    <value>Create New Recipe</value>
+  </data>
+    <data name="SelectRecipe" xml:space="preserve">
+    <value>-- Select a Recipe --</value>
+  </data>
+    <data name="ViewFullRecipe" xml:space="preserve">
+    <value>View Full Recipe</value>
+  </data>
+    <data name="BackToDetails" xml:space="preserve">
+    <value>Back to Details</value>
+  </data>
+    <data name="AddFirstMeal" xml:space="preserve">
+    <value>Add First Meal</value>
+  </data>
+
+    <!-- Status Messages -->
+    <data name="ActiveNow" xml:space="preserve">
+    <value>Active Now</value>
+  </data>
+    <data name="ActivePlan" xml:space="preserve">
+    <value>Active Plan</value>
+  </data>
+    <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+    <data name="MealsCount" xml:space="preserve">
+    <value>meals</value>
+  </data>
+    <data name="RecipeNotFound" xml:space="preserve">
+    <value>Recipe not found</value>
+  </data>
+    <data name="NoMealsYet" xml:space="preserve">
+    <value>No meals have been added to this plan yet.</value>
+  </data>
+    <data name="NoMealPlansFound" xml:space="preserve">
+    <value>No meal plans found. Create your first meal plan to get started.</value>
+  </data>
+
+    <!-- Templates -->
+    <data name="QuickTemplates" xml:space="preserve">
+    <value>Quick Templates</value>
+  </data>
+    <data name="WeeklyPlan" xml:space="preserve">
+    <value>Weekly Plan</value>
+  </data>
+    <data name="BiweeklyPlan" xml:space="preserve">
+    <value>Biweekly Plan</value>
+  </data>
+    <data name="WeekendPlan" xml:space="preserve">
+    <value>Weekend Plan</value>
+  </data>
+    <data name="MonthlyPlan" xml:space="preserve">
+    <value>Monthly Plan</value>
+  </data>
+    <data name="StandardWeek" xml:space="preserve">
+    <value>Standard one-week meal plan starting today</value>
+  </data>
+    <data name="TwoWeekPlan" xml:space="preserve">
+    <value>Two-week meal plan for better preparation</value>
+  </data>
+    <data name="WeekendOnly" xml:space="preserve">
+    <value>Weekend-only meal planning</value>
+  </data>
+    <data name="LongTermPlan" xml:space="preserve">
+    <value>Long-term meal planning for the month</value>
+  </data>
+
+    <!-- Tips and Messages -->
+    <data name="Tips" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+    <data name="QuickActions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+    <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete this meal plan?</value>
+  </data>
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>This action cannot be undone. All meals in this plan will be permanently removed.</value>
+  </data>
+    <data name="ActivePlanWarning" xml:space="preserve">
+    <value>This plan is currently active! Deleting it will remove your current meal planning schedule.</value>
+  </data>
+    <data name="EndDateAfterStartDate" xml:space="preserve">
+    <value>End date must be after start date</value>
+  </data>
+    <data name="RemoveMealConfirmation" xml:space="preserve">
+    <value>Are you sure you want to remove this meal from the plan?</value>
+  </data>
+    <data name="PlanUpdated" xml:space="preserve">
+    <value>Meal plan updated successfully!</value>
+  </data>
+    <data name="Tip1" xml:space="preserve">
+    <value>Plan your meals according to your daily routine</value>
+  </data>
+    <data name="Tip2" xml:space="preserve">
+    <value>Consider leftovers when planning consecutive days</value>
+  </data>
+    <data name="Tip3" xml:space="preserve">
+    <value>Adjust servings based on how many people will be eating</value>
+  </data>
+    <data name="Tip4" xml:space="preserve">
+    <value>You can always edit or remove meals later</value>
+  </data>
+    <data name="PlanTip1" xml:space="preserve">
+    <value>Create a plan with a descriptive name that helps you identify it easily</value>
+  </data>
+    <data name="PlanTip2" xml:space="preserve">
+    <value>Choose a realistic timeframe - many people find weekly planning most manageable</value>
+  </data>
+    <data name="PlanTip3" xml:space="preserve">
+    <value>After creating your plan, you'll be able to add specific meals for each day</value>
+  </data>
+    <data name="PlanTip4" xml:space="preserve">
+    <value>You can generate a shopping list directly from your meal plan</value>
+  </data>
+
+    <!-- Warnings -->
+    <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+    <data name="PlanContainsMeals" xml:space="preserve">
+    <value>This plan contains {0} planned meals. Deleting this plan will also delete all of these meals from your schedule.</value>
+  </data>
+</root>

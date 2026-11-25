@@ -1,0 +1,478 @@
+﻿@model MealPlanner.Models.ViewModels.UserPantry.ExpiringPantryItemsViewModel
+@{
+ViewData["Title"] = PantryLocalizer["ExpiringItems"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@PantryLocalizer["ExpiringItems"]</h1>
+    <div>
+        <a asp-action="Create" class="btn btn-success me-2">
+            <i class="bi bi-plus-circle"></i> @PantryLocalizer["AddNewItem"]
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @PantryLocalizer["BackToPantry"]
+        </a>
+    </div>
+</div>
+
+<div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle"></i>
+    @PantryLocalizer["ExpiringItemsWarning"]
+</div>
+
+@if (Model != null && Model.Items.Any())
+{
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["ExpiringItems"]</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                        <tr>
+                            <th>@Localizer["Ingredient"]</th>
+                            <th>@Localizer["Amount"]</th>
+                            <th>@Localizer["Location"]</th>
+                            <th>@PantryLocalizer["Expires"]</th>
+                            <th>@Localizer["Actions"]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Items.OrderBy(i => i.ExpiryDate))
+                        {
+                        var daysUntilExpiry = (item.ExpiryDate - DateTime.Today).Days;
+                        var rowClass = daysUntilExpiry < 0 ? "table-danger" : "table-warning";
+                        var expiryText = daysUntilExpiry < 0
+                        ? $"{PantryLocalizer["ExpiredDaysAgo"].Value.Replace("{0}", Math.Abs(daysUntilExpiry).ToString())}"
+                        : $"{PantryLocalizer["ExpiresInDays"].Value.Replace("{0}", daysUntilExpiry.ToString())}";
+
+                        <tr class="@rowClass">
+                            <td>
+                                <strong>@item.IngredientName</strong>
+                                @if (!string.IsNullOrEmpty(item.IngredientCategory))
+                                {
+                                <small class="text-muted d-block">@item.IngredientCategory</small>
+                                }
+                            </td>
+                            <td>@item.AmountInStock @item.Unit</td>
+                            <td>@item.Location</td>
+                            <td>
+                                <span class="@(daysUntilExpiry < 0 ? "text-danger" : "text-warning") fw-bold">
+                                    @expiryText
+                                </span>
+                                <div><small>@item.ExpiryDate.ToShortDateString()</small></div>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@PantryLocalizer["FindRecipes"]</h4>
+            </div>
+            <div class="card-body">
+                <p>@PantryLocalizer["FindRecipesExpiringDescription"]</p>
+
+                <div class="mb-3">
+                    <label for="ingredientSelect" class="form-label">@PantryLocalizer["SelectIngredient"]</label>
+                    <select id="ingredientSelect" class="form-select">
+                        <option value="">-- @PantryLocalizer["SelectIngredient"] --</option>
+                        @foreach (var item in Model.Items)
+                        {
+                        <option value="@item.IngredientId">@item.IngredientName</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="d-grid">
+                    <a href="#" id="findRecipesBtn" class="btn btn-primary">
+                        <i class="bi bi-search"></i> @PantryLocalizer["FindRecipes"]
+                    </a>
+                </div>
+
+                <div class="mt-3">
+                    <h5>@PantryLocalizer["QuickActions"]</h5>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="addAllExpiringBtn">
+                            @PantryLocalizer["AddAllExpiringToShoppingList"]
+                            <span class="badge bg-primary rounded-pill">@Model.Items.Count()</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="removeExpiredBtn">
+                            @PantryLocalizer["RemoveExpiredItems"]
+                            <span class="badge bg-danger rounded-pill">@Model.Items.Count(i => (i.ExpiryDate - DateTime.Today).Days < 0)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["FoodSafetyTips"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>@PantryLocalizer["CheckBeforeConsuming"]:</strong> @PantryLocalizer["CheckBeforeConsumingDesc"]</li>
+                    <li><strong>@PantryLocalizer["BestByVsUseBy"]:</strong> @PantryLocalizer["BestByVsUseByDesc"]</li>
+                    <li><strong>@PantryLocalizer["TrustYourSenses"]:</strong> @PantryLocalizer["TrustYourSensesDesc"]</li>
+                    <li><strong>@PantryLocalizer["WhenInDoubt"]:</strong> @PantryLocalizer["WhenInDoubtDesc"]</li>
+                </ul>
+
+                <div class="alert alert-info mt-2">
+                    <p class="mb-0"><i class="bi bi-info-circle"></i> @PantryLocalizer["RegularCheckReminder"]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bulk Actions Section -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h4>@PantryLocalizer["BulkActions"]</h4>
+    </div>
+    <div class="card-body">
+        <form id="bulkActionForm" method="post">
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="selectAll">
+                                <label class="form-check-label" for="selectAll">@PantryLocalizer["Select"]</label>
+                            </div>
+                        </th>
+                        <th>@Localizer["Ingredient"]</th>
+                        <th>@PantryLocalizer["Expiry"]</th>
+                        <th>@Localizer["Action"]</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                    var daysUntilExpiry = (item.ExpiryDate - DateTime.Today).Days;
+                    var statusClass = daysUntilExpiry < 0 ? "text-danger" : "text-warning";
+
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input item-checkbox" type="checkbox"
+                                       name="selectedItems" value="@item.Id" id="item_check_@item.Id">
+                                <label class="form-check-label" for="item_check_@item.Id"></label>
+                            </div>
+                        </td>
+                        <td>@item.IngredientName</td>
+                        <td>
+                            <span class="@statusClass">
+                                @(daysUntilExpiry < 0 ? PantryLocalizer["Expired"] : PantryLocalizer["ExpiresSoon"])
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-outline-success add-to-list-btn"
+                                        data-id="@item.Id" data-name="@item.IngredientName">
+                                    <i class="bi bi-cart-plus"></i> @PantryLocalizer["AddToList"]
+                                </button>
+                                <button type="button" class="btn btn-outline-warning extend-expiry-btn"
+                                        data-id="@item.Id" data-name="@item.IngredientName">
+                                    <i class="bi bi-calendar-plus"></i> @PantryLocalizer["Extend"]
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <select id="bulkAction" name="bulkAction" class="form-select">
+                            <option value="">-- @PantryLocalizer["SelectAction"] --</option>
+                            <option value="addToList">@PantryLocalizer["AddToShoppingList"]</option>
+                            <option value="extendExpiry">@PantryLocalizer["ExtendExpiryDate"]</option>
+                            <option value="markUsed">@PantryLocalizer["MarkAsUsedUp"]</option>
+                            <option value="delete">@PantryLocalizer["DeleteSelected"]</option>
+                        </select>
+                        <select id="shoppingListId" name="shoppingListId" class="form-select d-none">
+                            <option value="">-- @PantryLocalizer["SelectShoppingList"] --</option>
+                            @foreach (var shoppingList in Model.AvailableShoppingLists)
+                            {
+                            <option value="@shoppingList.Value">@shoppingList.Text</option>
+                            }
+                        </select>
+                        <input type="date" id="newExpiryDate" name="newExpiryDate" class="form-control d-none"
+                               value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")" />
+                        <button class="btn btn-primary" type="submit" id="applyBulkActionBtn">@PantryLocalizer["Apply"]</button>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span id="selectedCount" class="align-middle me-2">0 @PantryLocalizer["ItemsSelected"]</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+}
+else
+{
+<div class="alert alert-success">
+    <h4 class="alert-heading">@PantryLocalizer["NoExpiringItems"]</h4>
+    <p>@PantryLocalizer["NoExpiringItemsMessage"]</p>
+    <hr>
+    <p class="mb-0">
+        <a asp-action="Index" class="btn btn-outline-primary">
+            @PantryLocalizer["ViewAllPantryItems"]
+        </a>
+    </p>
+</div>
+}
+
+<!-- Add to Shopping List Modal -->
+<div class="modal fade" id="addToShoppingListModal" tabindex="-1" aria-labelledby="addToShoppingListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToShoppingListModalLabel">@PantryLocalizer["AddToShoppingList"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddToShoppingList" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="pantryItemId" value="" />
+
+                    <div class="mb-3">
+                        <label for="modalShoppingListId" class="form-label">@PantryLocalizer["SelectShoppingList"]</label>
+                        <select name="shoppingListId" id="modalShoppingListId" class="form-select" required>
+                            <option value="">-- @PantryLocalizer["SelectShoppingList"] --</option>
+                            @if (Model?.AvailableShoppingLists != null)
+                            {
+                                @foreach (var shoppingList in Model.AvailableShoppingLists)
+                                {
+                                    <option value="@shoppingList.Value">@shoppingList.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <p>@PantryLocalizer["AddToListConfirmation"] <span id="ingredientName"></span> @PantryLocalizer["ToSelectedList"]</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@PantryLocalizer["AddToList"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Extend Expiry Modal -->
+<div class="modal fade" id="extendExpiryModal" tabindex="-1" aria-labelledby="extendExpiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extendExpiryModalLabel">@PantryLocalizer["ExtendExpiryDate"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="ExtendExpiry" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="extendItemId" value="" />
+
+                    <div class="mb-3">
+                        <label for="extendDate" class="form-label">@PantryLocalizer["NewExpiryDate"]</label>
+                        <input type="date" id="extendDate" name="newExpiryDate" class="form-control"
+                               value="@DateTime.Today.AddDays(30).ToString("yyyy-MM-dd")" required />
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <p><i class="bi bi-exclamation-triangle"></i> @PantryLocalizer["ExtendingExpiryWarning"]</p>
+                        <p class="mb-0">@PantryLocalizer["ExtendingFor"]: <strong><span id="extendItemName"></span></strong></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@PantryLocalizer["ExtendExpiry"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Handle "Select All" checkbox
+        $("#selectAll").change(function() {
+            $(".item-checkbox").prop('checked', $(this).prop('checked'));
+            updateSelectedCount();
+        });
+
+        // Update "Select All" checkbox and count when individual items change
+        $(".item-checkbox").change(function() {
+            if ($(".item-checkbox:checked").length === $(".item-checkbox").length) {
+                $("#selectAll").prop('checked', true);
+            } else {
+                $("#selectAll").prop('checked', false);
+            }
+            updateSelectedCount();
+        });
+
+        function updateSelectedCount() {
+            const count = $(".item-checkbox:checked").length;
+            $("#selectedCount").text(count + " " + (count !== 1 ? "@PantryLocalizer["ItemsSelected"]" : "@PantryLocalizer["ItemSelected"]"));
+        }
+
+        // Handle bulk action dropdown
+        $("#bulkAction").change(function() {
+            const action = $(this).val();
+            $("#shoppingListId").addClass("d-none");
+            $("#newExpiryDate").addClass("d-none");
+
+            if (action === "addToList") {
+                $("#shoppingListId").removeClass("d-none");
+            } else if (action === "extendExpiry") {
+                $("#newExpiryDate").removeClass("d-none");
+            }
+        });
+
+        // Validate bulk action form before submit
+        $("#bulkActionForm").submit(function(e) {
+            const selectedItems = $(".item-checkbox:checked");
+            if (selectedItems.length === 0) {
+                e.preventDefault();
+                alert("@PantryLocalizer["PleaseSelectOneItem"]");
+                return false;
+            }
+
+            const action = $("#bulkAction").val();
+            if (!action) {
+                e.preventDefault();
+                alert("@PantryLocalizer["PleaseSelectAnAction"]");
+                return false;
+            }
+
+            if (action === "addToList" && !$("#shoppingListId").val()) {
+                e.preventDefault();
+                alert("@PantryLocalizer["PleaseSelectShoppingList"]");
+                return false;
+            }
+
+            if (action === "delete") {
+                if (!confirm("@PantryLocalizer["ConfirmDeleteSelected"]")) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+
+            // Set the correct action URL based on the selected action
+            switch(action) {
+                case "addToList":
+                    this.action = "@Url.Action("AddMultipleToShoppingList")";
+                    break;
+                case "extendExpiry":
+                    this.action = "@Url.Action("ExtendMultipleExpiry")";
+                    break;
+                case "markUsed":
+                    this.action = "@Url.Action("MarkMultipleAsUsed")";
+                    break;
+                case "delete":
+                    this.action = "@Url.Action("DeleteMultiple")";
+                    break;
+            }
+        });
+
+        // Handle Add to Shopping List button
+        $(".add-to-list-btn").click(function() {
+            const itemId = $(this).data('id');
+            const itemName = $(this).data('name');
+
+            $("#pantryItemId").val(itemId);
+            $("#ingredientName").text(itemName);
+            $("#addToShoppingListModal").modal('show');
+        });
+
+        // Handle Extend Expiry button
+        $(".extend-expiry-btn").click(function() {
+            const itemId = $(this).data('id');
+            const itemName = $(this).data('name');
+
+            $("#extendItemId").val(itemId);
+            $("#extendItemName").text(itemName);
+            $("#extendExpiryModal").modal('show');
+        });
+
+        // Handle Find Recipes button
+        $("#findRecipesBtn").click(function(e) {
+            e.preventDefault();
+
+            const ingredientId = $("#ingredientSelect").val();
+            if (!ingredientId) {
+                alert("@PantryLocalizer["PleaseSelectIngredientFirst"]");
+                return;
+            }
+
+            // Redirect to recipes page with ingredient filter
+            window.location.href = "@Url.Action("Index", "Recipes")?ingredientId=" + ingredientId;
+        });
+
+        // Handle Add All Expiring button
+        $("#addAllExpiringBtn").click(function(e) {
+            e.preventDefault();
+
+            // Select all items
+            $(".item-checkbox").prop('checked', true);
+            updateSelectedCount();
+
+            // Set action to add to list
+            $("#bulkAction").val("addToList").trigger('change');
+
+            // Scroll to bulk action form
+            $('html, body').animate({
+                scrollTop: $("#bulkActionForm").offset().top - 100
+            }, 500);
+        });
+
+        // Handle Remove Expired button
+        $("#removeExpiredBtn").click(function(e) {
+            e.preventDefault();
+
+            if (confirm("@PantryLocalizer["ConfirmRemoveAllExpired"]")) {
+                // Submit a form to remove all expired items
+                const form = $('<form></form>');
+                form.attr('method', 'post');
+                form.attr('action', '@Url.Action("RemoveExpired")');
+                $('body').append(form);
+                form.submit();
+            }
+        });
+
+        // Initialize selected count
+        updateSelectedCount();
+    });
+</script>
+}

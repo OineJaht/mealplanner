@@ -1,0 +1,247 @@
+﻿@model MealPlanner.BLL.DTO.MealPlan
+@{
+ViewData["Title"] = MealLocalizer["EditMealPlan"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@MealLocalizer["EditMealPlan"]</h1>
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @MealLocalizer["BackToDetails"]
+        </a>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-9">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@MealLocalizer["PlanDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <form id="editMealPlanForm" asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <div id="validationSummary" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label">@MealLocalizer["PlanName"]</label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="form-label">@MealLocalizer["StartDate"]</label>
+                                <input asp-for="StartDate" class="form-control" type="date" required />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="form-label">@MealLocalizer["EndDate"]</label>
+                                <input asp-for="EndDate" class="form-control" type="date" required />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> @MealLocalizer["SaveChanges"]
+                            </button>
+                            <button type="button" id="ajaxSubmitBtn" class="btn btn-success">
+                                <i class="bi bi-save"></i> @MealLocalizer["SaveChanges"] (Ajax)
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (ViewBag.MealPlanItems != null && ViewBag.MealPlanItems.Any())
+        {
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>@MealLocalizer["PlannedMeals"]</h4>
+                <a asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-sm btn-success">
+                    <i class="bi bi-plus"></i> @MealLocalizer["AddMeal"]
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush" id="mealsList">
+                    @foreach (var item in ViewBag.MealPlanItems)
+                    {
+                    <div class="list-group-item meal-item" id="meal-item-@item.Id">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <strong>@item.PlannedDate.ToShortDateString()</strong>
+                                <div><span class="badge bg-light text-dark">@item.MealType</span></div>
+                            </div>
+                            <div class="col-md-5">
+                                @if (!string.IsNullOrEmpty(item.RecipeName))
+                                {
+                                <a asp-controller="Recipes" asp-action="Details" asp-route-id="@item.RecipeId">
+                                    @item.RecipeName
+                                </a>
+                                }
+                                else
+                                {
+                                <span class="text-danger">@MealLocalizer["RecipeNotFound"]</span>
+                                }
+                            </div>
+                            <div class="col-md-2">
+                                <span class="text-muted">@MealLocalizer["Servings"]: @item.Servings</span>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-action="EditItem" asp-route-id="@item.Id" class="btn btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger delete-meal-item" data-item-id="@item.Id">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-header">
+                <h4>@MealLocalizer["QuickActions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-success w-100">
+                        <i class="bi bi-plus"></i> @MealLocalizer["AddMeal"]
+                    </a>
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-info w-100">
+                        <i class="bi bi-eye"></i> @Localizer["Details"]
+                    </a>
+                    <a asp-controller="ShoppingLists" asp-action="CreateFromMealPlan" asp-route-mealPlanId="@Model.Id" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-cart"></i> @MealLocalizer["GenerateShoppingList"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function() {
+        // Handle Ajax button click
+        $("#ajaxSubmitBtn").click(function(e) {
+            e.preventDefault();
+
+            // Validate dates
+            const startDate = new Date($("#StartDate").val());
+            const endDate = new Date($("#EndDate").val());
+
+            if (endDate < startDate) {
+                $("#validationSummary").text("@MealLocalizer["EndDateAfterStartDate"]");
+                return;
+            }
+
+            // Gather form data
+            var formData = {
+                Id: $("#Id").val(),
+                Name: $("#Name").val(),
+                StartDate: $("#StartDate").val(),
+                EndDate: $("#EndDate").val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+
+            // Basic validation
+            if (!formData.Name) {
+                $("#validationSummary").text("@MealLocalizer["NameRequired"]");
+                return;
+            }
+
+            if (!formData.StartDate) {
+                $("#validationSummary").text("@MealLocalizer["StartDateRequired"]");
+                return;
+            }
+
+            if (!formData.EndDate) {
+                $("#validationSummary").text("@MealLocalizer["EndDateRequired"]");
+                return;
+            }
+
+            // Submit via Ajax
+            $.ajax({
+                url: '@Url.Action("EditAjax")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    if (result.success) {
+                        // Show success message
+                        alert("@MealLocalizer["PlanUpdated"]");
+
+                        // Redirect to the details page
+                        window.location.href = '@Url.Action("Details", new { id = Model.Id })';
+                    } else {
+                        // Show error message
+                        $("#validationSummary").text(result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax error:', xhr, status, error);
+                    $("#validationSummary").text("An error occurred: " + error);
+                }
+            });
+        });
+
+        // Handle delete meal item buttons
+        $(".delete-meal-item").click(function(e) {
+            e.preventDefault();
+
+            if (confirm("@MealLocalizer["RemoveMealConfirmation"]")) {
+                const itemId = $(this).data("item-id");
+
+                $.ajax({
+                    url: '@Url.Action("RemoveItemAjax")',
+                    type: 'POST',
+                    data: {
+                        id: itemId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(result) {
+                        if (result.success) {
+                            // Remove the item from the DOM
+                            $(`#meal-item-${itemId}`).fadeOut(300, function() {
+                                $(this).remove();
+
+                                // If no items left, hide the card
+                                if ($("#mealsList").children().length === 0) {
+                                    $("#mealsList").closest(".card").hide();
+                                }
+                            });
+                        } else {
+                            alert("Error: " + result.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Ajax error:', xhr, status, error);
+                        alert("An error occurred while removing the meal: " + error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+}

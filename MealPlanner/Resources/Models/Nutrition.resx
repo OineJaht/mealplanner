@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- IngredientNutrition View -->
+    <data name="IngredientNutrition" xml:space="preserve">
+    <value>Ingredient Nutrition</value>
+  </data>
+    <data name="BackToIngredient" xml:space="preserve">
+    <value>Back to Ingredient</value>
+  </data>
+    <data name="EditNutritionInformation" xml:space="preserve">
+    <value>Edit Nutrition Information</value>
+  </data>
+  <data name="NutritionInformation" xml:space="preserve">
+    <value>Nutrition Information</value>
+  </data>
+    <data name="ValuesPerPortion" xml:space="preserve">
+    <value>Values per 100g of ingredient</value>
+  </data>
+    <data name="CaloriesPer100g" xml:space="preserve">
+    <value>Calories (per 100g)</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+    <data name="Carbohydrates" xml:space="preserve">
+    <value>Carbohydrates</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Sugar</value>
+  </data>
+    <data name="Sodium" xml:space="preserve">
+    <value>Sodium</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+    <data name="DataSources" xml:space="preserve">
+    <value>Data Sources</value>
+  </data>
+    <data name="NutritionDataSources" xml:space="preserve">
+    <value>You can find reliable nutrition information from these sources:</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Nutrition Facts</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>Per 100g serving</value>
+  </data>
+    <data name="ServingSize" xml:space="preserve">
+    <value>Serving Size: 100g</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+    <data name="AmountPerServing" xml:space="preserve">
+    <value>Amount Per Serving</value>
+  </data>
+    <data name="TotalFat" xml:space="preserve">
+    <value>Total Fat</value>
+  </data>
+    <data name="TotalCarbohydrates" xml:space="preserve">
+    <value>Total Carbohydrates</value>
+  </data>
+    <data name="DietaryFiber" xml:space="preserve">
+    <value>Dietary Fiber</value>
+  </data>
+    <data name="Sugars" xml:space="preserve">
+    <value>Sugars</value>
+  </data>
+    <data name="WhyThisMatters" xml:space="preserve">
+    <value>Why This Matters</value>
+  </data>
+    <data name="NutritionMattersDescription" xml:space="preserve">
+    <value>Accurate ingredient nutrition information allows you to:</value>
+  </data>
+    <data name="PackagingLabels" xml:space="preserve">
+    <value>Food packaging labels</value>
+  </data>
+    <data name="ManufacturerWebsites" xml:space="preserve">
+    <value>Manufacturer websites</value>
+  </data>
+    <data name="NutritionDatabases" xml:space="preserve">
+    <value>Reliable nutrition databases</value>
+  </data>
+    <data name="NutritionVariation" xml:space="preserve">
+    <value>Remember that nutrition values can vary based on preparation methods, varieties, and brands.</value>
+  </data>
+
+    <!-- RecipeNutrition View -->
+    <data name="RecipeNutrition" xml:space="preserve">
+    <value>Recipe Nutrition</value>
+  </data>
+    <data name="BackToRecipe" xml:space="preserve">
+    <value>Back to Recipe</value>
+  </data>
+    <data name="CalculateFromIngredients" xml:space="preserve">
+    <value>Calculate from Ingredients</value>
+  </data>
+    <data name="TotalCalories" xml:space="preserve">
+    <value>Total Calories</value>
+  </data>
+    <data name="CaloriesPerServing" xml:space="preserve">
+    <value>Calories Per Serving</value>
+  </data>
+    <data name="TotalProtein" xml:space="preserve">
+    <value>Total Protein</value>
+  </data>
+    <data name="TotalFiber" xml:space="preserve">
+    <value>Total Fiber</value>
+  </data>
+    <data name="TotalSugar" xml:space="preserve">
+    <value>Total Sugar</value>
+  </data>
+    <data name="TotalSodium" xml:space="preserve">
+    <value>Total Sodium</value>
+  </data>
+    <data name="Tips" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+    <data name="TipsCalculate" xml:space="preserve">
+    <value>Click "Calculate from Ingredients" to automatically compute nutrition based on ingredients</value>
+  </data>
+    <data name="TipsManual" xml:space="preserve">
+    <value>Manual adjustments can be made to fine-tune values</value>
+  </data>
+    <data name="TipsServings" xml:space="preserve">
+    <value>Ensure that the recipe has serving size information for accurate per-serving calculations</value>
+  </data>
+    <data name="TipsIngredients" xml:space="preserve">
+    <value>For accurate calculations, make sure your ingredients have nutrition information</value>
+  </data>
+
+    <!-- NutritionSummary View -->
+    <data name="NutritionSummary" xml:space="preserve">
+    <value>Nutrition Summary</value>
+  </data>
+    <data name="DailyTargetRanges" xml:space="preserve">
+    <value>Daily Target Ranges</value>
+  </data>
+    <data name="Nutrient" xml:space="preserve">
+    <value>Nutrient</value>
+  </data>
+    <data name="TargetRangeAdult" xml:space="preserve">
+    <value>Target Range (Adult)</value>
+  </data>
+    <data name="GeneralGuidelines" xml:space="preserve">
+    <value>These are general guidelines. Individual needs vary based on age, gender, activity level, and health goals.</value>
+  </data>
+    <data name="MealPlanNutritionTips" xml:space="preserve">
+    <value>Meal Plan Nutrition Tips</value>
+  </data>
+    <data name="TipBalancedMacros" xml:space="preserve">
+    <value>Aim for balanced macronutrient distribution (protein, carbs, fat)</value>
+  </data>
+    <data name="TipVariety" xml:space="preserve">
+    <value>Include variety of food groups in each meal plan</value>
+  </data>
+    <data name="TipTiming" xml:space="preserve">
+    <value>Consider timing of nutrient-dense meals around exercise</value>
+  </data>
+    <data name="TipNutritionInfo" xml:space="preserve">
+    <value>Add nutrition information to ingredients for more accurate calculations</value>
+  </data>
+    <data name="TipCalculate" xml:space="preserve">
+    <value>Use the "Calculate" function on recipes to update nutrition facts</value>
+  </data>
+    <data name="RecentMealPlansAnalysis" xml:space="preserve">
+    <value>Recent Meal Plans - Nutrition Analysis</value>
+  </data>
+    <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+    <data name="DailyAverageNutrition" xml:space="preserve">
+    <value>Daily Average Nutrition</value>
+  </data>
+    <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+    <data name="Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+    <data name="MacronutrientDistribution" xml:space="preserve">
+    <value>Macronutrient Distribution</value>
+  </data>
+    <data name="ViewPlanDetails" xml:space="preserve">
+    <value>View Plan Details</value>
+  </data>
+    <data name="NoMealPlansFound" xml:space="preserve">
+    <value>No meal plans found. Create a meal plan to see nutrition analysis.</value>
+  </data>
+    <data name="CreateMealPlan" xml:space="preserve">
+    <value>Create Meal Plan</value>
+  </data>
+    <data name="NutritionTrends" xml:space="preserve">
+    <value>Nutrition Trends</value>
+  </data>
+    <data name="NeedMoreMealPlans" xml:space="preserve">
+    <value>Need at least two meal plans to display nutrition trends.</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Carbs</value>
+  </data>
+    <data name="UsedInRecipes" xml:space="preserve">
+    <value>Used in Recipes</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>View Recipe</value>
+  </data>
+
+    <!-- Additional common terms -->
+    <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+    <data name="AddNutrition" xml:space="preserve">
+    <value>Add Nutrition</value>
+  </data>
+    <data name="CalculateNutrition" xml:space="preserve">
+    <value>Calculate Nutrition</value>
+  </data>
+    <data name="AutoCalculateDescription" xml:space="preserve">
+    <value>When you add nutrition information to ingredients, recipes using these ingredients will have more accurate nutrition facts.</value>
+  </data>
+  <!-- English -->
+  <data name="NoIngredientsFound" xml:space="preserve">
+  <value>No ingredients found. Create your first ingredient to get started.</value>
+</data>
+  <data name="TrackDailyNutrientIntake" xml:space="preserve">
+  <value>Track your daily nutrient intake</value>
+</data>
+  <data name="MakeInformedChoices" xml:space="preserve">
+  <value>Make informed choices about meal planning</value>
+</data>
+  <data name="CompareIngredients" xml:space="preserve">
+  <value>Compare different ingredients for recipe creation</value>
+</data>
+</root>

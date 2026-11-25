@@ -1,0 +1,204 @@
+﻿@model MealPlanner.Models.ViewModels.UserPantry.UserPantryEditViewModel
+<h2>Edit Pantry Item</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@PantryLocalizer["EditPantryItem"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @PantryLocalizer["BackToPantry"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["PantryItemDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="PantryItem.Id" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="PantryItem.IngredientId" class="form-label">@PantryLocalizer["Ingredient"]</label>
+                        <select asp-for="PantryItem.IngredientId" class="form-select" asp-items="Model.AvailableIngredients" disabled>
+                            <option value="">@PantryLocalizer["SelectIngredient"]</option>
+                        </select>
+                        <input type="hidden" asp-for="PantryItem.IngredientId" />
+                        <span asp-validation-for="PantryItem.IngredientId" class="text-danger"></span>
+                        <small class="form-text text-muted">@Localizer["To change the ingredient, delete this item and add a new one."]</small>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.AmountInStock" class="form-label">@PantryLocalizer["Amount"]</label>
+                                <input asp-for="PantryItem.AmountInStock" class="form-control" type="number" step="0.01" min="0" />
+                                <span asp-validation-for="PantryItem.AmountInStock" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.Unit" class="form-label">@PantryLocalizer["Unit"]</label>
+                                <input asp-for="PantryItem.Unit" class="form-control" list="unitOptions" />
+                                <datalist id="unitOptions">
+                                    <option value="g"/>
+                                    <option value="kg"/>
+                                    <option value="ml"/>
+                                    <option value="l"/>
+                                    <option value="tsp"/>
+                                    <option value="tbsp"/>
+                                    <option value="cup"/>
+                                    <option value="oz"/>
+                                    <option value="lb"/>
+                                    <option value="piece"/>
+                                    <option value="package"/>
+                                    <option value="can"/>
+                                </datalist>
+                                <span asp-validation-for="PantryItem.Unit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.Location" class="form-label">@PantryLocalizer["StorageLocation"]</label>
+                                <input asp-for="PantryItem.Location" class="form-control" list="locationOptions" placeholder="Refrigerator, Pantry, Freezer, etc." />
+                                <datalist id="locationOptions">
+                                    <option value="Refrigerator"/>
+                                    <option value="Freezer"/>
+                                    <option value="Pantry"/>
+                                    <option value="Cupboard"/>
+                                    <option value="Spice Rack"/>
+                                    <option value="Countertop"/>
+                                </datalist>
+                                <span asp-validation-for="PantryItem.Location" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.ExpiryDate" class="form-label">@PantryLocalizer["ExpiryDate"]</label>
+                                <input asp-for="PantryItem.ExpiryDate" class="form-control" type="date" />
+                                <span asp-validation-for="PantryItem.ExpiryDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> @PantryLocalizer["SaveChanges"]
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">@PantryLocalizer["Cancel"]</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@PantryLocalizer["ItemInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>@PantryLocalizer["Ingredient"]:</strong> @Model.PantryItem.IngredientName</p>
+
+                @if (Model.PantryItem.Nutrition != null)
+                {
+                <p><strong>@PantryLocalizer["NutritionInformation"] (@PantryLocalizer["Per100g"]):</strong></p>
+                <ul>
+                    <li>@PantryLocalizer["Calories"]: @Model.PantryItem.Nutrition.CaloriesPer100g kcal</li>
+                    <li>@PantryLocalizer["Protein"]: @Model.PantryItem.Nutrition.ProteinG g</li>
+                    <li>@PantryLocalizer["Carbohydrates"]: @Model.PantryItem.Nutrition.CarbsG g</li>
+                    <li>@PantryLocalizer["Fat"]: @Model.PantryItem.Nutrition.FatG g</li>
+                </ul>
+                }
+
+                <div class="alert alert-secondary mt-3">
+                    <h5><i class="bi bi-info-circle"></i> @PantryLocalizer["QuickActions"]</h5>
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Ingredients" asp-action="Details" asp-route-id="@Model.PantryItem.IngredientId" class="btn btn-sm btn-outline-info">
+                            <i class="bi bi-info-circle"></i> @PantryLocalizer["ViewIngredientInfo"]
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#addToShoppingListModal">
+                            <i class="bi bi-cart-plus"></i> @PantryLocalizer["AddToShoppingList"]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h4>@PantryLocalizer["ExpiringSoon"]?</h4>
+            </div>
+            <div class="card-body">
+                @{
+                var daysUntilExpiry = (Model.PantryItem.ExpiryDate - DateTime.Today).Days;
+                }
+
+                @if (daysUntilExpiry < 0)
+                {
+                <div class="alert alert-danger">
+                    <p><strong>@PantryLocalizer["Expired"]!</strong> @string.Format(PantryLocalizer["ExpiredDaysAgo"], Math.Abs(daysUntilExpiry))</p>
+                    <p>@PantryLocalizer["ExpiredItemsNote"]</p>
+                </div>
+                }
+                else if (daysUntilExpiry <= 7)
+                {
+                <div class="alert alert-warning">
+                    <p><strong>@PantryLocalizer["ExpiringSoon"]!</strong> @string.Format(PantryLocalizer["ExpiringSoonNote"], daysUntilExpiry)</p>
+                    <p>@PantryLocalizer["ConsiderUsingInUpcomingMeals"]</p>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-success">
+                    <p><strong>@PantryLocalizer["GoodToUse"]!</strong> @string.Format(PantryLocalizer["ExpiresInDays"], daysUntilExpiry)</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Shopping List Modal -->
+<div class="modal fade" id="addToShoppingListModal" tabindex="-1" aria-labelledby="addToShoppingListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToShoppingListModalLabel">@PantryLocalizer["AddToShoppingList"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddToShoppingList" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.PantryItem.Id" />
+
+                    <div class="mb-3">
+                        <label for="shoppingListId" class="form-label">@PantryLocalizer["SelectShoppingList"]</label>
+                        <select name="shoppingListId" id="shoppingListId" class="form-select" required>
+                            <option value="">-- @PantryLocalizer["SelectShoppingList"] --</option>
+                            @foreach (var shoppingList in Model.AvailableShoppingLists)
+                            {
+                            <option value="@shoppingList.Value">@shoppingList.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <p>@string.Format(Localizer["This will add {0} to your selected shopping list."], Model.PantryItem.IngredientName)</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@PantryLocalizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@PantryLocalizer["AddToList"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

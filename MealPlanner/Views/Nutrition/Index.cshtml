@@ -1,0 +1,169 @@
+@model IEnumerable<MealPlanner.BLL.DTO.Ingredient>
+@{
+    ViewData["Title"] = IngredientLocalizer["Ingredients"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@IngredientLocalizer["Ingredients"]</h1>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> @IngredientLocalizer["CreateNew"]
+        </a>
+    </div>
+</div>
+
+@if (Model != null && Model.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="ingredientSearch" class="form-control" placeholder="@IngredientLocalizer["SearchIngredients"]">
+                        <button type="button" id="clearSearch" class="btn btn-outline-secondary">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="dropdown float-end">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryFilter" data-bs-toggle="dropdown" aria-expanded="false">
+                            @IngredientLocalizer["FilterByCategory"]
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="categoryFilter" id="categoryFilterMenu">
+                            <li><a class="dropdown-item" href="#" data-category="all">@IngredientLocalizer["All"]</a></li>
+                            @{
+                                var categories = Model.Select(i => i.Category).Distinct().OrderBy(c => c);
+                                foreach (var category in categories)
+                                {
+                                    <li><a class="dropdown-item" href="#" data-category="@category">@(string.IsNullOrEmpty(category) ? IngredientLocalizer["Uncategorized"] : category)</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0" id="ingredientsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@IngredientLocalizer["Name"]</th>
+                            <th>@IngredientLocalizer["Category"]</th>
+                            <th style="width: 180px;">@IngredientLocalizer["Actions"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(i => i.Name))
+                        {
+                            <tr data-category="@item.Category">
+                                <td>@item.Name</td>
+                                <td>@(string.IsNullOrEmpty(item.Category) ? IngredientLocalizer["Uncategorized"] : item.Category)</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                        <a asp-controller="Nutrition" asp-action="IngredientNutrition" asp-route-id="@item.Id" class="btn btn-outline-success">
+                                            <i class="bi bi-bar-chart"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="text-muted small">
+                <span id="itemCountDisplay">@IngredientLocalizer["Showing"] @Model.Count() @IngredientLocalizer["of"] @Model.Count() @IngredientLocalizer["ingredients"]</span>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>@IngredientLocalizer["NoIngredientsFound"]</p>
+        <p>@IngredientLocalizer["CreateFirstIngredient"]</p>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('ingredientSearch');
+            const clearBtn = document.getElementById('clearSearch');
+            const table = document.getElementById('ingredientsTable');
+            const rows = table ? table.querySelectorAll('tbody tr') : [];
+            const itemCountDisplay = document.getElementById('itemCountDisplay');
+            const categoryLinks = document.querySelectorAll('#categoryFilterMenu .dropdown-item');
+            const categoryButton = document.getElementById('categoryFilter');
+            
+            let currentCategory = 'all';
+            
+            function updateItemCount() {
+                if (!itemCountDisplay) return;
+                
+                const totalCount = rows.length;
+                const visibleCount = Array.from(rows).filter(r => r.style.display !== 'none').length;
+                
+                itemCountDisplay.textContent = '@IngredientLocalizer["Showing"] ' + visibleCount + ' @IngredientLocalizer["of"] ' + totalCount + ' @IngredientLocalizer["ingredients"]';
+            }
+            
+            function applyFilter() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                for (const row of rows) {
+                    const nameCell = row.cells[0].textContent.toLowerCase();
+                    const categoryCell = row.cells[1].textContent.toLowerCase();
+                    const rowCategory = row.getAttribute('data-category') || '';
+                    
+                    const matchesSearch = nameCell.includes(searchTerm) || categoryCell.includes(searchTerm);
+                    const matchesCategory = currentCategory === 'all' || rowCategory === currentCategory;
+                    
+                    row.style.display = matchesSearch && matchesCategory ? '' : 'none';
+                }
+                
+                updateItemCount();
+            }
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilter);
+            }
+            
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    applyFilter();
+                });
+            }
+            
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const category = this.getAttribute('data-category');
+                    currentCategory = category;
+                    
+                    // Update dropdown button text
+                    if (category === 'all') {
+                        categoryButton.textContent = '@IngredientLocalizer["FilterByCategory"]';
+                    } else {
+                        categoryButton.textContent = category || '@IngredientLocalizer["Uncategorized"]';
+                    }
+                    
+                    applyFilter();
+                });
+            });
+        });
+    </script>
+}

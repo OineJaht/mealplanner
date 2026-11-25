@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Recipe Properties -->
+    <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+    <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+    <data name="Instructions" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+    <data name="DefaultServings" xml:space="preserve">
+    <value>Default Servings</value>
+  </data>
+    <data name="PrepTimeMinutes" xml:space="preserve">
+    <value>Preparation Time (minutes)</value>
+  </data>
+    <data name="ImageUrl" xml:space="preserve">
+    <value>Image URL</value>
+  </data>
+    <data name="IsFavorite" xml:space="preserve">
+    <value>Is Favorite</value>
+  </data>
+    <data name="CreatedAt" xml:space="preserve">
+    <value>Created At</value>
+  </data>
+
+    <!-- Page Titles -->
+    <data name="RecipesList" xml:space="preserve">
+    <value>My Recipes</value>
+  </data>
+    <data name="CreateRecipe" xml:space="preserve">
+    <value>Create Recipe</value>
+  </data>
+    <data name="EditRecipe" xml:space="preserve">
+    <value>Edit Recipe</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Recipe Details</value>
+  </data>
+    <data name="DeleteRecipe" xml:space="preserve">
+    <value>Delete Recipe</value>
+  </data>
+
+    <!-- Form Labels and Instructions -->
+    <data name="RecipeName" xml:space="preserve">
+    <value>Recipe Name</value>
+  </data>
+    <data name="EnterImageUrl" xml:space="preserve">
+    <value>Enter a URL to an image of your recipe</value>
+  </data>
+    <data name="RecipeDescription" xml:space="preserve">
+    <value>Briefly describe your recipe</value>
+  </data>
+    <data name="RecipeInstructions" xml:space="preserve">
+    <value>Recipe Instructions</value>
+  </data>
+    <data name="EnterInstructions" xml:space="preserve">
+    <value>Enter step-by-step instructions for your recipe...</value>
+  </data>
+    <data name="InstructionsHelp" xml:space="preserve">
+    <value>Enter detailed instructions for preparing the recipe. You can add more specific cooking steps after saving.</value>
+  </data>
+    <data name="MarkAsFavorite" xml:space="preserve">
+    <value>Mark as Favorite</value>
+  </data>
+    <data name="AddToFavorites" xml:space="preserve">
+    <value>Add to favorites</value>
+  </data>
+
+    <!-- Recipe Components -->
+    <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+    <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+    <data name="CookingSteps" xml:space="preserve">
+    <value>Cooking Steps</value>
+  </data>
+    <data name="StepByStepInstructions" xml:space="preserve">
+    <value>Step-by-Step Instructions</value>
+  </data>
+    <data name="RecipeIngredients" xml:space="preserve">
+    <value>Recipe Ingredients</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Nutrition Facts</value>
+  </data>
+    <data name="NutritionInformation" xml:space="preserve">
+    <value>Nutrition Information</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>Per Serving</value>
+  </data>
+
+    <!-- Actions -->
+    <data name="NewCategory" xml:space="preserve">
+    <value>New Category</value>
+  </data>
+    <data name="NewIngredient" xml:space="preserve">
+    <value>New Ingredient</value>
+  </data>
+    <data name="AddAnotherIngredient" xml:space="preserve">
+    <value>Add Another Ingredient</value>
+  </data>
+    <data name="SelectIngredient" xml:space="preserve">
+    <value>-- Select Ingredient --</value>
+  </data>
+    <data name="ManageCookingSteps" xml:space="preserve">
+    <value>Manage Cooking Steps</value>
+  </data>
+    <data name="CalculateNutrition" xml:space="preserve">
+    <value>Calculate Nutrition</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Add to Meal Plan</value>
+  </data>
+    <data name="PrintRecipe" xml:space="preserve">
+    <value>Print Recipe</value>
+  </data>
+    <data name="UpdateNutrition" xml:space="preserve">
+    <value>Update Nutrition</value>
+  </data>
+
+    <!-- Confirmations -->
+    <data name="DeleteConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to delete this recipe? This action cannot be undone.</value>
+  </data>
+    <data name="DeleteConfirmationTitle" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+
+    <!-- Messages -->
+    <data name="NoRecipesAvailable" xml:space="preserve">
+    <value>You don't have any recipes yet. Create your first recipe to get started.</value>
+  </data>
+    <data name="NoNutritionAvailable" xml:space="preserve">
+    <value>No nutrition information available for this recipe.</value>
+  </data>
+    <data name="AddIngredientsHelp" xml:space="preserve">
+    <value>Add ingredients for your recipe below. You can add more rows as needed.</value>
+  </data>
+    <data name="IngredientsHelp" xml:space="preserve">
+    <value>Update ingredients for your recipe below. You can add more rows as needed.</value>
+  </data>
+    <data name="AtLeastOneIngredient" xml:space="preserve">
+    <value>You need at least one ingredient row.</value>
+  </data>
+    <data name="CreateFirstRecipe" xml:space="preserve">
+    <value>Create First Recipe</value>
+  </data>
+
+    <!-- Placeholders -->
+    <data name="ImageUrlPlaceholder" xml:space="preserve">
+    <value>https://example.com/image.jpg</value>
+  </data>
+    <data name="AmountPlaceholder" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+    <data name="UnitPlaceholder" xml:space="preserve">
+    <value>Unit (g, ml, etc.)</value>
+  </data>
+
+    <!-- Filters and Search -->
+    <data name="SearchRecipes" xml:space="preserve">
+    <value>Search recipes...</value>
+  </data>
+    <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+    <data name="FavoritesOnly" xml:space="preserve">
+    <value>Favorites Only</value>
+  </data>
+
+    <!-- Recipe Sections -->
+    <data name="AboutThisRecipe" xml:space="preserve">
+    <value>About This Recipe</value>
+  </data>
+    <data name="BasicInformation" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+    <data name="RelatedData" xml:space="preserve">
+    <value>Related Data</value>
+  </data>
+    <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Confirm Deletion</value>
+  </data>
+    <data name="RelatedActions" xml:space="preserve">
+    <value>Related Actions</value>
+  </data>
+    <data name="RecipeCreationTips" xml:space="preserve">
+    <value>Recipe Creation Tips</value>
+  </data>
+    <data name="RecipePreview" xml:space="preserve">
+    <value>Recipe Preview</value>
+  </data>
+
+    <!-- Tips and Help -->
+    <data name="TipStep1" xml:space="preserve">
+    <value>Step 1: Basic Information</value>
+  </data>
+    <data name="TipStep1Text" xml:space="preserve">
+    <value>Start with a clear, descriptive name and a brief summary of your recipe.</value>
+  </data>
+    <data name="TipStep2" xml:space="preserve">
+    <value>Step 2: Add Categories</value>
+  </data>
+    <data name="TipStep2Text" xml:space="preserve">
+    <value>Categorize your recipe to make it easier to find later (e.g., Breakfast, Italian, Vegetarian).</value>
+  </data>
+    <data name="TipStep3" xml:space="preserve">
+    <value>Step 3: List Ingredients</value>
+  </data>
+    <data name="TipStep3Text" xml:space="preserve">
+    <value>Include precise measurements and specific ingredients needed.</value>
+  </data>
+    <data name="TipStep4" xml:space="preserve">
+    <value>Step 4: Write Instructions</value>
+  </data>
+    <data name="TipStep4Text" xml:space="preserve">
+    <value>Provide clear, step-by-step directions in a logical order.</value>
+  </data>
+    <data name="DidYouKnow" xml:space="preserve">
+    <value>Did you know?</value>
+  </data>
+    <data name="Tip1" xml:space="preserve">
+    <value>Using precise measurements helps with accurate nutrition calculation</value>
+  </data>
+    <data name="Tip2" xml:space="preserve">
+    <value>You can add detailed cooking steps after creating the recipe</value>
+  </data>
+    <data name="Tip3" xml:space="preserve">
+    <value>Mark your favorite recipes to find them quickly later</value>
+  </data>
+
+    <!-- Nutrient Labels -->
+    <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Carbs</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Sugar</value>
+  </data>
+
+    <!-- Time and Servings -->
+    <data name="PrepTime" xml:space="preserve">
+    <value>Prep Time</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Servings</value>
+  </data>
+    <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+    <data name="AdjustServings" xml:space="preserve">
+    <value>Adjust</value>
+  </data>
+
+    <!-- Validation Messages -->
+    <data name="NameRequired" xml:space="preserve">
+    <value>Recipe name is required</value>
+  </data>
+    <data name="CategoryNameRequired" xml:space="preserve">
+    <value>Please enter a category name.</value>
+  </data>
+    <data name="IngredientNameRequired" xml:space="preserve">
+    <value>Please enter an ingredient name.</value>
+  </data>
+
+    <!-- Modal Titles -->
+    <data name="AddNewCategory" xml:space="preserve">
+    <value>Add New Category</value>
+  </data>
+    <data name="AddNewIngredient" xml:space="preserve">
+    <value>Add New Ingredient</value>
+  </data>
+    <data name="CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+    <data name="CategoryDescription" xml:space="preserve">
+    <value>Description (Optional)</value>
+  </data>
+    <data name="IngredientName" xml:space="preserve">
+    <value>Ingredient Name</value>
+  </data>
+    <data name="IngredientCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+    <data name="SaveCategory" xml:space="preserve">
+    <value>Save Category</value>
+  </data>
+    <data name="SaveIngredient" xml:space="preserve">
+    <value>Save Ingredient</value>
+  </data>
+
+    <!-- Delete related messages -->
+    <data name="DeletingWillRemove" xml:space="preserve">
+    <value>Deleting this recipe will permanently remove:</value>
+  </data>
+    <data name="DeleteRecipeItem" xml:space="preserve">
+    <value>The recipe itself</value>
+  </data>
+    <data name="DeleteIngredientsItem" xml:space="preserve">
+    <value>All ingredients associated with this recipe</value>
+  </data>
+    <data name="DeleteStepsItem" xml:space="preserve">
+    <value>All cooking steps for this recipe</value>
+  </data>
+    <data name="DeleteNutritionItem" xml:space="preserve">
+    <value>Nutrition information</value>
+  </data>
+    <data name="DeleteMealPlanItem" xml:space="preserve">
+    <value>Any references to this recipe in meal plans</value>
+  </data>
+</root>

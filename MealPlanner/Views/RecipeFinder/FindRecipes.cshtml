@@ -1,0 +1,219 @@
+﻿@model MealPlanner.Dto.FindRecipesResultViewModel
+@{
+    ViewData["Title"] = FinderLocalizer["RecipeSearchResults"];
+    
+    string FormatTime(int minutes)
+    {
+        if (minutes < 60)
+        {
+            return $"{minutes} min";
+        }
+        else
+        {
+            int hours = minutes / 60;
+            int remainingMinutes = minutes % 60;
+            return remainingMinutes > 0 ? $"{hours} hr {remainingMinutes} min" : $"{hours} hr";
+        }
+    }
+    
+    // Extract search parameters from ViewBag
+    // var selectedIngredients = ViewBag.SelectedIngredients as IEnumerable<MealPlanner.BLL.DTO.Ingredient> ?? Enumerable.Empty<MealPlanner.BLL.DTO.Ingredient>();
+    // bool matchAll = ViewBag.MatchAll ?? false;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@FinderLocalizer["RecipeSearchResults"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @FinderLocalizer["ModifySearch"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@FinderLocalizer["RecipesYouCanMake"]</h4>
+            </div>
+            <div class="card-body">
+                @if (Model?.Matches.Any() == true)
+                {
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> @FinderLocalizer["Found"] <strong>@Model.Matches.Count() @FinderLocalizer["RecipesUsing"]</strong> 
+                        @(Model.MatchAll ? FinderLocalizer["AllOf"] : FinderLocalizer["SomeOf"]) @FinderLocalizer["YourSelectedIngredients"]
+                    </div>
+                    
+                    <div class="row" id="recipeCards">
+                        @foreach (var match in Model.Matches)
+                        {
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    @if (match?.Recipe != null && !string.IsNullOrEmpty(match.Recipe.ImageUrl))
+                                    {
+                                        <img src="@match.Recipe.ImageUrl" class="card-img-top" alt="@match.Recipe.Name" 
+                                             style="height: 180px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                                             style="height: 180px;">
+                                            <i class="bi bi-card-image text-muted" style="font-size: 48px;"></i>
+                                        </div>
+                                    }
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <h5 class="card-title">@(match?.Recipe?.Name ?? "Unnamed Recipe")</h5>
+                                            @if (match?.Recipe != null && match.Recipe.IsFavorite)
+                                            {
+                                                <i class="bi bi-star-fill text-warning"></i>
+                                            }
+                                        </div>
+                                        
+                                        <div class="progress mb-2" style="height: 20px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: @(match?.MatchPercentage ?? 0)%" 
+                                                 aria-valuenow="@(match?.MatchPercentage ?? 0)" aria-valuemin="0" aria-valuemax="100">
+                                                @(match?.MatchPercentage ?? 0)%
+                                            </div>
+                                        </div>
+                                        <p class="card-text small text-muted">
+                                            @if (match?.MatchPercentage == 100)
+                                            {
+                                                <span class="text-success">@FinderLocalizer["YouHaveAllIngredients"]</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@FinderLocalizer["Missing"] @(match?.MissingIngredients?.Count ?? 0) @FinderLocalizer["Ingredients"]</span>
+                                            }
+                                        </p>
+                                        
+                                        <p class="card-text mb-2">
+                                            <small class="text-muted">
+                                                <i class="bi bi-clock"></i> @FormatTime(match?.Recipe?.PrepTimeMinutes ?? 0)
+                                                <span class="ms-2"><i class="bi bi-people"></i> @(match?.Recipe?.DefaultServings ?? 0) servings</span>
+                                            </small>
+                                        </p>
+                                        
+                                        @if (match?.MissingIngredients?.Any() == true)
+                                        {
+                                            <div class="mb-2">
+                                                <small class="text-muted">@FinderLocalizer["Missing"]:</small>
+                                                @foreach (var ing in match.MissingIngredients.Take(3))
+                                                {
+                                                    <span class="badge bg-light text-dark me-1">@(ing?.Name ?? FinderLocalizer["Unknown"])</span>
+                                                }
+                                                @if (match.MissingIngredients.Count > 3)
+                                                {
+                                                    <span class="badge bg-light text-dark">+@(match.MissingIngredients.Count - 3) @FinderLocalizer["More"]</span>
+                                                }
+                                            </div>
+                                        }
+                                        
+                                        <div class="mt-2">
+                                            <a asp-action="RecipeDetails" asp-route-id="@(match?.Recipe?.Id ?? 0)" 
+                                               asp-route-availableIngredientIds="@string.Join(",", Model.SelectedIngredients.Select(i => i.Id))"
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i> @FinderLocalizer["ViewRecipe"]
+                                            </a>
+                                            <a asp-controller="Recipes" asp-action="Details" asp-route-id="@(match?.Recipe?.Id ?? 0)" 
+                                               class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-card-list"></i> @FinderLocalizer["FullDetails"]
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> @FinderLocalizer["NoRecipesFound"]
+                        <p class="mt-2">@FinderLocalizer["TryDifferentIngredients"]</p>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <a asp-action="Index" class="btn btn-primary">
+                            <i class="bi bi-arrow-left"></i> @FinderLocalizer["ModifySearch"]
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@FinderLocalizer["SelectedIngredients"]</h4>
+            </div>
+            <div class="card-body">
+                
+                @if (Model?.SelectedIngredients?.Any() == true)
+                {
+                    <p>@FinderLocalizer["YouSelected"] @Model.SelectedIngredients.Count() @FinderLocalizer["IngredientsColon"]</p>
+
+                    <div>
+                        @foreach (var category in Model.SelectedIngredients.Select(i => i?.Category).Where(c => c != null).Distinct().OrderBy(c => c))
+                        {
+                            if (!string.IsNullOrEmpty(category))
+                            {
+                                <h6 class="mt-2">@category</h6>
+                                <div>
+                                    @foreach (var ingredient in Model.SelectedIngredients.Where(i => i?.Category == category).OrderBy(i => i?.Name))
+                                    {
+                                        <span class="badge bg-primary me-1 mb-1">@(ingredient?.Name ?? FinderLocalizer["Unknown"])</span>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <div class="mt-3">
+                        <p>
+                            <strong>@FinderLocalizer["MatchMode"]</strong>
+                            @if (Model.MatchAll)
+                            {
+                                <span class="badge bg-info">@FinderLocalizer["AllIngredientsRequired"]</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info">@FinderLocalizer["AnyIngredientMatch"]</span>
+                            }
+                        </p>
+                    </div>
+
+                    <div class="mt-3">
+                        <a asp-action="Index" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil"></i> @FinderLocalizer["ModifyIngredients"]
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        <p>@FinderLocalizer["NoIngredientsSelected"]</p>
+                    </div>
+                }
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>@FinderLocalizer["SuggestedActions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="UserPantry" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="bi bi-box"></i> @FinderLocalizer["UpdatePantry"]
+                    </a>
+                    <a asp-controller="ShoppingLists" asp-action="Create" class="btn btn-outline-success">
+                        <i class="bi bi-cart"></i> @FinderLocalizer["CreateShoppingList"]
+                    </a>
+                    <a asp-controller="Recipes" asp-action="Create" class="btn btn-outline-secondary">
+                        <i class="bi bi-plus-circle"></i> @FinderLocalizer["AddNewRecipe"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

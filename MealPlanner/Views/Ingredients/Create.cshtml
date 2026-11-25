@@ -1,0 +1,99 @@
+﻿@model MealPlanner.BLL.DTO.Ingredient
+@{
+    ViewData["Title"] = IngredientLocalizer["AddIngredient"];
+
+    // Define the list of category options
+    var categoryOptions = new List<string>
+    {
+        "Vegetables",
+        "Fruits",
+        "Meat",
+        "Poultry",
+        "Seafood",
+        "Dairy",
+        "Grains",
+        "Legumes",
+        "Nuts and Seeds",
+        "Herbs and Spices",
+        "Oils and Fats",
+        "Sweeteners",
+        "Condiments",
+        "Beverages",
+        "Baking",
+        "Canned Goods",
+        "Frozen Foods",
+        "Snacks",
+        "Other"
+    };
+}
+
+<h1>@IngredientLocalizer["AddIngredient"]</h1>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@IngredientLocalizer["IngredientInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="form-label">@Localizer["Name"]</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Category" class="form-label">@Localizer["Category"]</label>
+                                <select asp-for="Category" class="form-select">
+                                    <option value="">-- @Localizer["SelectCategory"] --</option>
+                                    @foreach (var category in categoryOptions)
+                                    {
+                                        <option value="@category">@category</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mb-4">
+                        <p>@IngredientLocalizer["NutritionLaterNote"]</p>
+                        <p>@IngredientLocalizer["NutritionAfterCreation"]</p>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+                        <button type="submit" class="btn btn-primary">@Localizer["Create"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@Localizer["Tips"]</h4>
+            </div>
+            <div class="card-body">
+                <p>@IngredientLocalizer["IngredientsCreationTips"]</p>
+                <ul>
+                    <li>@IngredientLocalizer["BeSpecificWithNames"]</li>
+                    <li>@IngredientLocalizer["ChooseAppropriateCategory"]</li>
+                    <li>@IngredientLocalizer["AddNutritionLater"]</li>
+                    <li>@IngredientLocalizer["UseIngredients"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

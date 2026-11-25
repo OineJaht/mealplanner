@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>aspnet-MealPlanner-cd6d7084-2a06-43eb-9bdf-1f18f8650b0f</UserSecretsId>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+        <RootNamespace>MealPlanner</RootNamespace>
+ 	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="14.0.0" />
+        <PackageReference Include="DotNetEnv" Version="3.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Moq" Version="4.20.72" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.0.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
+        <PackageReference Include="xunit" Version="2.9.3" />
+        
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\SharedResource.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\SharedResource.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\SharedResource.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Models\Ingredient.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Models\Ingredient.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Models\Ingredient.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+    </ItemGroup>
+
+</Project>

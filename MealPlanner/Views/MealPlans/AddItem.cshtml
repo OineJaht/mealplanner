@@ -1,0 +1,133 @@
+﻿@model MealPlanner.Models.ViewModels.MealPlans.MealPlanItemCreateViewModel
+@{
+ViewData["Title"] = "Add Meal to Plan";
+}
+
+<h1>Add Meal to Plan - @Model.MealPlanName</h1>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Meal Details</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddItem" method="post" id="addMealForm">
+                    @Html.AntiForgeryToken()
+                    
+                    <input type="hidden" asp-for="MealPlanId" />
+                    <input type="hidden" asp-for="MealPlanItem.MealPlanId" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="MealPlanItem.PlannedDate" class="form-label">Date</label>
+                        <input asp-for="MealPlanItem.PlannedDate" class="form-control" type="date" required />
+                        <span asp-validation-for="MealPlanItem.PlannedDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="MealPlanItem.MealType" class="form-label">Meal Type</label>
+                        <select asp-for="MealPlanItem.MealType" class="form-select" required>
+                            <option value="">Select Meal Type</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Morning Snack">Morning Snack</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Afternoon Snack">Afternoon Snack</option>
+                            <option value="Dinner">Dinner</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Evening Snack">Evening Snack</option>
+                        </select>
+                        <span asp-validation-for="MealPlanItem.MealType" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="MealPlanItem.RecipeId" class="form-label">Recipe</label>
+                        <select asp-for="MealPlanItem.RecipeId" asp-items="Model.AvailableRecipes" class="form-select" required>
+                            <option value="">Select Recipe</option>
+                        </select>
+                        <span asp-validation-for="MealPlanItem.RecipeId" class="text-danger"></span>
+                        <div class="mt-2">
+                            <a asp-controller="Recipes" asp-action="Create" class="btn btn-sm btn-outline-primary" target="_blank">
+                                <i class="bi bi-plus-circle"></i> Create New Recipe
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="MealPlanItem.Servings" class="form-label">Number of Servings</label>
+                        <input asp-for="MealPlanItem.Servings" class="form-control" type="number" min="1" required />
+                        <span asp-validation-for="MealPlanItem.Servings" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@Model.MealPlanId" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus"></i> Add to Meal Plan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Tips</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Plan your meals according to your daily routine</li>
+                    <li>Consider leftovers when planning consecutive days</li>
+                    <li>Adjust servings based on how many people will be eating</li>
+                    <li>You can always edit or remove meals later</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function() {
+        $("#MealPlanItem_RecipeId").change(function() {
+            const recipeId = $(this).val();
+            if (recipeId) {
+                // Load recipe details via AJAX to set default servings
+                $.get('@Url.Action("GetRecipeDetails", "Recipes")', { id: recipeId }, function(data) {
+                    if (data.success && data.defaultServings) {
+                        $("#MealPlanItem_Servings").val(data.defaultServings);
+                    }
+                });
+            }
+        });
+
+        // Debug form submission
+        $("#addMealForm").submit(function(e) {
+            console.log("Form submitted");
+            console.log("MealPlanId:", $("#MealPlanId").val());
+            console.log("MealPlanItem.MealPlanId:", $("#MealPlanItem_MealPlanId").val());
+            console.log("RecipeId:", $("#MealPlanItem_RecipeId").val());
+            console.log("MealType:", $("#MealPlanItem_MealType").val());
+            console.log("Servings:", $("#MealPlanItem_Servings").val());
+            console.log("PlannedDate:", $("#MealPlanItem_PlannedDate").val());
+
+            // Don't prevent default - let the form submit normally
+            // e.preventDefault(); // Remove this if it exists
+        });
+
+        // Listen for page navigation
+        window.addEventListener('beforeunload', function(e) {
+            console.log('Page is about to unload/redirect');
+        });
+
+        // Check if form submission completed
+        $(document).ajaxComplete(function() {
+            console.log('Ajax request completed');
+        });
+    });
+</script>
+}

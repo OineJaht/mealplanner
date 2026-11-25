@@ -1,0 +1,160 @@
+@model MealPlanner.Models.ViewModels.CookingSteps.CookingStepIndexViewModel
+@{
+    ViewData["Title"] = StepsLocalizer["RecipeSteps"];
+
+    var recipeId = ViewData["RecipeId"];
+    var recipeName = ViewData["RecipeName"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@StepsLocalizer["CookingStepsFor"] @recipeName</h1>
+    <div>
+        <a asp-action="Create" asp-route-id="@recipeId" class="btn btn-primary me-2">
+            <i class="bi bi-plus-circle"></i> @StepsLocalizer["AddStep"]
+        </a>
+        <a asp-controller="Recipes" asp-action="Details" asp-route-id="@recipeId" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @Localizer["BackToList"]
+        </a>
+    </div>
+</div>
+
+@if (Model.CookingSteps != null && Model.CookingSteps.Any())
+{
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">@StepsLocalizer["RecipeSteps"]</h4>
+        <button id="reorderModeBtn" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-arrows-move"></i> @StepsLocalizer["ReorderMode"]
+        </button>
+    </div>
+    <div class="card-body">
+        <form asp-action="ReorderSteps" method="post" id="reorderForm" class="d-none">
+            <input type="hidden" name="recipeId" value="@recipeId" />
+            <div id="reorderControls" class="alert alert-info mb-3">
+                <p><i class="bi bi-info-circle"></i> @StepsLocalizer["DragToReorder"]</p>
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="cancelReorderBtn" class="btn btn-outline-secondary me-2">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@StepsLocalizer["SaveOrder"]</button>
+                </div>
+            </div>
+        </form>
+
+        <div id="stepsList">
+            <div class="list-group">
+                @foreach (var step in Model.CookingSteps.OrderBy(s => s.StepNumber))
+                {
+                <div class="list-group-item step-item" data-step-id="@step.Id" data-original-step-number="@step.StepNumber">
+                    <div class="d-flex">
+                        <div class="step-number me-3">
+                            <span class="badge bg-primary rounded-pill">@step.StepNumber</span>
+                            <div class="drag-handle d-none">
+                                <i class="bi bi-grip-vertical"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="mb-1">@step.Instruction</p>
+                                    @if (step.TimingMinutes > 0)
+                                    {
+                                    <small class="text-muted">
+                                        <i class="bi bi-clock"></i> @step.TimingMinutes @StepsLocalizer["Minutes"]
+                                    </small>
+                                    }
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <a asp-action="Edit" asp-route-id="@step.Id" class="btn btn-outline-primary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@step.Id" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+<div class="alert alert-info">
+    <p>@StepsLocalizer["NoStepsYet"]</p>
+    <a asp-action="Create" asp-route-id="@recipeId" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> @StepsLocalizer["AddFirstStep"]
+    </a>
+</div>
+}
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Enter reorder mode
+        $("#reorderModeBtn").click(function() {
+            enterReorderMode();
+        });
+
+        // Cancel reorder mode
+        $("#cancelReorderBtn").click(function() {
+            exitReorderMode();
+        });
+
+        function enterReorderMode() {
+            // Show reorder form and drag handles
+            $("#reorderForm").removeClass("d-none");
+            $(".drag-handle").removeClass("d-none");
+            $("#reorderModeBtn").addClass("d-none");
+
+            // Hide action buttons during reorder
+            $(".btn-group").addClass("d-none");
+
+            // Make the list sortable
+            $("#stepsList .list-group").sortable({
+                handle: ".drag-handle",
+                update: function(event, ui) {
+                    // Renumber the visible step numbers
+                    $(".step-item").each(function(index) {
+                        $(this).find(".badge").text(index + 1);
+
+                        // Add hidden input for the step ID in the correct order
+                        var stepId = $(this).data("step-id");
+                        if ($("#reorderForm input[name='stepIds'][value='" + stepId + "']").length === 0) {
+                            $("#reorderForm").append('<input type="hidden" name="stepIds" value="' + stepId + '" />');
+                        }
+                    });
+                }
+            }).disableSelection();
+        }
+
+        function exitReorderMode() {
+            // Hide reorder form and drag handles
+            $("#reorderForm").addClass("d-none");
+            $(".drag-handle").addClass("d-none");
+            $("#reorderModeBtn").removeClass("d-none");
+
+            // Show action buttons again
+            $(".btn-group").removeClass("d-none");
+
+            // Remove sortable functionality
+            if ($("#stepsList .list-group").hasClass("ui-sortable")) {
+                $("#stepsList .list-group").sortable("destroy");
+            }
+
+            // Remove any hidden inputs for step IDs
+            $("#reorderForm input[name='stepIds']").remove();
+
+            // Reset the visible step numbers
+            $(".step-item").each(function(index) {
+                var originalStepNumber = $(this).data("original-step-number");
+                if (originalStepNumber) {
+                    $(this).find(".badge").text(originalStepNumber);
+                }
+            });
+        }
+    });
+</script>
+}

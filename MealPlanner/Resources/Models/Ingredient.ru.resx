@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Validation -->
+    <data name="NameRequired" xml:space="preserve">
+    <value>Необходимо указать название</value>
+  </data>
+    <data name="NameLength" xml:space="preserve">
+    <value>Название должно содержать от 2 до 100 символов</value>
+  </data>
+    <data name="CategoryLength" xml:space="preserve">
+    <value>Категория должна содержать не более 50 символов</value>
+  </data>
+
+    <!-- Ingredient-specific screen names/titles -->
+    <data name="AddIngredient" xml:space="preserve">
+    <value>Добавить ингредиент</value>
+  </data>
+    <data name="EditIngredient" xml:space="preserve">
+    <value>Редактировать ингредиент</value>
+  </data>
+    <data name="IngredientDetails" xml:space="preserve">
+    <value>Детали ингредиента</value>
+  </data>
+    <data name="DeleteIngredient" xml:space="preserve">
+    <value>Удалить ингредиент</value>
+  </data>
+    <data name="IngredientInformation" xml:space="preserve">
+    <value>Информация об ингредиенте</value>
+  </data>
+
+    <!-- Ingredient nutrition elements -->
+    <data name="NutritionInformation" xml:space="preserve">
+    <value>Информация о питательной ценности</value>
+  </data>
+    <data name="AddNutrition" xml:space="preserve">
+    <value>Добавить питательную ценность</value>
+  </data>
+    <data name="ViewNutrition" xml:space="preserve">
+    <value>Просмотр питательной ценности</value>
+  </data>
+    <data name="AddNutritionData" xml:space="preserve">
+    <value>Добавить данные о питательной ценности</value>
+  </data>
+    <data name="EditNutritionData" xml:space="preserve">
+    <value>Редактировать данные о питательной ценности</value>
+  </data>
+    <data name="NutritionOptional" xml:space="preserve">
+    <value>Информация о питательной ценности (необязательно)</value>
+  </data>
+    <data name="NutritionLaterNote" xml:space="preserve">
+    <value>Вы можете добавить или обновить информацию о питательной ценности позже</value>
+  </data>
+    <data name="NoNutritionInfo" xml:space="preserve">
+    <value>Информация о питательной ценности для этого ингредиента пока отсутствует.</value>
+  </data>
+    <data name="HasNutritionInfo" xml:space="preserve">
+    <value>У этого ингредиента есть информация о питательной ценности. Используйте кнопку выше, чтобы управлять ею.</value>
+  </data>
+
+    <!-- Nutrition properties -->
+    <data name="CaloriesPer100g" xml:space="preserve">
+    <value>Калории (на 100г)</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Калории</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Белок (г)</value>
+  </data>
+    <data name="Carbohydrates" xml:space="preserve">
+    <value>Углеводы (г)</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Жиры (г)</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Клетчатка (г)</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Сахар (г)</value>
+  </data>
+    <data name="Sodium" xml:space="preserve">
+    <value>Натрий (мг)</value>
+  </data>
+
+    <!-- Relationship labels -->
+    <data name="UsedInRecipes" xml:space="preserve">
+    <value>Используется в рецептах</value>
+  </data>
+    <data name="IngredientUsedInRecipes" xml:space="preserve">
+    <value>Этот ингредиент используется в следующих рецептах:</value>
+  </data>
+    <data name="IngredientNotUsed" xml:space="preserve">
+    <value>Этот ингредиент пока не используется ни в одном рецепте.</value>
+  </data>
+    <data name="InYourPantry" xml:space="preserve">
+    <value>В вашей кладовой</value>
+  </data>
+    <data name="IngredientInPantry" xml:space="preserve">
+    <value>Этот ингредиент имеется в вашей кладовой со следующими записями:</value>
+  </data>
+    <data name="IngredientInShoppingLists" xml:space="preserve">
+    <value>Этот ингредиент присутствует в {0} элементе(ах) списка покупок.</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>Посмотреть рецепт</value>
+  </data>
+
+    <!-- Delete confirmations and warnings -->
+    <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот ингредиент?</value>
+  </data>
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>Это действие нельзя отменить. Удаление этого ингредиента приведет к его удалению из всех рецептов, вашей кладовой и списков покупок.</value>
+  </data>
+    <data name="RecipesWarning" xml:space="preserve">
+    <value>Предупреждение: Используется в рецептах</value>
+  </data>
+    <data name="PantryWarning" xml:space="preserve">
+    <value>Предупреждение: В вашей кладовой</value>
+  </data>
+    <data name="ShoppingListWarning" xml:space="preserve">
+    <value>Предупреждение: В списках покупок</value>
+  </data>
+    <data name="DeleteFromAllRecipes" xml:space="preserve">
+    <value>Удаление этого ингредиента приведет к его удалению из всех этих рецептов.</value>
+  </data>
+    <data name="DeleteFromPantry" xml:space="preserve">
+    <value>Удаление этого ингредиента приведет к удалению всех этих записей из вашей кладовой.</value>
+  </data>
+    <data name="DeleteFromAllShoppingLists" xml:space="preserve">
+    <value>Удаление этого ингредиента приведет к его удалению из всех списков покупок.</value>
+  </data>
+
+    <!-- Ingredient tips -->
+    <data name="IngredientsCreationTips" xml:space="preserve">
+    <value>Создание ингредиентов - это первый шаг к созданию вашей коллекции рецептов. Вот несколько советов:</value>
+  </data>
+    <data name="BeSpecificWithNames" xml:space="preserve">
+    <value>Будьте конкретны с названиями ингредиентов (например, «Красный болгарский перец» вместо просто «Перец»)</value>
+  </data>
+    <data name="ChooseAppropriateCategory" xml:space="preserve">
+    <value>Выбирайте подходящую категорию, чтобы ингредиенты было легче найти</value>
+  </data>
+    <data name="AddNutritionIfTracking" xml:space="preserve">
+    <value>Добавляйте информацию о питательной ценности, если планируете отслеживать питательный состав</value>
+  </data>
+    <data name="CanEditNutritionLater" xml:space="preserve">
+    <value>Вы всегда можете отредактировать информацию о питательной ценности позже</value>
+  </data>
+    <data name="WhenEditingIngredients" xml:space="preserve">
+    <value>При редактировании ингредиентов:</value>
+  </data>
+    <data name="ChangesToName" xml:space="preserve">
+    <value>Изменения в названии ингредиента будут отражены во всех рецептах, использующих этот ингредиент</value>
+  </data>
+    <data name="UpdateNutritionForRecipes" xml:space="preserve">
+    <value>Если этот ингредиент используется в рецептах, рекомендуется обновить данные о питательной ценности для точного планирования питания</value>
+  </data>
+    <data name="UseAppropriateCategories" xml:space="preserve">
+    <value>Используйте подходящие категории, чтобы ваши ингредиенты были организованы</value>
+  </data>
+
+    <!-- UI specific - Search, etc. -->
+    <data name="SearchIngredientsPlaceholder" xml:space="preserve">
+    <value>Поиск ингредиентов...</value>
+  </data>
+    <data name="NoIngredientsFound" xml:space="preserve">
+    <value>Ингредиенты не найдены. Создайте свой первый ингредиент, чтобы начать.</value>
+  </data>
+</root>

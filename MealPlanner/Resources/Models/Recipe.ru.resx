@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Recipe Properties -->
+    <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+    <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+    <data name="Instructions" xml:space="preserve">
+    <value>Инструкции</value>
+  </data>
+    <data name="DefaultServings" xml:space="preserve">
+    <value>Порции по умолчанию</value>
+  </data>
+    <data name="PrepTimeMinutes" xml:space="preserve">
+    <value>Время приготовления (минуты)</value>
+  </data>
+    <data name="ImageUrl" xml:space="preserve">
+    <value>URL изображения</value>
+  </data>
+    <data name="IsFavorite" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
+    <data name="CreatedAt" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+
+    <!-- Page Titles -->
+    <data name="RecipesList" xml:space="preserve">
+    <value>Мои рецепты</value>
+  </data>
+    <data name="CreateRecipe" xml:space="preserve">
+    <value>Создать рецепт</value>
+  </data>
+    <data name="EditRecipe" xml:space="preserve">
+    <value>Редактировать рецепт</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Детали рецепта</value>
+  </data>
+    <data name="DeleteRecipe" xml:space="preserve">
+    <value>Удалить рецепт</value>
+  </data>
+
+    <!-- Form Labels and Instructions -->
+    <data name="RecipeName" xml:space="preserve">
+    <value>Название рецепта</value>
+  </data>
+    <data name="EnterImageUrl" xml:space="preserve">
+    <value>Введите URL изображения вашего рецепта</value>
+  </data>
+    <data name="RecipeDescription" xml:space="preserve">
+    <value>Кратко опишите ваш рецепт</value>
+  </data>
+    <data name="RecipeInstructions" xml:space="preserve">
+    <value>Инструкции к рецепту</value>
+  </data>
+    <data name="EnterInstructions" xml:space="preserve">
+    <value>Введите пошаговые инструкции для вашего рецепта...</value>
+  </data>
+    <data name="InstructionsHelp" xml:space="preserve">
+    <value>Введите подробные инструкции по приготовлению рецепта. Вы можете добавить более конкретные шаги приготовления после сохранения.</value>
+  </data>
+    <data name="MarkAsFavorite" xml:space="preserve">
+    <value>Отметить как избранное</value>
+  </data>
+    <data name="AddToFavorites" xml:space="preserve">
+    <value>Добавить в избранное</value>
+  </data>
+
+    <!-- Recipe Components -->
+    <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+    <data name="Ingredients" xml:space="preserve">
+    <value>Ингредиенты</value>
+  </data>
+    <data name="CookingSteps" xml:space="preserve">
+    <value>Шаги приготовления</value>
+  </data>
+    <data name="StepByStepInstructions" xml:space="preserve">
+    <value>Пошаговые инструкции</value>
+  </data>
+    <data name="RecipeIngredients" xml:space="preserve">
+    <value>Ингредиенты рецепта</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Пищевая ценность</value>
+  </data>
+    <data name="NutritionInformation" xml:space="preserve">
+    <value>Информация о питательности</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>На порцию</value>
+  </data>
+
+    <!-- Actions -->
+    <data name="NewCategory" xml:space="preserve">
+    <value>Новая категория</value>
+  </data>
+    <data name="NewIngredient" xml:space="preserve">
+    <value>Новый ингредиент</value>
+  </data>
+    <data name="AddAnotherIngredient" xml:space="preserve">
+    <value>Добавить еще ингредиент</value>
+  </data>
+    <data name="SelectIngredient" xml:space="preserve">
+    <value>-- Выберите ингредиент --</value>
+  </data>
+    <data name="ManageCookingSteps" xml:space="preserve">
+    <value>Управление шагами приготовления</value>
+  </data>
+    <data name="CalculateNutrition" xml:space="preserve">
+    <value>Рассчитать питательную ценность</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Добавить в план питания</value>
+  </data>
+    <data name="PrintRecipe" xml:space="preserve">
+    <value>Печать рецепта</value>
+  </data>
+    <data name="UpdateNutrition" xml:space="preserve">
+    <value>Обновить питательную ценность</value>
+  </data>
+
+    <!-- Confirmations -->
+    <data name="DeleteConfirmationMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот рецепт? Это действие нельзя отменить.</value>
+  </data>
+    <data name="DeleteConfirmationTitle" xml:space="preserve">
+    <value>Предупреждение!</value>
+  </data>
+
+    <!-- Messages -->
+    <data name="NoRecipesAvailable" xml:space="preserve">
+    <value>У вас еще нет рецептов. Создайте свой первый рецепт, чтобы начать.</value>
+  </data>
+    <data name="NoNutritionAvailable" xml:space="preserve">
+    <value>Для этого рецепта нет информации о питательной ценности.</value>
+  </data>
+    <data name="AddIngredientsHelp" xml:space="preserve">
+    <value>Добавьте ингредиенты для вашего рецепта ниже. Вы можете добавить дополнительные строки по мере необходимости.</value>
+  </data>
+    <data name="IngredientsHelp" xml:space="preserve">
+    <value>Обновите ингредиенты для вашего рецепта ниже. Вы можете добавить дополнительные строки по мере необходимости.</value>
+  </data>
+    <data name="AtLeastOneIngredient" xml:space="preserve">
+    <value>Нужна хотя бы одна строка с ингредиентом.</value>
+  </data>
+    <data name="CreateFirstRecipe" xml:space="preserve">
+    <value>Создать первый рецепт</value>
+  </data>
+
+    <!-- Placeholders -->
+    <data name="ImageUrlPlaceholder" xml:space="preserve">
+    <value>https://example.com/image.jpg</value>
+  </data>
+    <data name="AmountPlaceholder" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+    <data name="UnitPlaceholder" xml:space="preserve">
+    <value>Ед. измерения (г, мл и т.д.)</value>
+  </data>
+
+    <!-- Filters and Search -->
+    <data name="SearchRecipes" xml:space="preserve">
+    <value>Поиск рецептов...</value>
+  </data>
+    <data name="AllCategories" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+    <data name="FavoritesOnly" xml:space="preserve">
+    <value>Только избранное</value>
+  </data>
+
+    <!-- Recipe Sections -->
+    <data name="AboutThisRecipe" xml:space="preserve">
+    <value>О рецепте</value>
+  </data>
+    <data name="BasicInformation" xml:space="preserve">
+    <value>Основная информация</value>
+  </data>
+    <data name="RelatedData" xml:space="preserve">
+    <value>Связанные данные</value>
+  </data>
+    <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Подтвердите удаление</value>
+  </data>
+    <data name="RelatedActions" xml:space="preserve">
+    <value>Связанные действия</value>
+  </data>
+    <data name="RecipeCreationTips" xml:space="preserve">
+    <value>Советы по созданию рецепта</value>
+  </data>
+    <data name="RecipePreview" xml:space="preserve">
+    <value>Предпросмотр рецепта</value>
+  </data>
+
+    <!-- Tips and Help -->
+    <data name="TipStep1" xml:space="preserve">
+    <value>Шаг 1: Основная информация</value>
+  </data>
+    <data name="TipStep1Text" xml:space="preserve">
+    <value>Начните с понятного, описательного названия и краткого описания вашего рецепта.</value>
+  </data>
+    <data name="TipStep2" xml:space="preserve">
+    <value>Шаг 2: Добавьте категории</value>
+  </data>
+    <data name="TipStep2Text" xml:space="preserve">
+    <value>Классифицируйте ваш рецепт, чтобы его было легче найти позже (например, Завтрак, Итальянская, Вегетарианская).</value>
+  </data>
+    <data name="TipStep3" xml:space="preserve">
+    <value>Шаг 3: Список ингредиентов</value>
+  </data>
+    <data name="TipStep3Text" xml:space="preserve">
+    <value>Включите точные измерения и конкретные необходимые ингредиенты.</value>
+  </data>
+    <data name="TipStep4" xml:space="preserve">
+    <value>Шаг 4: Напишите инструкции</value>
+  </data>
+    <data name="TipStep4Text" xml:space="preserve">
+    <value>Предоставьте четкие пошаговые указания в логическом порядке.</value>
+  </data>
+    <data name="DidYouKnow" xml:space="preserve">
+    <value>Знаете ли вы?</value>
+  </data>
+    <data name="Tip1" xml:space="preserve">
+    <value>Использование точных измерений помогает более точно рассчитать питательную ценность</value>
+  </data>
+    <data name="Tip2" xml:space="preserve">
+    <value>Вы можете добавить подробные шаги приготовления после создания рецепта</value>
+  </data>
+    <data name="Tip3" xml:space="preserve">
+    <value>Отмечайте любимые рецепты, чтобы быстрее находить их позже</value>
+  </data>
+
+    <!-- Nutrient Labels -->
+    <data name="Calories" xml:space="preserve">
+    <value>Калории</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Белки</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Углеводы</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Жиры</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Клетчатка</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Сахар</value>
+  </data>
+
+    <!-- Time and Servings -->
+    <data name="PrepTime" xml:space="preserve">
+    <value>Время подготовки</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Порции</value>
+  </data>
+    <data name="Created" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+    <data name="AdjustServings" xml:space="preserve">
+    <value>Настроить</value>
+  </data>
+
+    <!-- Validation Messages -->
+    <data name="NameRequired" xml:space="preserve">
+    <value>Необходимо указать название рецепта</value>
+  </data>
+    <data name="CategoryNameRequired" xml:space="preserve">
+    <value>Пожалуйста, введите название категории.</value>
+  </data>
+    <data name="IngredientNameRequired" xml:space="preserve">
+    <value>Пожалуйста, введите название ингредиента.</value>
+  </data>
+
+    <!-- Modal Titles -->
+    <data name="AddNewCategory" xml:space="preserve">
+    <value>Добавить новую категорию</value>
+  </data>
+    <data name="AddNewIngredient" xml:space="preserve">
+    <value>Добавить новый ингредиент</value>
+  </data>
+    <data name="CategoryName" xml:space="preserve">
+    <value>Название категории</value>
+  </data>
+    <data name="CategoryDescription" xml:space="preserve">
+    <value>Описание (Необязательно)</value>
+  </data>
+    <data name="IngredientName" xml:space="preserve">
+    <value>Название ингредиента</value>
+  </data>
+    <data name="IngredientCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+    <data name="SaveCategory" xml:space="preserve">
+    <value>Сохранить категорию</value>
+  </data>
+    <data name="SaveIngredient" xml:space="preserve">
+    <value>Сохранить ингредиент</value>
+  </data>
+
+    <!-- Delete related messages -->
+    <data name="DeletingWillRemove" xml:space="preserve">
+    <value>Удаление этого рецепта навсегда удалит:</value>
+  </data>
+    <data name="DeleteRecipeItem" xml:space="preserve">
+    <value>Сам рецепт</value>
+  </data>
+    <data name="DeleteIngredientsItem" xml:space="preserve">
+    <value>Все ингредиенты, связанные с этим рецептом</value>
+  </data>
+    <data name="DeleteStepsItem" xml:space="preserve">
+    <value>Все шаги приготовления для этого рецепта</value>
+  </data>
+    <data name="DeleteNutritionItem" xml:space="preserve">
+    <value>Информацию о питательной ценности</value>
+  </data>
+    <data name="DeleteMealPlanItem" xml:space="preserve">
+    <value>Любые ссылки на этот рецепт в планах питания</value>
+  </data>
+</root>

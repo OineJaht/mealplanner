@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page titles -->
+    <data name="WhatCanICook" xml:space="preserve">
+    <value>Что я могу приготовить?</value>
+  </data>
+    <data name="RecipeSearchResults" xml:space="preserve">
+    <value>Результаты поиска рецептов</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Детали рецепта</value>
+  </data>
+    <data name="BackToRecipes" xml:space="preserve">
+    <value>Вернуться к рецептам</value>
+  </data>
+    <data name="ModifySearch" xml:space="preserve">
+    <value>Изменить поиск</value>
+  </data>
+
+    <!-- Main finder page -->
+    <data name="FindRecipesWithIngredients" xml:space="preserve">
+    <value>Найти рецепты с вашими ингредиентами</value>
+  </data>
+    <data name="SelectIngredients" xml:space="preserve">
+    <value>Выберите ингредиенты</value>
+  </data>
+    <data name="SelectIngredientsInfo" xml:space="preserve">
+    <value>Выберите ингредиенты, которые у вас есть, и мы найдем рецепты, которые вы можете приготовить.</value>
+  </data>
+    <data name="MatchAllIngredients" xml:space="preserve">
+    <value>Соответствие всем ингредиентам (строгое соответствие)</value>
+  </data>
+    <data name="SelectAllFromPantry" xml:space="preserve">
+    <value>Выбрать все из кладовой</value>
+  </data>
+    <data name="ClearAll" xml:space="preserve">
+    <value>Очистить все</value>
+  </data>
+    <data name="SearchIngredients" xml:space="preserve">
+    <value>Искать ингредиенты...</value>
+  </data>
+    <data name="FindRecipes" xml:space="preserve">
+    <value>Найти рецепты</value>
+  </data>
+    <data name="YourPantryIngredients" xml:space="preserve">
+    <value>Ингредиенты в вашей кладовой</value>
+  </data>
+    <data name="InPantry" xml:space="preserve">
+    <value>В кладовой</value>
+  </data>
+    <data name="NoPantryIngredients" xml:space="preserve">
+    <value>У вас нет никаких ингредиентов в кладовой.</value>
+  </data>
+    <data name="ManagePantry" xml:space="preserve">
+    <value>Управление кладовой</value>
+  </data>
+    <data name="FindingRecipesTips" xml:space="preserve">
+    <value>Советы по поиску рецептов</value>
+  </data>
+    <data name="SelectPantryItemsTip" xml:space="preserve">
+    <value>Выбирайте ингредиенты из кладовой: выбирайте ингредиенты, которые у вас уже есть</value>
+  </data>
+    <data name="MatchTypeTip" xml:space="preserve">
+    <value>Тип соответствия: "Любой" находит рецепты с хотя бы одним выбранным ингредиентом, "Все" требует наличия всех выбранных ингредиентов</value>
+  </data>
+    <data name="ConsiderStaplesTip" xml:space="preserve">
+    <value>Учитывайте основные продукты: базовые ингредиенты, такие как соль, перец и масло, часто подразумеваются</value>
+  </data>
+    <data name="KeepPantryUpdatedTip" xml:space="preserve">
+    <value>Поддерживайте актуальность кладовой: регулярно обновляйте свою кладовую для точных результатов</value>
+  </data>
+
+    <!-- Search results page -->
+    <data name="RecipesYouCanMake" xml:space="preserve">
+    <value>Рецепты, которые вы можете приготовить</value>
+  </data>
+    <data name="Found" xml:space="preserve">
+    <value>Найдено</value>
+  </data>
+    <data name="RecipesUsing" xml:space="preserve">
+    <value>рецептов, использующих</value>
+  </data>
+    <data name="AllOf" xml:space="preserve">
+    <value>все</value>
+  </data>
+    <data name="SomeOf" xml:space="preserve">
+    <value>некоторые из</value>
+  </data>
+    <data name="YourSelectedIngredients" xml:space="preserve">
+    <value>ваших выбранных ингредиентов.</value>
+  </data>
+    <data name="YouHaveAllIngredients" xml:space="preserve">
+    <value>У вас есть все ингредиенты!</value>
+  </data>
+    <data name="Missing" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+    <data name="Ingredients" xml:space="preserve">
+    <value>ингредиентов</value>
+  </data>
+    <data name="More" xml:space="preserve">
+    <value>еще</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>Просмотреть рецепт</value>
+  </data>
+    <data name="FullDetails" xml:space="preserve">
+    <value>Полные детали</value>
+  </data>
+    <data name="NoRecipesFound" xml:space="preserve">
+    <value>Не найдено рецептов с выбранными вами ингредиентами.</value>
+  </data>
+    <data name="TryDifferentIngredients" xml:space="preserve">
+    <value>Попробуйте выбрать другие или больше ингредиентов, или переключитесь в режим соответствия "Любой".</value>
+  </data>
+    <data name="SelectedIngredients" xml:space="preserve">
+    <value>Выбранные ингредиенты</value>
+  </data>
+    <data name="YouSelected" xml:space="preserve">
+    <value>Вы выбрали</value>
+  </data>
+    <data name="IngredientsColon" xml:space="preserve">
+    <value>ингредиентов:</value>
+  </data>
+    <data name="MatchMode" xml:space="preserve">
+    <value>Режим соответствия:</value>
+  </data>
+    <data name="AllIngredientsRequired" xml:space="preserve">
+    <value>Требуются все ингредиенты</value>
+  </data>
+    <data name="AnyIngredientMatch" xml:space="preserve">
+    <value>Соответствие любому ингредиенту</value>
+  </data>
+    <data name="ModifyIngredients" xml:space="preserve">
+    <value>Изменить ингредиенты</value>
+  </data>
+    <data name="NoIngredientsSelected" xml:space="preserve">
+    <value>Не выбрано никаких ингредиентов.</value>
+  </data>
+    <data name="SuggestedActions" xml:space="preserve">
+    <value>Предлагаемые действия</value>
+  </data>
+    <data name="UpdatePantry" xml:space="preserve">
+    <value>Обновить кладовую</value>
+  </data>
+    <data name="CreateShoppingList" xml:space="preserve">
+    <value>Создать список покупок</value>
+  </data>
+    <data name="AddNewRecipe" xml:space="preserve">
+    <value>Добавить новый рецепт</value>
+  </data>
+
+    <!-- Recipe details page -->
+    <data name="BackToResults" xml:space="preserve">
+    <value>Вернуться к результатам</value>
+  </data>
+    <data name="AboutThisRecipe" xml:space="preserve">
+    <value>Об этом рецепте</value>
+  </data>
+    <data name="Favorite" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
+    <data name="NoDescriptionAvailable" xml:space="preserve">
+    <value>Описание недоступно</value>
+  </data>
+    <data name="PrepTime" xml:space="preserve">
+    <value>Время подготовки</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Порции</value>
+  </data>
+    <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+    <data name="Uncategorized" xml:space="preserve">
+    <value>Без категории</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Пищевая ценность</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>На порцию</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Калории</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Белки</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Углеводы</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Жиры</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Клетчатка</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Сахар</value>
+  </data>
+    <data name="IngredientStatus" xml:space="preserve">
+    <value>Статус ингредиентов</value>
+  </data>
+    <data name="YouHaveOfIngredients" xml:space="preserve">
+    <value>У вас есть</value>
+  </data>
+    <data name="OfTheTotal" xml:space="preserve">
+    <value>из</value>
+  </data>
+    <data name="IngredientsNeeded" xml:space="preserve">
+    <value>ингредиентов, необходимых для этого рецепта.</value>
+  </data>
+    <data name="AllIngredientsSuccess" xml:space="preserve">
+    <value>У вас есть все ингредиенты, необходимые для этого рецепта!</value>
+  </data>
+    <data name="RecipeIngredients" xml:space="preserve">
+    <value>Ингредиенты</value>
+  </data>
+    <data name="Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+    <data name="Missing" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+    <data name="Adjust" xml:space="preserve">
+    <value>Настроить</value>
+  </data>
+    <data name="Instructions" xml:space="preserve">
+    <value>Инструкции</value>
+  </data>
+    <data name="NoInstructionsAdded" xml:space="preserve">
+    <value>К этому рецепту не добавлены инструкции.</value>
+  </data>
+    <data name="StepByStepInstructions" xml:space="preserve">
+    <value>Пошаговые инструкции</value>
+  </data>
+    <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+    <data name="ViewFullRecipeDetails" xml:space="preserve">
+    <value>Просмотреть полные детали рецепта</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Добавить в план питания</value>
+  </data>
+    <data name="AddMissingIngredientsToShoppingList" xml:space="preserve">
+    <value>Добавить отсутствующие ингредиенты в список покупок</value>
+  </data>
+    <data name="PrintRecipe" xml:space="preserve">
+    <value>Распечатать рецепт</value>
+  </data>
+</root>

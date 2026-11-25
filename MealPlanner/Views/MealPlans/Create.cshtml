@@ -1,0 +1,193 @@
+﻿@model MealPlanner.BLL.DTO.MealPlan
+@{
+ViewData["Title"] = MealLocalizer["CreateMealPlan"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@MealLocalizer["CreateMealPlan"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @Localizer["BackToList"]
+    </a>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>@MealLocalizer["PlanDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <form id="createMealPlanForm" asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div id="validationSummary" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label">@MealLocalizer["PlanName"]</label>
+                        <input asp-for="Name" class="form-control" placeholder="Weekly Plan, Vacation Plan, etc." required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="form-label">@MealLocalizer["StartDate"]</label>
+                                <input asp-for="StartDate" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="form-label">@MealLocalizer["EndDate"]</label>
+                                <input asp-for="EndDate" class="form-control" type="date" value="@DateTime.Now.AddDays(6).ToString("yyyy-MM-dd")" required />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> @MealLocalizer["CreatePlan"]
+                            </button>
+                            <button type="button" id="ajaxSubmitBtn" class="btn btn-success">
+                                <i class="bi bi-save"></i> @MealLocalizer["CreatePlan"] (Ajax)
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>@MealLocalizer["QuickTemplates"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action" onclick="applyTemplate('@MealLocalizer["WeeklyPlan"]', 7)">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@MealLocalizer["WeeklyPlan"]</h5>
+                            <small>7 @MealLocalizer["Days"]</small>
+                        </div>
+                        <p class="mb-1">@MealLocalizer["StandardWeek"]</p>
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" onclick="applyTemplate('@MealLocalizer["BiweeklyPlan"]', 14)">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@MealLocalizer["BiweeklyPlan"]</h5>
+                            <small>14 @MealLocalizer["Days"]</small>
+                        </div>
+                        <p class="mb-1">@MealLocalizer["TwoWeekPlan"]</p>
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" onclick="applyTemplate('@MealLocalizer["WeekendPlan"]', 2)">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@MealLocalizer["WeekendPlan"]</h5>
+                            <small>2 @MealLocalizer["Days"]</small>
+                        </div>
+                        <p class="mb-1">@MealLocalizer["WeekendOnly"]</p>
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action" onclick="applyTemplate('@MealLocalizer["MonthlyPlan"]', 30)">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@MealLocalizer["MonthlyPlan"]</h5>
+                            <small>30 @MealLocalizer["Days"]</small>
+                        </div>
+                        <p class="mb-1">@MealLocalizer["LongTermPlan"]</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>@Localizer["Tips"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>@MealLocalizer["PlanTip1"]</li>
+                    <li>@MealLocalizer["PlanTip2"]</li>
+                    <li>@MealLocalizer["PlanTip3"]</li>
+                    <li>@MealLocalizer["PlanTip4"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    function applyTemplate(name, days) {
+        const today = new Date();
+        const endDate = new Date();
+        endDate.setDate(today.getDate() + days - 1);
+
+        // Format dates for input fields
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+
+        // Apply values to form
+        document.querySelector('[name="Name"]').value = name;
+        document.querySelector('[name="StartDate"]').value = formatDate(today);
+        document.querySelector('[name="EndDate"]').value = formatDate(endDate);
+    }
+
+    $(document).ready(function() {
+        // Handle Ajax button click
+        $("#ajaxSubmitBtn").click(function(e) {
+            e.preventDefault();
+
+            // Gather form data
+            var formData = {
+                Name: $('[name="Name"]').val(),
+                StartDate: $('[name="StartDate"]').val(),
+                EndDate: $('[name="EndDate"]').val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+
+            // Basic validation
+            if (!formData.Name) {
+                $("#validationSummary").text("@MealLocalizer["NameRequired"]");
+                return;
+            }
+
+            if (!formData.StartDate) {
+                $("#validationSummary").text("@MealLocalizer["StartDateRequired"]");
+                return;
+            }
+
+            if (!formData.EndDate) {
+                $("#validationSummary").text("@MealLocalizer["EndDateRequired"]");
+                return;
+            }
+
+            // Submit via Ajax
+            $.ajax({
+                url: '@Url.Action("CreateAjax")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    if (result.success) {
+                        // Redirect to the details page
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        // Show error message
+                        $("#validationSummary").text(result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax error:', xhr, status, error);
+                    $("#validationSummary").text("An error occurred: " + error);
+                }
+            });
+        });
+    });
+</script>
+}

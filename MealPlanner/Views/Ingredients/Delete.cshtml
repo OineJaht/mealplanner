@@ -1,0 +1,92 @@
+﻿@model MealPlanner.BLL.DTO.IngredientDetail
+@{
+    ViewData["Title"] = IngredientLocalizer["DeleteIngredient"];
+}
+
+<h1>@IngredientLocalizer["DeleteIngredient"]</h1>
+
+<div class="alert alert-danger">
+    <h4>@IngredientLocalizer["DeleteConfirmation"]</h4>
+    <p>@IngredientLocalizer["DeleteWarning"]</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>@IngredientLocalizer["IngredientDetails"]</h5>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">@Localizer["Name"]</dt>
+                    <dd class="col-sm-9">@Model.Name</dd>
+
+                    <dt class="col-sm-3">@Localizer["Category"]</dt>
+                    <dd class="col-sm-9">@Model.Category</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        @if (ViewBag.RecipeCount > 0)
+        {
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5>@IngredientLocalizer["RecipesWarning"]</h5>
+                </div>
+                <div class="card-body">
+                    <p>@IngredientLocalizer["IngredientUsedInRecipes", ViewBag.RecipeCount]</p>
+                    @if (ViewBag.SampleRecipes != null)
+                    {
+                        <ul>
+                            @foreach (var recipe in ViewBag.SampleRecipes)
+                            {
+                                <li>@recipe.Name</li>
+                            }
+                            @if (ViewBag.RecipeCount > ViewBag.SampleRecipes.Count)
+                            {
+                                <li>@IngredientLocalizer["AndMore"] @(ViewBag.RecipeCount - ViewBag.SampleRecipes.Count) @Localizer["Recipes"]...</li>
+                            }
+                        </ul>
+                    }
+                    <p class="text-danger">@Localizer["DeleteFromAllRecipes"]</p>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.PantryItemCount > 0)
+        {
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5>@IngredientLocalizer["PantryWarning"]</h5>
+                </div>
+                <div class="card-body">
+                    <p>@IngredientLocalizer["IngredientInPantry", ViewBag.PantryItemCount]</p>
+                    <p class="text-danger">@IngredientLocalizer["DeleteFromPantry"]</p>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.ShoppingListItemCount > 0)
+        {
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5>@IngredientLocalizer["ShoppingListWarning"]</h5>
+                </div>
+                <div class="card-body">
+                    <p>@IngredientLocalizer["IngredientInShoppingLists", ViewBag.ShoppingListItemCount]</p>
+                    <p class="text-danger">@IngredientLocalizer["DeleteFromAllShoppingLists"]</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<form asp-action="Delete" class="mt-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+        <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+    </div>
+</form>

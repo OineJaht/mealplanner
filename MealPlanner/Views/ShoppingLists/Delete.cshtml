@@ -1,0 +1,126 @@
+@model MealPlanner.Dto.ShoppingListDetailDto
+@inject IViewLocalizer Localizer
+@{
+    Layout = "_Layout";
+    var title = Localizer["DeleteShoppingList"];
+// Count items in the list
+var itemCount = Model.TotalItems;
+var purchasedCount = Model.PurchasedItems;
+var unpurchasedCount = itemCount - purchasedCount;
+}
+<h2>@title</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@ShoppingLocalizer["DeleteShoppingList"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @ShoppingLocalizer["BackToList"]
+    </a>
+</div>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> @ShoppingLocalizer["Warning"]!</h4>
+    <p>@ShoppingLocalizer["DeleteWarning"]</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["ShoppingListDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">@ShoppingLocalizer["ListName"]</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+
+                    <dt class="col-sm-4">@ShoppingLocalizer["CreatedDate"]</dt>
+                    <dd class="col-sm-8">@Model.CreatedDate.ToString("MMMM d, yyyy")</dd>
+
+                    <dt class="col-sm-4">@ShoppingLocalizer["TotalItems"]</dt>
+                    <dd class="col-sm-8">@String.Format(ShoppingLocalizer["ItemsCount"], itemCount)</dd>
+
+                    <dt class="col-sm-4">@ShoppingLocalizer["Purchased"]</dt>
+                    <dd class="col-sm-8">@String.Format(ShoppingLocalizer["ItemsCount"], purchasedCount)</dd>
+
+                    <dt class="col-sm-4">@ShoppingLocalizer["Unpurchased"]</dt>
+                    <dd class="col-sm-8">@String.Format(ShoppingLocalizer["ItemsCount"], unpurchasedCount)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["Warning"]</h4>
+            </div>
+            <div class="card-body">
+                <p>@ShoppingLocalizer["DeletingWillRemove"]</p>
+                <ul>
+                    <li>@ShoppingLocalizer["ListItselfRemoval"]</li>
+                    <li>@String.Format(ShoppingLocalizer["AllItemsRemoval"], itemCount)</li>
+                    <li>@ShoppingLocalizer["AllPurchaseHistoryRemoval"]</li>
+                </ul>
+
+                @if (unpurchasedCount > 0)
+                {
+                <div class="alert alert-warning">
+                    <p><strong>@ShoppingLocalizer["Note"]</strong> @String.Format(ShoppingLocalizer["UnpurchasedItemsNote"], unpurchasedCount)</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (itemCount > 0)
+{
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>@ShoppingLocalizer["ListContents"]</h4>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>@ShoppingLocalizer["Ingredient"]</th>
+                    <th>@Localizer["Amount"]</th>
+                    <th>@ShoppingLocalizer["Status"]</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Items.OrderBy(i => i.IngredientName))
+                {
+                <tr>
+                    <td>@(item.IngredientName ?? "Unknown Ingredient")</td>
+                    <td>@item.Amount</td>
+                    <td>
+                        @if (item.Purchased)
+                        {
+                        <span class="badge bg-success">@ShoppingLocalizer["Purchased"]</span>
+                        }
+                        else
+                        {
+                        <span class="badge bg-warning text-dark">@ShoppingLocalizer["NotPurchased"]</span>
+                        }
+                    </td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+}
+
+<form asp-action="Delete" method="post" class="mt-4">
+    <input type="hidden" asp-for="Id" />
+    <div class="d-flex justify-content-between">
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">
+            <i class="bi bi-arrow-left"></i> @ShoppingLocalizer["KeepThisList"]
+        </a>
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> @ShoppingLocalizer["DeletePermanently"]
+        </button>
+    </div>
+</form>

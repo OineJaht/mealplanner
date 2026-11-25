@@ -1,0 +1,220 @@
+﻿@model MealPlanner.BLL.DTO.MealPlanDetail
+@{
+ViewData["Title"] = MealLocalizer["MealPlanDetails"];
+
+// Group meals by date
+var mealsByDate = Model.MealPlanItems?
+.OrderBy(m => m.PlannedDate)
+.ThenBy(m => GetMealTypeOrder(m.MealType))
+.GroupBy(m => m.PlannedDate.Date)
+.ToList() ?? new List<IGrouping<DateTime, MealPlanner.BLL.DTO.MealPlanItem>>();
+
+// Helper function to order meal types
+int GetMealTypeOrder(string mealType)
+{
+if (string.IsNullOrEmpty(mealType)) return 99;
+
+return mealType.ToLower() switch
+{
+var mt when mt.Contains("breakfast") => 1,
+var mt when mt.Contains("morning") => 2,
+var mt when mt.Contains("lunch") => 3,
+var mt when mt.Contains("afternoon") => 4,
+var mt when mt.Contains("dinner") => 5,
+var mt when mt.Contains("dessert") => 6,
+var mt when mt.Contains("evening") => 7,
+_ => 99
+};
+}
+
+// Check if meal plan is active
+bool isActive = Model.StartDate <= DateTime.UtcNow && Model.EndDate >= DateTime.UtcNow;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@Model.Name</h1>
+    <div class="btn-group" role="group">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+            <i class="bi bi-pencil"></i> @MealLocalizer["EditPlan"]
+        </a>
+        <a asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-success">
+            <i class="bi bi-plus"></i> @MealLocalizer["AddMeal"]
+        </a>
+        <a asp-controller="ShoppingLists" asp-action="CreateFromMealPlan" class="btn btn-outline-secondary">
+            <i class="bi bi-cart"></i> @MealLocalizer["GenerateShoppingList"]
+        </a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center @(isActive ? "bg-success text-white" : "")">
+        <h5 class="mb-0">@MealLocalizer["PlanOverview"]</h5>
+        @if (isActive)
+        {
+        <span class="badge bg-light text-success">@MealLocalizer["ActiveNow"]</span>
+        }
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>@MealLocalizer["StartDate"]:</strong> @Model.StartDate.ToString("dddd, MMMM d, yyyy")
+            </div>
+            <div class="col-md-4">
+                <strong>@MealLocalizer["EndDate"]:</strong> @Model.EndDate.ToString("dddd, MMMM d, yyyy")
+            </div>
+            <div class="col-md-4">
+                <strong>@MealLocalizer["Duration"]:</strong> @((Model.EndDate - Model.StartDate).Days + 1) @MealLocalizer["Days"]
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <strong>@MealLocalizer["TotalMealsPlanned"]:</strong> @(Model.MealPlanItems?.Count ?? 0)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mealPlanItems">
+    @if (mealsByDate.Any())
+    {
+    <div class="accordion mb-4" id="mealPlanAccordion">
+        @foreach (var dayGroup in mealsByDate)
+        {
+        var dateString = dayGroup.Key.ToString("yyyy-MM-dd");
+        var displayDate = dayGroup.Key.ToString("dddd, MMMM d, yyyy");
+        var isToday = dayGroup.Key.Date == DateTime.UtcNow.Date;
+
+        <div class="accordion-item @(isToday ? "border-success" : "")">
+            <h2 class="accordion-header" id="heading@(dateString)">
+                <button class="accordion-button @(isToday ? "" : "collapsed") @(isToday ? "bg-success text-white" : "")"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse@(dateString)"
+                        aria-expanded="@(isToday ? "true" : "false")"
+                        aria-controls="collapse@(dateString)">
+                    @displayDate
+                    @if (isToday)
+                    {
+                    <span class="badge bg-light text-success ms-2">@MealLocalizer["Today"]</span>
+                    }
+                    <span class="badge bg-primary ms-2">@dayGroup.Count() @MealLocalizer["MealsCount"]</span>
+                </button>
+            </h2>
+            <div id="collapse@(dateString)"
+                 class="accordion-collapse collapse @(isToday ? "show" : "")"
+                 aria-labelledby="heading@(dateString)"
+                 data-bs-parent="#mealPlanAccordion">
+                <div class="accordion-body p-0">
+                    <div class="list-group list-group-flush">
+                        @foreach (var meal in dayGroup)
+                        {
+                        <div class="list-group-item meal-plan-item" id="meal-item-@meal.Id">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <span class="badge bg-light text-dark p-2">@meal.MealType</span>
+                                </div>
+                                <div class="col-md-5">
+                                    @if (!string.IsNullOrEmpty(meal.RecipeName))
+                                    {
+                                    <a asp-controller="Recipes" asp-action="Details" asp-route-id="@meal.RecipeId">
+                                        <strong>@meal.RecipeName</strong>
+                                    </a>
+                                    }
+                                    else
+                                    {
+                                    <span class="text-danger">@MealLocalizer["RecipeNotFound"]</span>
+                                    }
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="text-muted">@MealLocalizer["Servings"]: @meal.Servings</span>
+                                </div>
+                                <div class="col-md-3 text-end">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-action="EditItem" asp-route-id="@meal.Id" class="btn btn-outline-secondary">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger delete-meal-item" data-item-id="@meal.Id">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+    else
+    {
+    <div class="alert alert-info">
+        <p>@MealLocalizer["NoMealsYet"]</p>
+        <a asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-primary">
+            <i class="bi bi-plus"></i> @MealLocalizer["AddFirstMeal"]
+        </a>
+    </div>
+    }
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">@Localizer["BackToList"]</a>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Handle delete buttons with AJAX
+        $(".delete-meal-item").click(function(e) {
+            e.preventDefault();
+
+            if (confirm("@MealLocalizer["RemoveMealConfirmation"]")) {
+                const itemId = $(this).data("item-id");
+
+                $.ajax({
+                    url: '@Url.Action("RemoveItemAjax")',
+                    type: 'POST',
+                    data: {
+                        id: itemId,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(result) {
+                        if (result.success) {
+                            // Remove the item from the DOM
+                            $(`#meal-item-${itemId}`).fadeOut(300, function() {
+                                $(this).remove();
+
+                                // If no items left in this day, collapse the day
+                                const accordionItem = $(this).closest('.accordion-item');
+                                if (accordionItem.find('.meal-plan-item').length === 0) {
+                                    accordionItem.remove();
+                                }
+
+                                // If no items left at all, show a message
+                                if ($(".meal-plan-item").length === 0) {
+                                    $("#mealPlanItems").html(
+                                        '<div class="alert alert-info">' +
+                                        '<p>@MealLocalizer["NoMealsYet"]</p>' +
+                                        '<a href="@Url.Action("AddItem", new { id = Model.Id })" class="btn btn-primary">' +
+                                        '<i class="bi bi-plus"></i> @MealLocalizer["AddFirstMeal"]</a>' +
+                                        '</div>'
+                                    );
+                                }
+                            });
+                        } else {
+                            alert("Error: " + result.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Ajax error:', xhr, status, error);
+                        alert("An error occurred while removing the meal: " + error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+}

@@ -1,0 +1,119 @@
+﻿@model MealPlanner.Dto.RecipeDetailDto
+@{
+ViewData["Title"] = RecipeLocalizer["DeleteRecipe"];
+
+var ingredientCount = Model.Ingredients?.Count ?? 0;
+var stepCount = Model.CookingSteps?.Count ?? 0;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@RecipeLocalizer["DeleteRecipe"]</h1>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @Localizer["BackToDetails"]
+    </a>
+</div>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> @RecipeLocalizer["DeleteConfirmationTitle"]</h4>
+    <p>@RecipeLocalizer["DeleteConfirmationMessage"]</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@RecipeLocalizer["RecipeDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="img-thumbnail me-3" style="width: 100px; height: 100px; object-fit: cover;">
+                    }
+                    <div>
+                        <h4 class="mb-1">@Model.Name</h4>
+                        <div>
+                            <span class="badge bg-secondary me-1">@Model.PrepTimeMinutes min</span>
+                            <span class="badge bg-secondary me-1">@Model.DefaultServings @RecipeLocalizer["Servings"]</span>
+                            @if (Model.IsFavorite)
+                            {
+                            <span class="badge bg-warning text-dark">
+                                    <i class="bi bi-star-fill"></i> @Localizer["Favorite"]
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <strong>@RecipeLocalizer["Description"]:</strong>
+                    <p>@Model.Description</p>
+                </div>
+
+                <div class="mb-3">
+                    <strong>@RecipeLocalizer["Created"]:</strong>
+                    <p>@Model.CreatedAt.ToString("MMM d, yyyy")</p>
+                </div>
+
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
+                <div class="mb-3">
+                    <strong>@RecipeLocalizer["Categories"]:</strong>
+                    <div>
+                        @foreach (var category in Model.Categories)
+                        {
+                        <span class="badge bg-secondary me-1">@category.Name</span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@RecipeLocalizer["RelatedData"]</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @RecipeLocalizer["Ingredients"]
+                        <span class="badge bg-primary rounded-pill">@ingredientCount</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        @RecipeLocalizer["CookingSteps"]
+                        <span class="badge bg-primary rounded-pill">@stepCount</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@RecipeLocalizer["ConfirmDeletion"]</h4>
+            </div>
+            <div class="card-body">
+                <p>@RecipeLocalizer["DeletingWillRemove"]</p>
+                <ul>
+                    <li>@RecipeLocalizer["DeleteRecipeItem"]</li>
+                    <li>@RecipeLocalizer["DeleteIngredientsItem"]</li>
+                    <li>@RecipeLocalizer["DeleteStepsItem"]</li>
+                    <li>@RecipeLocalizer["DeleteNutritionItem"]</li>
+                    <li>@RecipeLocalizer["DeleteMealPlanItem"]</li>
+                </ul>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> @RecipeLocalizer["DeleteRecipe"]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

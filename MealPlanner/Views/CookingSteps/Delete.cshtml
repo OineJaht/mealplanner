@@ -1,0 +1,66 @@
+﻿@model MealPlanner.Models.ViewModels.CookingSteps.CookingStepDeleteViewModel
+
+@{
+    ViewData["Title"] = StepsLocalizer["DeleteCookingStep"];
+
+    var recipeId = ViewData["RecipeId"];
+    var recipeName = ViewData["RecipeName"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@StepsLocalizer["DeleteCookingStep"]</h1>
+    <a asp-action="Index" asp-route-id="@Model.RecipeId" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @StepsLocalizer["BackToSteps"]
+    </a>
+</div>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> @StepsLocalizer["Warning"]</h4>
+    <p>@StepsLocalizer["DeleteConfirmation"]</p>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h4>@StepsLocalizer["StepDetails"] #@Model.CookingStep.StepNumber</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@StepsLocalizer["StepNumber"]</dt>
+            <dd class="col-sm-9">@Model.CookingStep.StepNumber</dd>
+
+            <dt class="col-sm-3">@StepsLocalizer["Instruction"]</dt>
+            <dd class="col-sm-9">@Model.CookingStep.Instruction</dd>
+
+            <dt class="col-sm-3">@StepsLocalizer["Timing"]</dt>
+            <dd class="col-sm-9">
+                @if (Model.CookingStep.TimingMinutes > 0)
+                {
+                <span>@Model.CookingStep.TimingMinutes @StepsLocalizer["Minutes"]</span>
+                }
+                else
+                {
+                <span>@StepsLocalizer["NotSpecified"]</span>
+                }
+            </dd>
+
+            <dt class="col-sm-3">@RecipeLocalizer["Recipe"]</dt>
+            <dd class="col-sm-9">
+                <a asp-controller="Recipes" asp-action="Details" asp-route-id="@Model.RecipeId">@recipeName</a>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="alert alert-info">
+    <p><i class="bi bi-info-circle"></i> @StepsLocalizer["DeleteRenumberInfo"]</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CookingStep.Id" />
+    <div class="d-flex justify-content-between">
+        <a asp-action="Index" asp-route-id="@Model.RecipeId" class="btn btn-secondary">@Localizer["Cancel"]</a>
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash"></i> @StepsLocalizer["DeleteStep"]
+        </button>
+    </div>
+</form>

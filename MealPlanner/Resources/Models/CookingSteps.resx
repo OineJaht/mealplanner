@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <!-- Page titles -->
+    <data name="DeleteCookingStep" xml:space="preserve">
+    <value>Delete Cooking Step</value>
+  </data>
+    <data name="EditCookingStep" xml:space="preserve">
+    <value>Edit Cooking Step</value>
+  </data>
+    <data name="AddCookingStep" xml:space="preserve">
+    <value>Add Cooking Step</value>
+  </data>
+    <data name="RecipeSteps" xml:space="preserve">
+    <value>Recipe Steps</value>
+  </data>
+    <data name="CookingStepsFor" xml:space="preserve">
+    <value>Cooking Steps for</value>
+  </data>
+    <data name="EditStepFor" xml:space="preserve">
+    <value>Edit Cooking Step for</value>
+  </data>
+    <data name="AddStepFor" xml:space="preserve">
+    <value>Add Cooking Step for</value>
+  </data>
+
+    <!-- Field labels -->
+    <data name="StepNumber" xml:space="preserve">
+    <value>Step Number</value>
+  </data>
+    <data name="Instruction" xml:space="preserve">
+    <value>Instruction</value>
+  </data>
+    <data name="Timing" xml:space="preserve">
+    <value>Timing</value>
+  </data>
+    <data name="TimingMinutes" xml:space="preserve">
+    <value>Timing (minutes)</value>
+  </data>
+    <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+    <data name="NotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+    <data name="EditStep" xml:space="preserve">
+    <value>Edit Step</value>
+  </data>
+    <data name="NewCookingStep" xml:space="preserve">
+    <value>New Cooking Step</value>
+  </data>
+
+    <!-- Buttons and actions -->
+    <data name="AddStep" xml:space="preserve">
+    <value>Add Step</value>
+  </data>
+    <data name="AddAndCreateAnother" xml:space="preserve">
+    <value>Add &amp; Create Another</value>
+  </data>
+    <data name="BackToSteps" xml:space="preserve">
+    <value>Back to Steps</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+    <data name="DeleteStep" xml:space="preserve">
+    <value>Delete Step</value>
+  </data>
+    <data name="ReorderMode" xml:space="preserve">
+    <value>Reorder Mode</value>
+  </data>
+    <data name="SaveOrder" xml:space="preserve">
+    <value>Save Order</value>
+  </data>
+    <data name="AddFirstStep" xml:space="preserve">
+    <value>Add First Step</value>
+  </data>
+    <data name="ViewAllSteps" xml:space="preserve">
+    <value>View All Steps</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>View Recipe</value>
+  </data>
+    <data name="DeleteThisStep" xml:space="preserve">
+    <value>Delete This Step</value>
+  </data>
+
+    <!-- Messages and warnings -->
+    <data name="Warning" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+    <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete this cooking step? This action cannot be undone.</value>
+  </data>
+    <data name="DeleteRenumberInfo" xml:space="preserve">
+    <value>When this step is deleted, the remaining steps will be automatically renumbered to maintain the correct sequence.</value>
+  </data>
+    <data name="StepNumberHelp" xml:space="preserve">
+    <value>This number will be assigned automatically if left unchanged.</value>
+  </data>
+    <data name="StepNumberReorderHelp" xml:space="preserve">
+    <value>Changing this number will reorder steps. All steps will be renumbered accordingly.</value>
+  </data>
+    <data name="TimingHelp" xml:space="preserve">
+    <value>Enter 0 if not applicable or timing is variable.</value>
+  </data>
+    <data name="StepDetails" xml:space="preserve">
+    <value>Step Details</value>
+  </data>
+    <data name="DragToReorder" xml:space="preserve">
+    <value>Drag steps to reorder them, then click Save Order.</value>
+  </data>
+    <data name="NoStepsYet" xml:space="preserve">
+    <value>No cooking steps have been added to this recipe yet.</value>
+  </data>
+
+    <!-- Tips and examples -->
+    <data name="TipsForInstructions" xml:space="preserve">
+    <value>Tips for Great Instructions</value>
+  </data>
+    <data name="QuickActions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+    <data name="ExampleStepInstructions" xml:space="preserve">
+    <value>Example Step Instructions</value>
+  </data>
+    <data name="GoodExample" xml:space="preserve">
+    <value>Good example:</value>
+  </data>
+    <data name="Tip1" xml:space="preserve">
+    <value>Keep each step focused on a single action or task</value>
+  </data>
+    <data name="Tip2" xml:space="preserve">
+    <value>Use clear, active, and direct language</value>
+  </data>
+    <data name="Tip3" xml:space="preserve">
+    <value>Include important details like temperatures, times, or visual cues</value>
+  </data>
+    <data name="Tip4" xml:space="preserve">
+    <value>Mention safety precautions where appropriate</value>
+  </data>
+    <data name="Tip5" xml:space="preserve">
+    <value>Consider organizing your recipe in logical phases (prep, cook, finish)</value>
+  </data>
+    <data name="Example1" xml:space="preserve">
+    <value>Heat olive oil in a large skillet over medium heat until shimmering.</value>
+  </data>
+    <data name="Example2" xml:space="preserve">
+    <value>Add the diced onions and sauté for 5-7 minutes, until translucent but not browned.</value>
+  </data>
+    <data name="Example3" xml:space="preserve">
+    <value>Remove from heat and let rest for 5 minutes before serving.</value>
+  </data>
+</root>

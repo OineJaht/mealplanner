@@ -1,0 +1,571 @@
+﻿@model MealPlanner.Models.ViewModels.RecipeCreateViewModel
+@{
+ViewData["Title"] = RecipeLocalizer["CreateRecipe"];
+
+var categories = ViewData["Categories"] as SelectList;
+var ingredients = ViewData["Ingredients"] as SelectList;
+}
+
+<h1>@RecipeLocalizer["CreateRecipe"]</h1>
+
+<div class="row mt-4">
+    <div class="col-lg-9">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Add this to see if there are any model state errors -->
+            @if (!ViewData.ModelState.IsValid)
+            {
+            <div class="alert alert-danger">
+                <h4>Form Errors:</h4>
+                <ul>
+                    @foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                    foreach (var error in modelState.Errors)
+                    {
+                    <li>@error.ErrorMessage</li>
+                    }
+                    }
+                </ul>
+            </div>
+            }
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>@RecipeLocalizer["BasicInformation"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label asp-for="Recipe.Name" class="form-label">@RecipeLocalizer["RecipeName"]</label>
+                                <input asp-for="Recipe.Name" class="form-control" />
+                                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Recipe.Description" class="form-label">@RecipeLocalizer["Description"]</label>
+                        <textarea asp-for="Recipe.Description" class="form-control" rows="3" placeholder="@RecipeLocalizer["RecipeDescription"]"></textarea>
+                        <span asp-validation-for="Recipe.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="Recipe.PrepTimeMinutes" class="form-label">@RecipeLocalizer["PrepTimeMinutes"]</label>
+                                <input asp-for="Recipe.PrepTimeMinutes" class="form-control" type="number" min="1" />
+                                <span asp-validation-for="Recipe.PrepTimeMinutes" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label asp-for="Recipe.DefaultServings" class="form-label">@RecipeLocalizer["DefaultServings"]</label>
+                                <input asp-for="Recipe.DefaultServings" class="form-control" type="number" min="1" value="4" />
+                                <span asp-validation-for="Recipe.DefaultServings" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label d-block">@RecipeLocalizer["MarkAsFavorite"]</label>
+                                <div class="form-check form-switch">
+                                    <input asp-for="Recipe.IsFavorite" class="form-check-input" type="checkbox" role="switch" id="favoriteSwitch" />
+                                    <label class="form-check-label" for="favoriteSwitch">@RecipeLocalizer["AddToFavorites"]</label>
+                                </div>
+                                <span asp-validation-for="Recipe.IsFavorite" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>@RecipeLocalizer["Categories"]</h4>
+                    <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#newCategoryModal">
+                        <i class="bi bi-plus-circle"></i> @RecipeLocalizer["NewCategory"]
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @if (Model.AvailableCategories != null && Model.AvailableCategories.Any())
+                        {
+                        foreach (var item in Model.AvailableCategories)
+                        {
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="selectedCategoriesIds" id="category_@item.Value" value="@item.Value" />
+                                <label class="form-check-label" for="category_@item.Value">@item.Text</label>
+                            </div>
+                        </div>
+                        }
+                        }
+                        else
+                        {
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <p>No categories available. Create a new category to get started.</p>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>@RecipeLocalizer["Ingredients"]</h4>
+                    <a href="#" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#newIngredientModal">
+                        <i class="bi bi-plus-circle"></i> @RecipeLocalizer["NewIngredient"]
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info mb-3">
+                        <i class="bi bi-info-circle"></i> @RecipeLocalizer["AddIngredientsHelp"]
+                    </div>
+
+                    <div id="ingredientsContainer">
+                        <div class="row mb-3 ingredient-row">
+                            <div class="col-md-5">
+                                <select name="selectedIngredientsIds" asp-items="Model.AvailableIngredients" class="form-select ingredient-select">
+                                    <option value="">@RecipeLocalizer["SelectIngredient"]</option>
+                                    @if (ingredients != null)
+                                    {
+                                    foreach (var item in ingredients)
+                                    {
+                                    <option value="@item.Value">@item.Text</option>
+                                    }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" name="IngredientsAmounts" class="form-control" placeholder="@RecipeLocalizer["AmountPlaceholder"]" step="0.01" min="0" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" name="IngredientUnits" class="form-control" placeholder="@RecipeLocalizer["UnitPlaceholder"]" list="unitOptions" />
+                                <datalist id="unitOptions">
+                                    <option value="g"/>
+                                    <option value="kg"/>
+                                    <option value="ml"/>
+                                    <option value="l"/>
+                                    <option value="tsp"/>
+                                    <option value="tbsp"/>
+                                    <option value="cup"/>
+                                    <option value="oz"/>
+                                    <option value="lb"/>
+                                    <option value="piece"/>
+                                    <option value="slice"/>
+                                    <option value="pinch"/>
+                                </datalist>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-outline-danger remove-ingredient">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="button" id="addIngredientRow" class="btn btn-outline-primary">
+                            <i class="bi bi-plus"></i> @RecipeLocalizer["AddAnotherIngredient"]
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>@RecipeLocalizer["Instructions"]</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label asp-for="Recipe.Instructions" class="form-label">@RecipeLocalizer["RecipeInstructions"]</label>
+                        <textarea asp-for="Recipe.Instructions" class="form-control" rows="10" placeholder="@RecipeLocalizer["EnterInstructions"]"></textarea>
+                        <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            @RecipeLocalizer["InstructionsHelp"]
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="formDebug" value="0" />
+            <div class="form-group d-flex justify-content-between mt-4">
+                <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> @RecipeLocalizer["CreateRecipe"]
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="card mb-4 sticky-top" style="top: 20px; z-index: 100">
+            <div class="card-header">
+                <h4>@RecipeLocalizer["RecipeCreationTips"]</h4>
+            </div>
+            <div class="card-body">
+                <div id="tipCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <h5>@RecipeLocalizer["TipStep1"]</h5>
+                            <p>@RecipeLocalizer["TipStep1Text"]</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h5>@RecipeLocalizer["TipStep2"]</h5>
+                            <p>@RecipeLocalizer["TipStep2Text"]</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h5>@RecipeLocalizer["TipStep3"]</h5>
+                            <p>@RecipeLocalizer["TipStep3Text"]</p>
+                        </div>
+                        <div class="carousel-item">
+                            <h5>@RecipeLocalizer["TipStep4"]</h5>
+                            <p>@RecipeLocalizer["TipStep4Text"]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <p><strong>@RecipeLocalizer["DidYouKnow"]</strong></p>
+                <ul>
+                    <li>@RecipeLocalizer["Tip1"]</li>
+                    <li>@RecipeLocalizer["Tip2"]</li>
+                    <li>@RecipeLocalizer["Tip3"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Category Modal -->
+<div class="modal fade" id="newCategoryModal" tabindex="-1" aria-labelledby="newCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCategoryModalLabel">@RecipeLocalizer["AddNewCategory"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="newCategoryName" class="form-label">@RecipeLocalizer["CategoryName"]</label>
+                    <input type="text" class="form-control" id="newCategoryName">
+                </div>
+                <div class="mb-3">
+                    <label for="newCategoryDescription" class="form-label">@RecipeLocalizer["CategoryDescription"]</label>
+                    <textarea class="form-control" id="newCategoryDescription" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-primary" id="saveNewCategory">@RecipeLocalizer["SaveCategory"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Ingredient Modal -->
+<div class="modal fade" id="newIngredientModal" tabindex="-1" aria-labelledby="newIngredientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newIngredientModalLabel">@RecipeLocalizer["AddNewIngredient"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="newIngredientName" class="form-label">@RecipeLocalizer["IngredientName"]</label>
+                    <input type="text" class="form-control" id="newIngredientName">
+                </div>
+                <div class="mb-3">
+                    <label for="newIngredientCategory" class="form-label">@RecipeLocalizer["IngredientCategory"]</label>
+                    <input type="text" class="form-control" id="newIngredientCategory" list="ingredientCategoryOptions">
+                    <datalist id="ingredientCategoryOptions">
+                        <option value="Vegetables"/>
+                        <option value="Fruits"/>
+                        <option value="Meat"/>
+                        <option value="Poultry"/>
+                        <option value="Seafood"/>
+                        <option value="Dairy"/>
+                        <option value="Grains"/>
+                        <option value="Legumes"/>
+                        <option value="Herbs and Spices"/>
+                        <option value="Oils and Fats"/>
+                        <option value="Sweeteners"/>
+                        <option value="Condiments"/>
+                        <option value="Beverages"/>
+                        <option value="Baking"/>
+                        <option value="Canned Goods"/>
+                        <option value="Frozen Foods"/>
+                        <option value="Snacks"/>
+                        <option value="Other"/>
+                    </datalist>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                <button type="button" class="btn btn-primary" id="saveNewIngredient">@RecipeLocalizer["SaveIngredient"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function() {
+
+
+        // Log when page loads to see if it's reloading
+        console.log('Page loaded at:', new Date().toLocaleTimeString());
+
+        // Track form state
+        let formState = {
+            categories: [],
+            ingredients: []
+        };
+
+        // Function to save form state
+        function saveFormState() {
+            formState.categories = [];
+            formState.ingredients = [];
+
+            // Save checked categories - FIXED
+            $('input[name="SelectedCategoryIds"]:checked').each(function() {
+                formState.categories.push($(this).val());
+            });
+
+            // Save ingredients - FIXED
+            $('.ingredient-row').each(function() {
+                var ingredient = {
+                    id: $(this).find('select[name="SelectedIngredientIds"]').val(),
+                    amount: $(this).find('input[name="IngredientAmounts"]').val(),
+                    unit: $(this).find('input[name="IngredientUnits"]').val()
+                };
+                formState.ingredients.push(ingredient);
+            });
+
+            console.log('Form state saved:', formState);
+        }
+
+// Store the original ingredient options when the page loads
+        let originalIngredientOptions = '';
+
+        // Save the options when the page first loads
+        if ($(".ingredient-select:first").length > 0) {
+            originalIngredientOptions = $(".ingredient-select:first").html();
+            console.log('Saved original ingredient options');
+        }
+
+// Helper function to create new ingredient row
+        function createNewIngredientRow() {
+            return $(`
+        <div class="row mb-3 ingredient-row">
+            <div class="col-md-5">
+                <select name="SelectedIngredientIds" class="form-select ingredient-select">
+                    ${originalIngredientOptions}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="IngredientAmounts" class="form-control" placeholder="Amount" step="0.01" min="0" />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="IngredientUnits" class="form-control" placeholder="Unit (g, ml, etc.)" list="unitOptions" />
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-outline-danger remove-ingredient">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    `);
+        }
+
+
+
+        // Add ingredient row (updated version)
+        $("#addIngredientRow").click(function(e) {
+            e.preventDefault();
+            console.log('Add ingredient button clicked');
+
+            const newRow = createNewIngredientRow();
+            $("#ingredientsContainer").append(newRow);
+            console.log('Added new ingredient row');
+        });
+
+        // Remove ingredient row
+        $(document).on("click", ".remove-ingredient", function() {
+            if ($(".ingredient-row").length > 1) {
+                $(this).closest(".ingredient-row").remove();
+                console.log('Removed ingredient row');
+            } else {
+                alert("You need at least one ingredient row.");
+            }
+        });
+
+        // Save new category
+        $("#saveNewCategory").click(function() {
+            const name = $("#newCategoryName").val();
+            const description = $("#newCategoryDescription").val();
+
+            if (name) {
+                // Save form state before AJAX call
+                saveFormState();
+
+                // Ajax call to create category
+                $.ajax({
+                    url: "/Categories/CreateAjax",
+                    type: "POST",
+                    data: {
+                        name: name,
+                        description: description,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function(result) {
+                        if (result.success) {
+                            // Add new category to the list - FIXED name attribute
+                            const newCheckbox = `
+                        <div class="col-md-4 mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="SelectedCategoryIds" id="category_${result.id}" value="${result.id}" checked />
+                                <label class="form-check-label" for="category_${result.id}">${result.name}</label>
+                            </div>
+                        </div>
+                    `;
+                            $(".card-body .row:first").append(newCheckbox);
+                            $("#newCategoryModal").modal("hide");
+
+                            // Clear modal form fields
+                            $("#newCategoryName").val("");
+                            $("#newCategoryDescription").val("");
+
+                            console.log('Category created successfully:', result);
+                        } else {
+                            alert("Error creating category: " + result.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error creating category:', error);
+                        console.error('Response:', xhr.responseText);
+                        alert("Error connecting to server. Please try again.");
+                    }
+                });
+            } else {
+                alert("Please enter a category name.");
+            }
+});
+
+        // Save new ingredient (updated version)
+        $("#saveNewIngredient").click(function(e) {
+            e.preventDefault();
+
+            const name = $("#newIngredientName").val();
+            const category = $("#newIngredientCategory").val();
+
+            console.log('Attempting to save ingredient:', name, category);
+
+            if (name) {
+                $.ajax({
+                    url: "/Ingredients/CreateAjax",
+                    type: "POST",
+                    data: {
+                        name: name,
+                        category: category,
+                        __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log('AJAX response:', result);
+
+                        if (result.success) {
+                            console.log('Ingredient created successfully:', result);
+
+                            // Update the original options store
+                            const newOption = `<option value="${result.id}">${result.name}</option>`;
+                            originalIngredientOptions += newOption;
+
+                            // Add to all existing dropdowns
+                            $(".ingredient-select").each(function() {
+                                $(this).append(newOption);
+                            });
+
+                            $("#newIngredientModal").modal("hide");
+                            $("#newIngredientName").val("");
+                            $("#newIngredientCategory").val("");
+
+                        } else {
+                            alert("Error creating ingredient: " + result.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Ajax error:', xhr, status, error);
+                        console.error('Response:', xhr.responseText);
+                        alert("Error connecting to server. Please check console for details.");
+                    }
+                });
+            } else {
+                alert("Please enter an ingredient name.");
+            }
+        });
+
+        // Function to restore form state (updated)
+        function restoreFormState() {
+            // Restore categories
+            formState.categories.forEach(function(catId) {
+                $(`#category_${catId}`).prop('checked', true);
+            });
+
+            // Check if we have any ingredients to restore
+            if (formState.ingredients.length > 0) {
+                // Clear existing ingredient rows
+                $('#ingredientsContainer').empty();
+
+                // Restore each ingredient
+                formState.ingredients.forEach(function(ingredient, index) {
+                    var row = createNewIngredientRow();
+                    row.find('select[name="SelectedIngredientIds"]').val(ingredient.id);
+                    row.find('input[name="IngredientAmounts"]').val(ingredient.amount);
+                    row.find('input[name="IngredientUnits"]').val(ingredient.unit);
+                    $('#ingredientsContainer').append(row);
+                });
+            }
+
+            console.log('Form state restored:', formState);
+        }
+
+        // Monitor form submission
+        $('#createRecipeForm').submit(function(e) {
+            console.log('Form submitted at:', new Date().toLocaleTimeString());
+            console.log('Form data:', $(this).serialize());
+
+            // Disable submit button to prevent double submission
+            $('#submitButton').prop('disabled', true).text('Creating...');
+
+            // Check if form is valid
+            if (!this.checkValidity()) {
+                console.log('Form validation failed');
+                $('#submitButton').prop('disabled', false).html('<i class="bi bi-save"></i> Create Recipe');
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Restore form state on page load if needed
+        window.addEventListener('load', function() {
+            // Check if we need to restore state (e.g., from server-side validation failure)
+            if (localStorage.getItem('recipeFormState')) {
+                formState = JSON.parse(localStorage.getItem('recipeFormState'));
+                restoreFormState();
+                localStorage.removeItem('recipeFormState');
+            }
+        });
+
+        // Save state before page unload
+        window.addEventListener('beforeunload', function() {
+            saveFormState();
+            localStorage.setItem('recipeFormState', JSON.stringify(formState));
+        });
+    });
+</script>
+}

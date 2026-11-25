@@ -1,0 +1,204 @@
+@model MealPlanner.Models.ViewModels.ShoppingLists.CreateFromMealPlanViewModel
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["CreateFromMealPlan"]</h2>
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@ShoppingLocalizer["CreateFromMealPlan"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @ShoppingLocalizer["BackToLists"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["GenerateShoppingList"]</h4>
+            </div>
+            <div class="card-body">
+                <form id="createShoppingListForm">
+                    <div id="validationSummary" class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label for="listName" class="form-label">@ShoppingLocalizer["ShoppingListName"]</label>
+                        <input type="text" id="listName" name="listName" class="form-control" required
+                               placeholder="Weekly Groceries, Party Shopping, etc.">
+                        <span class="text-danger field-validation-error" data-valmsg-for="listName" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        
+                        <label for="mealPlanId" class="form-label">@ShoppingLocalizer["SelectMealPlan"]</label>
+                        <select id="mealPlanId" name="mealPlanId" class="form-select" required>
+                            <option value="">@ShoppingLocalizer["SelectMealPlanDropdown"]</option>
+                                @foreach (var plan in Model.AvailableMealPlans)
+                                {
+                                    <option value="@plan.Value">@plan.Text</option>
+                                }
+                        </select>
+                        <span class="text-danger field-validation-error" data-valmsg-for="mealPlanId" data-valmsg-replace="true"></span>
+                    </div>
+
+                    <div class="alert alert-info mt-3">
+                        <p><i class="bi bi-info-circle"></i> @ShoppingLocalizer["SystemWillAnalyze"]</p>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between mt-4">
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-cart"></i> @ShoppingLocalizer["GenerateShoppingList"]
+                            </button>
+                            <button type="button" id="ajaxSubmitBtn" class="btn btn-success">
+                                <i class="bi bi-cart"></i> @ShoppingLocalizer["GenerateShoppingListAjax"]
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["HowItWorks"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-center" style="width: 48px;">
+                        <i class="bi bi-calendar-check text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <h5>@ShoppingLocalizer["Step1Title"]</h5>
+                        <p>@ShoppingLocalizer["Step1Description"]</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-center" style="width: 48px;">
+                        <i class="bi bi-calculator text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <h5>@ShoppingLocalizer["Step2Title"]</h5>
+                        <p>@ShoppingLocalizer["Step2Description"]</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <div class="me-3 text-center" style="width: 48px;">
+                        <i class="bi bi-cart-plus text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <h5>@ShoppingLocalizer["Step3Title"]</h5>
+                        <p>@ShoppingLocalizer["Step3Description"]</p>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="me-3 text-center" style="width: 48px;">
+                        <i class="bi bi-pencil-square text-primary" style="font-size: 2rem;"></i>
+                    </div>
+                    <div>
+                        <h5>@ShoppingLocalizer["Step4Title"]</h5>
+                        <p>@ShoppingLocalizer["Step4Description"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function() {
+        // Auto-generate a shopping list name based on the selected meal plan
+        $("#mealPlanId").change(function() {
+            const selectedPlanText = $("#mealPlanId option:selected").text();
+            if (selectedPlanText && selectedPlanText !== "@ShoppingLocalizer["SelectMealPlanDropdown"]") {
+                // Check if the name field is empty or contains a default name
+                const currentName = $("#listName").val();
+                if (!currentName || currentName.includes("Shopping List")) {
+                    $("#listName").val(selectedPlanText + " Shopping List");
+                }
+            }
+        });
+
+        // Handle regular form submission
+        $("#createShoppingListForm").submit(function(e) {
+            e.preventDefault();
+
+            // Submit via standard form post
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '@Url.Action("CreateFromMealPlan")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(result) {
+                    window.location.href = '@Url.Action("Index")';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Form submission error:', xhr, status, error);
+                    $("#validationSummary").text("An error occurred: " + error);
+                }
+            });
+        });
+
+        // Handle Ajax button click
+        $("#ajaxSubmitBtn").click(function(e) {
+            e.preventDefault();
+
+            // Gather form data
+            var formData = {
+                mealPlanId: $("#mealPlanId").val(),
+                listName: $("#listName").val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+
+            // Validate the form
+            if (!$("#listName").val()) {
+                $("[data-valmsg-for='listName']").text("The Shopping List Name field is required.");
+                return;
+            }
+
+            if (!$("#mealPlanId").val()) {
+                $("[data-valmsg-for='mealPlanId']").text("Please select a meal plan.");
+                return;
+            }
+
+            // Submit via Ajax
+            $.ajax({
+                url: '@Url.Action("CreateFromMealPlanAjax")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    if (result.success) {
+                        // Show success message
+                        alert(`Shopping list "${result.name}" created successfully with ${result.itemCount} items!`);
+
+                        // Redirect to the details page
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        // Show error message
+                        $("#validationSummary").text(result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax error:', xhr, status, error);
+                    $("#validationSummary").text("An error occurred: " + error);
+                }
+            });
+        });
+    });
+</script>
+}

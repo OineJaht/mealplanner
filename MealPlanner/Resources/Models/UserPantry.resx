@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page titles -->
+    <data name="Pantry" xml:space="preserve">
+    <value>Pantry</value>
+  </data>
+    <data name="MyPantry" xml:space="preserve">
+    <value>My Pantry</value>
+  </data>
+    <data name="PantryDetails" xml:space="preserve">
+    <value>Pantry Item Details</value>
+  </data>
+    <data name="AddToPantry" xml:space="preserve">
+    <value>Add to Pantry</value>
+  </data>
+    <data name="AddIngredient" xml:space="preserve">
+    <value>Add Ingredient</value>
+  </data>
+    <data name="EditPantryItem" xml:space="preserve">
+    <value>Edit Pantry Item</value>
+  </data>
+    <data name="DeletePantryItem" xml:space="preserve">
+    <value>Delete Pantry Item</value>
+  </data>
+    <data name="LowStockItems" xml:space="preserve">
+    <value>Low Stock Items</value>
+  </data>
+    <data name="ExpiringItems" xml:space="preserve">
+    <value>Expiring Items</value>
+  </data>
+
+    <!-- Field labels and sections -->
+    <data name="Ingredient" xml:space="preserve">
+    <value>Ingredient</value>
+  </data>
+    <data name="IngredientCategory" xml:space="preserve">
+    <value>Ingredient Category</value>
+  </data>
+    <data name="SelectIngredient" xml:space="preserve">
+    <value>-- Select Ingredient --</value>
+  </data>
+    <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+    <data name="AmountInStock" xml:space="preserve">
+    <value>Amount in Stock</value>
+  </data>
+    <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+    <data name="StorageLocation" xml:space="preserve">
+    <value>Storage Location</value>
+  </data>
+    <data name="ExpiryDate" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+    <data name="PantryItemDetails" xml:space="preserve">
+    <value>Pantry Item Details</value>
+  </data>
+    <data name="ItemDetails" xml:space="preserve">
+    <value>Item Details</value>
+  </data>
+    <data name="IngredientInformation" xml:space="preserve">
+    <value>Ingredient Information</value>
+  </data>
+    <data name="ItemInformation" xml:space="preserve">
+    <value>Item Information</value>
+  </data>
+    <data name="NutritionInformation" xml:space="preserve">
+    <value>Nutrition Information</value>
+  </data>
+    <data name="StorageTips" xml:space="preserve">
+    <value>Storage Tips</value>
+  </data>
+    <data name="Alternatives" xml:space="preserve">
+    <value>Alternatives</value>
+  </data>
+    <data name="QuickActions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+    <data name="PantryManagementTips" xml:space="preserve">
+    <value>Pantry Management Tips</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+    <data name="Carbohydrates" xml:space="preserve">
+    <value>Carbohydrates</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Sugar</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
+    <data name="Sodium" xml:space="preserve">
+    <value>Sodium</value>
+  </data>
+    <data name="ItemsToRestock" xml:space="preserve">
+    <value>Items to Restock</value>
+  </data>
+
+    <!-- Actions and buttons -->
+    <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+    <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+    <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+    <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+    <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+    <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+    <data name="AddToPantry" xml:space="preserve">
+    <value>Add to Pantry</value>
+  </data>
+    <data name="AddToPantryAjax" xml:space="preserve">
+    <value>Add to Pantry (Ajax)</value>
+  </data>
+    <data name="AddNewItem" xml:space="preserve">
+    <value>Add New Item</value>
+  </data>
+    <data name="KeepThisItem" xml:space="preserve">
+    <value>Keep This Item</value>
+  </data>
+    <data name="DeletePermanently" xml:space="preserve">
+    <value>Delete Permanently</value>
+  </data>
+    <data name="EditItem" xml:space="preserve">
+    <value>Edit Item</value>
+  </data>
+    <data name="MarkAsUsedUp" xml:space="preserve">
+    <value>Mark as Used Up</value>
+  </data>
+    <data name="AddToShoppingList" xml:space="preserve">
+    <value>Add to Shopping List</value>
+  </data>
+    <data name="AddSelectedToShoppingList" xml:space="preserve">
+    <value>Add Selected to Shopping List</value>
+  </data>
+    <data name="ViewIngredientInfo" xml:space="preserve">
+    <value>View Ingredient Info</value>
+  </data>
+    <data name="FindRecipesUsingThis" xml:space="preserve">
+    <value>Find Recipes Using This</value>
+  </data>
+    <data name="FindRecipes" xml:space="preserve">
+    <value>Find Recipes</value>
+  </data>
+    <data name="FindRecipesWithIngredient" xml:space="preserve">
+    <value>Find Recipes with {0}</value>
+  </data>
+    <data name="UpdatingTheAmount" xml:space="preserve">
+    <value>Updating the amount</value>
+  </data>
+    <data name="FindingRecipes" xml:space="preserve">
+    <value>Finding recipes</value>
+  </data>
+    <data name="BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+    <data name="BackToPantry" xml:space="preserve">
+    <value>Back to Pantry</value>
+  </data>
+    <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+
+    <!-- Status indicators -->
+    <data name="Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+    <data name="ExpiredDaysAgo" xml:space="preserve">
+    <value>Expired {0} days ago</value>
+  </data>
+    <data name="ExpiresInDays" xml:space="preserve">
+    <value>Expires in {0} days</value>
+  </data>
+    <data name="ExpiringSoon" xml:space="preserve">
+    <value>Expiring Soon</value>
+  </data>
+    <data name="DaysLeft" xml:space="preserve">
+    <value>{0} days left</value>
+  </data>
+    <data name="GoodToUse" xml:space="preserve">
+    <value>Good to Use</value>
+  </data>
+    <data name="Soon" xml:space="preserve">
+    <value>Soon</value>
+  </data>
+    <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+    <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+    <data name="AllStockedUp" xml:space="preserve">
+    <value>All Stocked Up!</value>
+  </data>
+    <data name="LowStock" xml:space="preserve">
+    <value>Low Stock</value>
+  </data>
+    <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+    <data name="NotAvailable" xml:space="preserve">
+    <value>Not Available</value>
+  </data>
+
+    <!-- Messages and alerts -->
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this pantry item? This action cannot be undone.</value>
+  </data>
+    <data name="NoPantryItems" xml:space="preserve">
+    <value>No pantry items found. Add your first ingredient to your pantry to get started.</value>
+  </data>
+    <data name="NoExpiringItems" xml:space="preserve">
+    <value>Good news! You don't have any items that are expiring soon in your pantry.</value>
+  </data>
+    <data name="NoLowStockItems" xml:space="preserve">
+    <value>You don't have any items low in stock right now. Your pantry is well-stocked.</value>
+  </data>
+    <data name="ExpiringItemsWarning" xml:space="preserve">
+    <value>These items in your pantry are expiring soon or have already expired. Consider using them quickly or discarding expired items.</value>
+  </data>
+    <data name="LowStockItemsWarning" xml:space="preserve">
+    <value>These items are running low in your pantry and may need to be replenished soon.</value>
+  </data>
+    <data name="DidYouKnow" xml:space="preserve">
+    <value>Did You Know?</value>
+  </data>
+    <data name="DidYouKnowPantry" xml:space="preserve">
+    <value>You can generate shopping lists from your meal plans, and the system will automatically suggest recipes based on ingredients in your pantry.</value>
+  </data>
+    <data name="ViewAllPantryItems" xml:space="preserve">
+    <value>View All Pantry Items</value>
+  </data>
+    <data name="ExpiredItemsNote" xml:space="preserve">
+    <value>This item has expired and should be discarded if not safe to consume.</value>
+  </data>
+    <data name="ExpiringSoonNote" xml:space="preserve">
+    <value>This item will expire in {0} days.</value>
+  </data>
+    <data name="ConsiderUsingInUpcomingMeals" xml:space="preserve">
+    <value>Consider using this ingredient in your upcoming meals.</value>
+  </data>
+    <data name="ThisItemExpired" xml:space="preserve">
+    <value>This item has expired. Check if it's still safe to use.</value>
+  </data>
+    <data name="ItemHasExpired" xml:space="preserve">
+    <value>This item has passed its expiry date. Check if it's still safe to use.</value>
+  </data>
+    <data name="StoreInForOptimalFreshness" xml:space="preserve">
+    <value>Store in {0} for optimal freshness.</value>
+  </data>
+    <data name="UseBeforeForBestQuality" xml:space="preserve">
+    <value>Use before {0} for best quality.</value>
+  </data>
+
+    <!-- PantryManagementTips section -->
+    <data name="TipsHeader" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+    <data name="RegularInventoryTip" xml:space="preserve">
+    <value>Check your pantry weekly to stay on top of supplies</value>
+  </data>
+    <data name="FirstInFirstOutTip" xml:space="preserve">
+    <value>Use oldest items first to reduce waste</value>
+  </data>
+    <data name="StorageOrganizationTip" xml:space="preserve">
+    <value>Group similar items together for easier tracking</value>
+  </data>
+    <data name="MinMaxLevelsTip" xml:space="preserve">
+    <value>Define minimum stock levels for essentials</value>
+  </data>
+    <data name="AccurateExpiryDatesTip" xml:space="preserve">
+    <value>Input accurate expiry dates to get notifications when items are about to expire</value>
+  </data>
+    <data name="AddStorageLocationsTip" xml:space="preserve">
+    <value>Add storage locations to easily find items in your kitchen</value>
+  </data>
+    <data name="UpdateQuantitiesTip" xml:space="preserve">
+    <value>Update quantities when you use ingredients in your recipes</value>
+  </data>
+    <data name="RegularInventoryChecksTip" xml:space="preserve">
+    <value>Regular inventory checks help prevent food waste</value>
+  </data>
+    <data name="BeSpecificWithNamesTip" xml:space="preserve">
+    <value>Be specific with ingredient names (e.g., "Red Bell Pepper" instead of just "Pepper")</value>
+  </data>
+    <data name="ChooseAppropriateCategoryTip" xml:space="preserve">
+    <value>Choose an appropriate category to make ingredients easier to find</value>
+  </data>
+    <data name="AddNutritionInfoTip" xml:space="preserve">
+    <value>Add nutrition information if you plan to track nutritional content</value>
+  </data>
+    <data name="EditNutritionLaterTip" xml:space="preserve">
+    <value>You can always edit nutrition information later</value>
+  </data>
+
+    <!-- Food Storage Tips -->
+    <data name="VegetableTip1" xml:space="preserve">
+    <value>Most vegetables stay fresh longer in the refrigerator's crisper drawer.</value>
+  </data>
+    <data name="VegetableTip2" xml:space="preserve">
+    <value>Store leafy greens in a container with a paper towel to absorb excess moisture.</value>
+  </data>
+    <data name="FruitTip1" xml:space="preserve">
+    <value>Some fruits like bananas, avocados, and tomatoes continue to ripen at room temperature.</value>
+  </data>
+    <data name="FruitTip2" xml:space="preserve">
+    <value>Refrigerate ripe fruits to extend their life.</value>
+  </data>
+    <data name="MeatTip1" xml:space="preserve">
+    <value>Store raw meat on the bottom shelf of the refrigerator to prevent drips onto other foods.</value>
+  </data>
+    <data name="MeatTip2" xml:space="preserve">
+    <value>Use or freeze meat within 2-3 days of purchase for best quality.</value>
+  </data>
+    <data name="DairyTip1" xml:space="preserve">
+    <value>Store dairy products in the coldest part of the refrigerator, not in the door.</value>
+  </data>
+    <data name="DairyTip2" xml:space="preserve">
+    <value>Keep dairy tightly sealed to prevent absorbing odors from other foods.</value>
+  </data>
+    <data name="GrainTip1" xml:space="preserve">
+    <value>Store grains in airtight containers to protect from moisture and pests.</value>
+  </data>
+    <data name="GrainTip2" xml:space="preserve">
+    <value>Whole grains can be refrigerated or frozen to extend shelf life.</value>
+  </data>
+    <data name="HerbTip1" xml:space="preserve">
+    <value>Store herbs and spices in a cool, dark place to preserve flavor and color.</value>
+  </data>
+    <data name="HerbTip2" xml:space="preserve">
+    <value>Fresh herbs can be stored in water like a bouquet or wrapped in a damp paper towel.</value>
+  </data>
+    <data name="GeneralTip1" xml:space="preserve">
+    <value>Check food regularly for signs of spoilage like unusual smell, color, or texture.</value>
+  </data>
+    <data name="GeneralTip2" xml:space="preserve">
+    <value>Rotate your pantry items to use oldest items first.</value>
+  </data>
+    <data name="FoodSafetyTips" xml:space="preserve">
+    <value>Food Safety Tips</value>
+  </data>
+    <data name="CheckBeforeConsumingTip" xml:space="preserve">
+    <value>Expired food may look and smell fine but could still be unsafe</value>
+  </data>
+    <data name="BestByVsUseBytip" xml:space="preserve">
+    <value>"Best by" dates indicate quality, while "Use by" dates indicate safety</value>
+  </data>
+    <data name="TrustYourSensesTip" xml:space="preserve">
+    <value>Unusual smell, appearance, or texture can indicate spoilage</value>
+  </data>
+    <data name="WhenInDoubtTip" xml:space="preserve">
+    <value>When in doubt, throw it out: Don't risk foodborne illness from questionable food</value>
+  </data>
+    <data name="RegularlyCheckRotateTip" xml:space="preserve">
+    <value>Remember to regularly check and rotate items in your pantry to minimize waste.</value>
+  </data>
+
+    <!-- Confirmation dialogs and buttons -->
+    <data name="ConfirmMarkAsUsedUp" xml:space="preserve">
+    <value>Are you sure you want to mark this item as used up?</value>
+  </data>
+    <data name="ConfirmRemoveItem" xml:space="preserve">
+    <value>Are you sure you want to remove this item?</value>
+  </data>
+    <data name="ExpiringNow" xml:space="preserve">
+    <value>Expiring now!</value>
+  </data>
+    <data name="SelectAll" xml:space="preserve">
+    <value>Select All Items</value>
+  </data>
+    <data name="SelectShoppingList" xml:space="preserve">
+    <value>Select Shopping List</value>
+  </data>
+    <data name="CreateNewShoppingListFromSelected" xml:space="preserve">
+    <value>Create New Shopping List from Selected</value>
+  </data>
+    <data name="For" xml:space="preserve">
+    <value>For</value>
+  </data>
+    <data name="Per100g" xml:space="preserve">
+    <value>Per 100g of</value>
+  </data>
+
+    <!-- Other Pantry-related strings -->
+    <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+    <data name="AmountLeft" xml:space="preserve">
+    <value>Amount Left</value>
+  </data>
+    <data name="BulkActions" xml:space="preserve">
+    <value>Bulk Actions</value>
+  </data>
+    <data name="SearchPantryPlaceholder" xml:space="preserve">
+    <value>Search ingredients, categories...</value>
+  </data>
+    <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+    <data name="SelectAction" xml:space="preserve">
+    <value>-- Select Action --</value>
+  </data>
+    <data name="AddToList" xml:space="preserve">
+    <value>Add to Shopping List</value>
+  </data>
+    <data name="ExtendExpiry" xml:space="preserve">
+    <value>Extend Expiry Date</value>
+  </data>
+    <data name="MarkUsed" xml:space="preserve">
+    <value>Mark as Used Up</value>
+  </data>
+    <data name="DeleteSelected" xml:space="preserve">
+    <value>Delete Selected</value>
+  </data>
+    <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+    <data name="ItemsSelected" xml:space="preserve">
+    <value>{0} items selected</value>
+  </data>
+    <data name="ItemSelected" xml:space="preserve">
+    <value>{0} item selected</value>
+  </data>
+  <data name="FindRecipesExpiringDescription" xml:space="preserve">
+  <value>Looking for ways to use up your expiring ingredients? Find recipes that include these items:</value>
+</data>
+
+  <data name="AddAllExpiringToShoppingList" xml:space="preserve">
+  <value>Add all expiring items to shopping list</value>
+</data>
+
+  <data name="RemoveExpiredItems" xml:space="preserve">
+  <value>Remove expired items</value>
+</data>
+</root>

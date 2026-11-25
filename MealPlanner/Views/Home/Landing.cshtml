@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Welcome to Meal Planner";
+}
+
+<div class="text-center">
+    <h1>Welcome to Meal Planner</h1>
+    <p>Plan your meals, manage your recipes, and track your pantry inventory.</p>
+    
+    <div class="mt-4 jwt-auth-loggedout">
+        <a class="btn btn-primary" href="/JwtLogin">Log in with JWT</a>
+        <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </div>
+    
+    <div class="mt-4 jwt-auth-loggedin" style="display: none;">
+        <h3>Welcome back, <span class="jwt-username">User</span>!</h3>
+        <p>You are logged in successfully with JWT authentication.</p>
+        <button class="btn btn-danger" onclick="jwtLogout()">Logout</button>
+    </div>
+</div>

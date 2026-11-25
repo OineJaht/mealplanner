@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Page titles -->
+  <data name="ShoppingLists" xml:space="preserve">
+    <value>Списки покупок</value>
+  </data>
+  <data name="CreateShoppingList" xml:space="preserve">
+    <value>Создать список покупок</value>
+  </data>
+  <data name="EditShoppingList" xml:space="preserve">
+    <value>Редактировать список покупок</value>
+  </data>
+  <data name="DeleteShoppingList" xml:space="preserve">
+    <value>Удалить список покупок</value>
+  </data>
+  <data name="ShoppingListDetails" xml:space="preserve">
+    <value>Детали списка покупок</value>
+  </data>
+  <data name="CreateFromMealPlan" xml:space="preserve">
+    <value>Создать список покупок из плана питания</value>
+  </data>
+  <!-- Actions and buttons -->
+  <data name="CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="CreateFromMealPlanBtn" xml:space="preserve">
+    <value>Создать из плана питания</value>
+  </data>
+  <data name="CreateFromMealPlanInstead" xml:space="preserve">
+    <value>Вместо этого создать из плана питания</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Добавить товар</value>
+  </data>
+  <data name="AddFirstItem" xml:space="preserve">
+    <value>Добавить первый товар</value>
+  </data>
+  <data name="ToggleAllItems" xml:space="preserve">
+    <value>Переключить все товары</value>
+  </data>
+  <data name="ClearCompleted" xml:space="preserve">
+    <value>Очистить завершенные</value>
+  </data>
+  <data name="GenerateShoppingList" xml:space="preserve">
+    <value>Сгенерировать список покупок</value>
+  </data>
+  <data name="GenerateShoppingListAjax" xml:space="preserve">
+    <value>Сгенерировать список покупок (Ajax)</value>
+  </data>
+  <data name="KeepThisList" xml:space="preserve">
+    <value>Сохранить этот список</value>
+  </data>
+  <data name="DeletePermanently" xml:space="preserve">
+    <value>Удалить навсегда</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Просмотр</value>
+  </data>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>Просмотреть детали</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Вернуться к списку</value>
+  </data>
+  <data name="BackToLists" xml:space="preserve">
+    <value>Вернуться к спискам</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <!-- Field labels and headers -->
+  <data name="ListName" xml:space="preserve">
+    <value>Название списка</value>
+  </data>
+  <data name="NewShoppingList" xml:space="preserve">
+    <value>Новый список покупок</value>
+  </data>
+  <data name="ShoppingListName" xml:space="preserve">
+    <value>Название списка покупок</value>
+  </data>
+  <data name="SelectMealPlan" xml:space="preserve">
+    <value>Выберите план питания</value>
+  </data>
+  <data name="SelectMealPlanDropdown" xml:space="preserve">
+    <value>-- Выберите план питания --</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="TotalItems" xml:space="preserve">
+    <value>Всего товаров</value>
+  </data>
+  <data name="ShoppingProgress" xml:space="preserve">
+    <value>Прогресс покупок</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Прогресс</value>
+  </data>
+  <data name="Purchased" xml:space="preserve">
+    <value>Куплено</value>
+  </data>
+  <data name="NotPurchased" xml:space="preserve">
+    <value>Не куплено</value>
+  </data>
+  <data name="Unpurchased" xml:space="preserve">
+    <value>Не куплено</value>
+  </data>
+  <data name="ShoppingItems" xml:space="preserve">
+    <value>Товары для покупки</value>
+  </data>
+  <data name="ListContents" xml:space="preserve">
+    <value>Содержимое списка</value>
+  </data>
+  <data name="ListInformation" xml:space="preserve">
+    <value>Информация о списке</value>
+  </data>
+  <data name="ShoppingListSummary" xml:space="preserve">
+    <value>Сводка списка покупок</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Основная информация</value>
+  </data>
+  <data name="TopItems" xml:space="preserve">
+    <value>Основные товары:</value>
+  </data>
+  <data name="QuickActions" xml:space="preserve">
+    <value>Быстрые действия</value>
+  </data>
+  <data name="SelectIngredient" xml:space="preserve">
+    <value>-- Выберите ингредиент --</value>
+  </data>
+  <data name="Ingredient" xml:space="preserve">
+    <value>Ингредиент</value>
+  </data>
+  <data name="AddItemToShoppingList" xml:space="preserve">
+    <value>Добавить товар в список покупок</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="Remaining" xml:space="preserve">
+    <value>Осталось</value>
+  </data>
+  <data name="AndMore" xml:space="preserve">
+    <value>И еще {0} товаров...</value>
+  </data>
+  <data name="ItemsCount" xml:space="preserve">
+    <value>{0} товаров</value>
+  </data>
+  <!-- Messages and alerts -->
+  <data name="NoItemsInList" xml:space="preserve">
+    <value>В этом списке покупок пока нет товаров. Добавьте товары, чтобы начать!</value>
+  </data>
+  <data name="NoShoppingLists" xml:space="preserve">
+    <value>У вас пока нет списков покупок. Создайте свой первый список покупок, чтобы начать.</value>
+  </data>
+  <data name="DeleteWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот список покупок? Это действие нельзя отменить.</value>
+  </data>
+  <data name="DeletingWillRemove" xml:space="preserve">
+    <value>Удаление этого списка покупок навсегда удалит:</value>
+  </data>
+  <data name="ListItselfRemoval" xml:space="preserve">
+    <value>Сам список покупок</value>
+  </data>
+  <data name="AllItemsRemoval" xml:space="preserve">
+    <value>Все {0} товаров в списке</value>
+  </data>
+  <data name="AllPurchaseHistoryRemoval" xml:space="preserve">
+    <value>Всю историю покупок, связанную с этим списком</value>
+  </data>
+  <data name="UnpurchasedItemsNote" xml:space="preserve">
+    <value>В этом списке покупок все еще есть {0} непокупных товаров.</value>
+  </data>
+  <data name="SystemWillAnalyze" xml:space="preserve">
+    <value>Система проанализирует выбранный вами план питания и создаст список покупок на основе ингредиентов, необходимых для всех рецептов в плане.</value>
+  </data>
+  <!-- "How It Works" section -->
+  <data name="HowItWorks" xml:space="preserve">
+    <value>Как это работает</value>
+  </data>
+  <data name="Step1Title" xml:space="preserve">
+    <value>Шаг 1: Выберите план питания</value>
+  </data>
+  <data name="Step1Description" xml:space="preserve">
+    <value>Выберите один из существующих планов питания для создания списка покупок.</value>
+  </data>
+  <data name="Step2Title" xml:space="preserve">
+    <value>Шаг 2: Расчет ингредиентов</value>
+  </data>
+  <data name="Step2Description" xml:space="preserve">
+    <value>Система проанализирует все рецепты в вашем плане питания и рассчитает общее количество необходимых ингредиентов.</value>
+  </data>
+  <data name="Step3Title" xml:space="preserve">
+    <value>Шаг 3: Создание списка покупок</value>
+  </data>
+  <data name="Step3Description" xml:space="preserve">
+    <value>Создается новый список покупок со всеми необходимыми ингредиентами и количествами.</value>
+  </data>
+  <data name="Step4Title" xml:space="preserve">
+    <value>Шаг 4: Редактирование по необходимости</value>
+  </data>
+  <data name="Step4Description" xml:space="preserve">
+    <value>Вы можете просмотреть и отредактировать список покупок, добавляя или удаляя товары по необходимости.</value>
+  </data>
+  <!-- Shopping List Tips section -->
+  <data name="ShoppingListTips" xml:space="preserve">
+    <value>Советы по спискам покупок</value>
+  </data>
+  <data name="WaysToUseShoppingLists" xml:space="preserve">
+    <value>Способы использования списков покупок</value>
+  </data>
+  <data name="WeeklyGroceryTip" xml:space="preserve">
+    <value>Создавайте еженедельный список продуктов для регулярных приемов пищи</value>
+  </data>
+  <data name="SpecialOccasionTip" xml:space="preserve">
+    <value>Составляйте списки покупок для особых случаев или мероприятий</value>
+  </data>
+  <data name="AutomaticGenerationTip" xml:space="preserve">
+    <value>Автоматически создавайте списки из планов питания</value>
+  </data>
+  <data name="SpecializedListsTip" xml:space="preserve">
+    <value>Создавайте специализированные списки для разных магазинов</value>
+  </data>
+  <data name="ShareListsTip" xml:space="preserve">
+    <value>Делитесь списками покупок с членами семьи</value>
+  </data>
+  <data name="ProTip" xml:space="preserve">
+    <value>Совет профессионала</value>
+  </data>
+  <data name="ProTipContent" xml:space="preserve">
+    <value>После создания списка покупок вы можете добавлять товары вручную или автоматически создавать список на основе планов питания. Список покупок будет отслеживать, что вы купили и какие товары остались.</value>
+  </data>
+  <data name="CreateFromMealPlanTitle" xml:space="preserve">
+    <value>Создать из плана питания</value>
+  </data>
+  <data name="CreateFromMealPlanContent" xml:space="preserve">
+    <value>Хотите создать список покупок автоматически на основе ваших планов питания? Нажмите здесь, чтобы создать список покупок из существующих планов питания.</value>
+  </data>
+  <!-- Confirmation dialogs -->
+  <data name="ConfirmRemoveCompleted" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить все завершенные товары?</value>
+  </data>
+  <data name="ConfirmRemoveItem" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот товар?</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примечание:</value>
+  </data>
+  <data name="ShoppingListDetails_Duplicate[1]" xml:space="preserve">
+    <value>Детали листа покупок</value>
+  </data>
+</root>

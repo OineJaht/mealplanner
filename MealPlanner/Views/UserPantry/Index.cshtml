@@ -1,0 +1,51 @@
+@model MealPlanner.Models.ViewModels.UserPantry.UserPantryIndexViewModel
+@{
+ViewData["Title"] = PantryLocalizer["MyPantry"];
+}
+
+<h1>@PantryLocalizer["MyPantry"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">@PantryLocalizer["AddNewItem"]</a>
+    <a asp-action="LowStock" class="btn btn-warning">@PantryLocalizer["LowStockItems"]</a>
+    <a asp-action="Expiring" class="btn btn-danger">@PantryLocalizer["ExpiringItems"]</a>
+</p>
+
+@if (Model != null && Model.Items.Any()) 
+{
+<table class="table">
+    <thead>
+    <tr>
+        <th>@PantryLocalizer["Ingredient"]</th>
+        <th>@PantryLocalizer["Amount"]</th>
+        <th>@PantryLocalizer["Unit"]</th>
+        <th>@PantryLocalizer["Location"]</th>
+        <th>@PantryLocalizer["ExpiryDate"]</th>
+        <th>@Localizer["Actions"]</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+    <tr>
+        <td>@(item.IngredientName ?? "Unknown")</td>
+        <td>@item.AmountInStock</td>
+        <td>@item.Unit</td>
+        <td>@item.Location</td>
+        <td>@(item.ExpiryDate.ToShortDateString())</td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">@Localizer["Edit"]</a>
+            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">@Localizer["Details"]</a>
+            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">@Localizer["Delete"]</a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+}
+else
+{
+<div class="alert alert-info">
+    @PantryLocalizer["NoPantryItems"]
+</div>
+}

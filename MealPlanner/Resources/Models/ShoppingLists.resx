@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page titles -->
+    <data name="ShoppingLists" xml:space="preserve">
+    <value>Shopping Lists</value>
+  </data>
+    <data name="CreateShoppingList" xml:space="preserve">
+    <value>Create Shopping List</value>
+  </data>
+    <data name="EditShoppingList" xml:space="preserve">
+    <value>Edit Shopping List</value>
+  </data>
+    <data name="DeleteShoppingList" xml:space="preserve">
+    <value>Delete Shopping List</value>
+  </data>
+    <data name="ShoppingListDetails" xml:space="preserve">
+    <value>Shopping List Details</value>
+  </data>
+    <data name="CreateFromMealPlan" xml:space="preserve">
+    <value>Create Shopping List from Meal Plan</value>
+  </data>
+
+    <!-- Actions and buttons -->
+    <data name="CreateNew" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+    <data name="CreateFromMealPlanBtn" xml:space="preserve">
+    <value>Create From Meal Plan</value>
+  </data>
+    <data name="CreateFromMealPlanInstead" xml:space="preserve">
+    <value>Create From Meal Plan Instead</value>
+  </data>
+    <data name="AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+    <data name="AddFirstItem" xml:space="preserve">
+    <value>Add First Item</value>
+  </data>
+    <data name="ToggleAllItems" xml:space="preserve">
+    <value>Toggle All Items</value>
+  </data>
+    <data name="ClearCompleted" xml:space="preserve">
+    <value>Clear Completed</value>
+  </data>
+    <data name="GenerateShoppingList" xml:space="preserve">
+    <value>Generate Shopping List</value>
+  </data>
+    <data name="GenerateShoppingListAjax" xml:space="preserve">
+    <value>Generate Shopping List (Ajax)</value>
+  </data>
+    <data name="KeepThisList" xml:space="preserve">
+    <value>Keep This List</value>
+  </data>
+    <data name="DeletePermanently" xml:space="preserve">
+    <value>Delete Permanently</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+    <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+    <data name="ViewDetails" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+    <data name="BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+    <data name="BackToLists" xml:space="preserve">
+    <value>Back to Lists</value>
+  </data>
+    <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+
+    <!-- Field labels and headers -->
+    <data name="ListName" xml:space="preserve">
+    <value>List Name</value>
+  </data>
+    <data name="NewShoppingList" xml:space="preserve">
+    <value>New Shopping List</value>
+  </data>
+    <data name="ShoppingListName" xml:space="preserve">
+    <value>Shopping List Name</value>
+  </data>
+    <data name="SelectMealPlan" xml:space="preserve">
+    <value>Select Meal Plan</value>
+  </data>
+    <data name="SelectMealPlanDropdown" xml:space="preserve">
+    <value>-- Select a Meal Plan --</value>
+  </data>
+    <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+    <data name="CreatedBy" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+    <data name="TotalItems" xml:space="preserve">
+    <value>Total Items</value>
+  </data>
+    <data name="ShoppingProgress" xml:space="preserve">
+    <value>Shopping Progress</value>
+  </data>
+    <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+    <data name="Purchased" xml:space="preserve">
+    <value>Purchased</value>
+  </data>
+    <data name="NotPurchased" xml:space="preserve">
+    <value>Not Purchased</value>
+  </data>
+    <data name="Unpurchased" xml:space="preserve">
+    <value>Unpurchased</value>
+  </data>
+    <data name="ShoppingItems" xml:space="preserve">
+    <value>Shopping Items</value>
+  </data>
+    <data name="ListContents" xml:space="preserve">
+    <value>List Contents</value>
+  </data>
+    <data name="ListInformation" xml:space="preserve">
+    <value>List Information</value>
+  </data>
+    <data name="ShoppingListDetails" xml:space="preserve">
+    <value>Shopping List Details</value>
+  </data>
+    <data name="ShoppingListSummary" xml:space="preserve">
+    <value>Shopping List Summary</value>
+  </data>
+    <data name="BasicInformation" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+    <data name="TopItems" xml:space="preserve">
+    <value>Top items:</value>
+  </data>
+    <data name="QuickActions" xml:space="preserve">
+    <value>Quick Actions</value>
+  </data>
+    <data name="SelectIngredient" xml:space="preserve">
+    <value>-- Select Ingredient --</value>
+  </data>
+    <data name="Ingredient" xml:space="preserve">
+    <value>Ingredient</value>
+  </data>
+    <data name="AddItemToShoppingList" xml:space="preserve">
+    <value>Add Item to Shopping List</value>
+  </data>
+    <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+    <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+    <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+    <data name="Remaining" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+    <data name="AndMore" xml:space="preserve">
+    <value>And {0} more items...</value>
+  </data>
+    <data name="ItemsCount" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+
+    <!-- Messages and alerts -->
+    <data name="NoItemsInList" xml:space="preserve">
+    <value>No items in this shopping list yet. Add some items to get started!</value>
+  </data>
+    <data name="NoShoppingLists" xml:space="preserve">
+    <value>You don't have any shopping lists yet. Create your first shopping list to get started.</value>
+  </data>
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>Are you sure you want to delete this shopping list? This action cannot be undone.</value>
+  </data>
+    <data name="DeletingWillRemove" xml:space="preserve">
+    <value>Deleting this shopping list will permanently remove:</value>
+  </data>
+    <data name="ListItselfRemoval" xml:space="preserve">
+    <value>The shopping list itself</value>
+  </data>
+    <data name="AllItemsRemoval" xml:space="preserve">
+    <value>All {0} items in the list</value>
+  </data>
+    <data name="AllPurchaseHistoryRemoval" xml:space="preserve">
+    <value>All purchase history associated with this list</value>
+  </data>
+    <data name="UnpurchasedItemsNote" xml:space="preserve">
+    <value>This shopping list still has {0} unpurchased items.</value>
+  </data>
+    <data name="SystemWillAnalyze" xml:space="preserve">
+    <value>The system will analyze your selected meal plan and create a shopping list based on the ingredients needed for all recipes in the plan.</value>
+  </data>
+
+    <!-- "How It Works" section -->
+    <data name="HowItWorks" xml:space="preserve">
+    <value>How It Works</value>
+  </data>
+    <data name="Step1Title" xml:space="preserve">
+    <value>Step 1: Select a Meal Plan</value>
+  </data>
+    <data name="Step1Description" xml:space="preserve">
+    <value>Choose one of your existing meal plans to generate a shopping list from.</value>
+  </data>
+    <data name="Step2Title" xml:space="preserve">
+    <value>Step 2: Ingredients are Calculated</value>
+  </data>
+    <data name="Step2Description" xml:space="preserve">
+    <value>The system will analyze all recipes in your meal plan and calculate the total ingredients needed.</value>
+  </data>
+    <data name="Step3Title" xml:space="preserve">
+    <value>Step 3: Shopping List Created</value>
+  </data>
+    <data name="Step3Description" xml:space="preserve">
+    <value>A new shopping list is created with all required ingredients and quantities.</value>
+  </data>
+    <data name="Step4Title" xml:space="preserve">
+    <value>Step 4: Edit as Needed</value>
+  </data>
+    <data name="Step4Description" xml:space="preserve">
+    <value>You can review and edit the shopping list, adding or removing items as needed.</value>
+  </data>
+
+    <!-- Shopping List Tips section -->
+    <data name="ShoppingListTips" xml:space="preserve">
+    <value>Shopping List Tips</value>
+  </data>
+    <data name="WaysToUseShoppingLists" xml:space="preserve">
+    <value>Ways to Use Shopping Lists</value>
+  </data>
+    <data name="WeeklyGroceryTip" xml:space="preserve">
+    <value>Create a weekly grocery shopping list for regular meals</value>
+  </data>
+    <data name="SpecialOccasionTip" xml:space="preserve">
+    <value>Make special occasion shopping lists for parties or events</value>
+  </data>
+    <data name="AutomaticGenerationTip" xml:space="preserve">
+    <value>Generate lists automatically from your meal plans</value>
+  </data>
+    <data name="SpecializedListsTip" xml:space="preserve">
+    <value>Create specialized lists for different stores</value>
+  </data>
+    <data name="ShareListsTip" xml:space="preserve">
+    <value>Share your shopping lists with family members</value>
+  </data>
+    <data name="ProTip" xml:space="preserve">
+    <value>Pro Tip</value>
+  </data>
+    <data name="ProTipContent" xml:space="preserve">
+    <value>After creating your shopping list, you can add items manually or generate a list automatically from your meal plans. The shopping list will track what you have purchased and what items remain.</value>
+  </data>
+    <data name="CreateFromMealPlanTitle" xml:space="preserve">
+    <value>Create from Meal Plan</value>
+  </data>
+    <data name="CreateFromMealPlanContent" xml:space="preserve">
+    <value>Want to create a shopping list automatically based on your meal plans? Click here to generate a shopping list from your existing meal plans.</value>
+  </data>
+
+    <!-- Confirmation dialogs -->
+    <data name="ConfirmRemoveCompleted" xml:space="preserve">
+    <value>Are you sure you want to remove all completed items?</value>
+  </data>
+    <data name="ConfirmRemoveItem" xml:space="preserve">
+    <value>Are you sure you want to remove this item?</value>
+  </data>
+    <data name="Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+</root>

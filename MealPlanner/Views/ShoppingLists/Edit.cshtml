@@ -1,0 +1,326 @@
+@model MealPlanner.Models.ViewModels.ShoppingLists.ShoppingListEditViewModel
+@inject IViewLocalizer Localizer
+@{
+    <h2>ShoppingLocalizer["EditShoppingList"];</h2>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@ShoppingLocalizer["EditShoppingList"]</h1>
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.ShoppingList.Id" class="btn btn-outline-primary me-2">
+            <i class="bi bi-eye"></i> @ShoppingLocalizer["ViewDetails"]
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @ShoppingLocalizer["BackToList"]
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["BasicInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ShoppingList.Id"/>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="ShoppingList.Name" class="form-label">@ShoppingLocalizer["ListName"]</label>
+                        <input asp-for="ShoppingList.Name" class="form-control"/>
+                        <span asp-validation-for="ShoppingList.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between mt-4">
+                        <a asp-action="Details" asp-route-id="@Model.ShoppingList.Id"
+                           class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> @ShoppingLocalizer["SaveChanges"]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (Model.ExistingItems.Any())
+        {
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">@ShoppingLocalizer["ShoppingItems"]</h4>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#addItemModal">
+                        <i class="bi bi-plus"></i> @ShoppingLocalizer["AddItem"]
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th>@ShoppingLocalizer["Ingredient"]</th>
+                                <th>@Localizer["Amount"]</th>
+                                <th>@ShoppingLocalizer["Purchased"]</th>
+                                <th>@ShoppingLocalizer["Actions"]</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.ExistingItems)
+
+                            {
+                                <tr>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.IngredientName))
+                                        {
+                                            <span>@item.IngredientName</span>
+                                            @if (Model.IngredientCategories.ContainsKey(item.IngredientId))
+                                            {
+                                                <small
+                                                    class="text-muted d-block">@Model.IngredientCategories[item.IngredientId]</small>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">Ingredient not found</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <form asp-action="UpdateItemAmount" method="post" class="item-amount-form">
+                                            <input type="hidden" name="itemId" value="@item.Id"/>
+                                            <div class="input-group input-group-sm" style="width: 120px;">
+                                                <input type="number" name="amount" class="form-control"
+                                                       value="@item.Amount" step="0.01" min="0"/>
+                                                <button type="submit"
+                                                        class="btn btn-outline-secondary update-amount-btn">
+                                                    <i class="bi bi-check"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input item-checkbox" type="checkbox"
+                                                   id="item_@item.Id" data-item-id="@item.Id"
+                                                   @(item.Purchased ? "checked" : "")>
+                                            <label class="form-check-label" for="item_@item.Id">
+                                                @(item.Purchased ? ShoppingLocalizer["Purchased"] : ShoppingLocalizer["NotPurchased"])
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger btn-sm delete-item-btn"
+                                                data-item-id="@item.Id">
+                                            <i class="bi bi-trash"></i> @ShoppingLocalizer["Remove"]
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <p>@ShoppingLocalizer["NoItemsInList"]</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                    <i class="bi bi-plus"></i> @ShoppingLocalizer["AddFirstItem"]
+                </button>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["ShoppingListSummary"]</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-5">@ShoppingLocalizer["CreatedDate"]</dt>
+                    <dd class="col-sm-7">@Model.ShoppingList.CreatedDate.ToShortDateString()</dd>
+
+                    <dt class="col-sm-5">@ShoppingLocalizer["TotalItems"]</dt>
+                    <dd class="col-sm-7">@String.Format(ShoppingLocalizer["ItemsCount"], Model.TotalItems)</dd>
+
+                    <dt class="col-sm-5">@ShoppingLocalizer["Purchased"]</dt>
+                    <dd class="col-sm-7">@String.Format(ShoppingLocalizer["ItemsCount"], Model.PurchasedItems)</dd>
+
+                    <dt class="col-sm-5">@ShoppingLocalizer["Remaining"]</dt>
+                    <dd class="col-sm-7">@String.Format(ShoppingLocalizer["ItemsCount"], Model.RemainingItems)</dd>
+                </dl>
+
+                @{
+                    var purchasedCount = Model.PurchasedItems;
+                    var totalCount = Model.TotalItems;
+                    var completionPercentage = totalCount > 0 ? (purchasedCount * 100 / totalCount) : 0;
+                }
+
+                <div class="progress mt-3" style="height: 20px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @completionPercentage%"
+                         aria-valuenow="@completionPercentage" aria-valuemin="0" aria-valuemax="100">
+                        @completionPercentage%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@ShoppingLocalizer["QuickActions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                        <i class="bi bi-plus"></i> @ShoppingLocalizer["AddItem"]
+                    </button>
+                    <a href="#" class="btn btn-outline-success" id="toggleAllItemsBtn">
+                        <i class="bi bi-check-all"></i> @ShoppingLocalizer["ToggleAllItems"]
+                    </a>
+                    <button type="button" class="btn btn-outline-danger" id="clearCompletedBtn">
+                        <i class="bi bi-trash"></i> @ShoppingLocalizer["ClearCompleted"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addItemModalLabel">@ShoppingLocalizer["AddItemToShoppingList"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddItem" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="shoppingListId" value="@Model.ShoppingList.Id"/>
+
+                    <div class="mb-3">
+                        <label for="ingredientId" class="form-label">@ShoppingLocalizer["Ingredient"]</label>
+                        <select name="ingredientId" id="ingredientId" class="form-select" required>
+                            <option value="">@ShoppingLocalizer["SelectIngredient"]</option>
+                            @foreach (var ingredient in Model.AvailableIngredients)
+                            {
+                                <option value="@ingredient.Value">@ingredient.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">@Localizer["Amount"]</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0"
+                               value="1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@ShoppingLocalizer["AddItem"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        $(document).ready(function () {
+            // Handle checkbox changes
+            $(".item-checkbox").change(function () {
+                const itemId = $(this).data("item-id");
+                const isPurchased = $(this).prop("checked");
+
+                // Update the label text
+                $(this).siblings("label").text(isPurchased ? "@ShoppingLocalizer["Purchased"]" : "@ShoppingLocalizer["NotPurchased"]");
+
+                // Send AJAX request to update the item's purchased status
+                $.post("/ShoppingLists/ToggleItem", {itemId: itemId, purchased: isPurchased})
+                    .done(function (response) {
+                        if (response.success) {
+                            // Update summary and progress bar
+                            location.reload(); // Simple solution to update all counters
+                        }
+                    })
+                    .fail(function () {
+                        alert("Failed to update item. Please try again.");
+                        $(this).prop("checked", !isPurchased); // Revert the checkbox state
+                    });
+            });
+
+            // Toggle all items
+            $("#toggleAllItemsBtn").click(function (e) {
+                e.preventDefault();
+
+                // Count how many items are currently checked
+                const totalItems = $(".item-checkbox").length;
+                const checkedItems = $(".item-checkbox:checked").length;
+
+                // If all or most items are checked, uncheck all; otherwise, check all
+                const checkAll = checkedItems < totalItems / 2;
+
+                $(".item-checkbox").each(function () {
+                    const currentlyChecked = $(this).prop("checked");
+                    if (checkAll !== currentlyChecked) {
+                        $(this).prop("checked", checkAll).trigger("change");
+                    }
+                });
+            });
+
+            // Clear completed items
+            $("#clearCompletedBtn").click(function () {
+                if (confirm("@ShoppingLocalizer["ConfirmRemoveCompleted"]")) {
+                    const completedItemIds = [];
+
+                    $(".item-checkbox:checked").each(function () {
+                        completedItemIds.push($(this).data("item-id"));
+                    });
+
+                    if (completedItemIds.length > 0) {
+                        $.post("/ShoppingLists/RemoveCompletedItems", {
+                            shoppingListId: @Model.ShoppingList.Id,
+                            itemIds: completedItemIds
+                        })
+                            .done(function (response) {
+                                if (response.success) {
+                                    location.reload();
+                                }
+                            })
+                            .fail(function () {
+                                alert("Failed to remove completed items. Please try again.");
+                            });
+                    }
+                }
+            });
+
+            // Delete individual item
+            $(".delete-item-btn").click(function () {
+                const itemId = $(this).data("item-id");
+
+                if (confirm("@ShoppingLocalizer["ConfirmRemoveItem"]")) {
+                    $.post("/ShoppingLists/RemoveItem", {itemId: itemId})
+                        .done(function (response) {
+                            if (response.success) {
+                                location.reload();
+                            }
+                        })
+                        .fail(function () {
+                            alert("Failed to remove item. Please try again.");
+                        });
+                }
+            });
+
+            // Auto-submit amount updates on change
+            $(".item-amount-form .form-control").change(function () {
+                $(this).closest("form").submit();
+            });
+        });
+    </script>
+}

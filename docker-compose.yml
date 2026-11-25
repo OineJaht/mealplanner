@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER} 
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      # Add these for better PostgreSQL configuration
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mealplanner-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  # ASP.NET Core Backend
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${DB_PASSWORD};Include Error Detail=true;Trust Server Certificate=true
+      - JwtSettings__SecretKey=${JWT_SECRET_KEY}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
+      - JwtSettings__AccessTokenExpirationMinutes=15
+      - JwtSettings__RefreshTokenExpirationDays=7
+      - AllowedOrigins=${ALLOWED_ORIGINS}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      # Add data protection keys for Docker
+      - DataProtection__ApplicationName=MealPlanner
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mealplanner-network
+    restart: unless-stopped
+    # Add volume for data protection keys
+    volumes:
+      - app_data:/app/data
+
+  # Vue.js Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        - VITE_API_BASE_URL=http://localhost:5001/api
+    ports:
+      - "3000:80"
+    depends_on:
+      web:
+        condition: service_started
+    networks:
+      - mealplanner-network
+    environment:
+      # Frontend connects to backend via host machine
+      - VITE_API_BASE_URL=http://localhost:5001/api 
+    restart: unless-stopped
+
+  # React Frontend
+  react-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+      args:
+        - REACT_APP_API_BASE_URL=http://localhost:5001/api
+    ports:
+      - "3001:80"
+    depends_on:
+      web:
+        condition: service_started
+    networks:
+      - mealplanner-network
+    environment:
+      # React frontend connects to backend via host machine
+      - REACT_APP_API_BASE_URL=http://localhost:5001/api 
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  app_data:
+
+networks:
+  mealplanner-network:
+    driver: bridge

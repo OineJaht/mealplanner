@@ -1,0 +1,417 @@
+﻿@model MealPlanner.BLL.DTO.RecipeWithAvailability
+@{
+ViewData["Title"] = Model?.Recipe?.Name ?? FinderLocalizer["RecipeDetails"];
+
+// Helper method to display time in human-readable format
+string FormatTime(int minutes)
+{
+if (minutes < 60)
+{
+return $"{minutes} min";
+}
+else
+{
+int hours = minutes / 60;
+int remainingMinutes = minutes % 60;
+return remainingMinutes > 0 ? $"{hours} hr {remainingMinutes} min" : $"{hours} hr";
+}
+}
+
+// Calculate how many ingredients the user has
+var availableIngredientCount = Model?.RecipeIngredients?.Count(ri => ri.IsAvailable) ?? 0;
+var totalIngredientCount = Model?.RecipeIngredients?.Count ?? 0;
+var ingredientPercentage = totalIngredientCount > 0
+? (availableIngredientCount * 100) / totalIngredientCount
+: 0;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@(Model?.Recipe?.Name ?? FinderLocalizer["RecipeDetails"])</h1>
+    <div>
+        <a asp-action="FindRecipes" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @FinderLocalizer["BackToResults"]
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-4">
+            @if (Model?.Recipe != null && !string.IsNullOrEmpty(Model.Recipe.ImageUrl))
+            {
+            <img src="@Model.Recipe.ImageUrl" class="card-img-top" alt="@Model.Recipe.Name" style="max-height: 350px; object-fit: cover;">
+            }
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h4 class="card-title">@FinderLocalizer["AboutThisRecipe"]</h4>
+                    @if (Model?.Recipe?.IsFavorite == true)
+                    {
+                    <span class="badge bg-warning text-dark">
+                            <i class="bi bi-star-fill"></i> @FinderLocalizer["Favorite"]
+                        </span>
+                    }
+                </div>
+                <p class="card-text">@(Model?.Recipe?.Description ?? FinderLocalizer["NoDescriptionAvailable"])</p>
+
+                <div class="row text-center mt-4">
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-clock" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@FinderLocalizer["PrepTime"]</strong></div>
+                            <div>@FormatTime(Model?.Recipe?.PrepTimeMinutes ?? 0)</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-people" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@FinderLocalizer["Servings"]</strong></div>
+                            <div>@(Model?.Recipe?.DefaultServings ?? 0)</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-box-seam" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@FinderLocalizer["Ingredients"]</strong></div>
+                            <div>@availableIngredientCount @FinderLocalizer["OfTheTotal"] @totalIngredientCount</div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model?.Recipe?.Categories != null && Model.Recipe.Categories.Any())
+                {
+                <div class="mt-4">
+                    <h5>@FinderLocalizer["Categories"]</h5>
+                    <div>
+                        @foreach (var category in Model.Recipe.Categories)
+                        {
+                        <span class="badge bg-secondary me-1 p-2">@(category?.Name ?? FinderLocalizer["Uncategorized"])</span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (Model?.Recipe?.Nutrition != null)
+        {
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@FinderLocalizer["NutritionFacts"]</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">@FinderLocalizer["PerServing"]</h6>
+                <div class="row text-center">
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Calories"]</div>
+                        <div>@(Model.Recipe.Nutrition.CaloriesPerServing) kcal</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Protein"]</div>
+                        <div>@(Model.Recipe.Nutrition.TotalProteinG) g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Carbs"]</div>
+                        <div>@(Model.Recipe.Nutrition.TotalCarbsG) g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Fat"]</div>
+                        <div>@(Model.Recipe.Nutrition.TotalFatG) g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Fiber"]</div>
+                        <div>@(Model.Recipe.Nutrition.TotalFiberG) g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@FinderLocalizer["Sugar"]</div>
+                        <div>@(Model.Recipe.Nutrition.TotalSugarG) g</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>@FinderLocalizer["IngredientStatus"]</h5>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3" style="height: 25px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @ingredientPercentage%">
+                        @ingredientPercentage%
+                    </div>
+                </div>
+                <p>@FinderLocalizer["YouHaveOfIngredients"] @availableIngredientCount @FinderLocalizer["OfTheTotal"] @totalIngredientCount @FinderLocalizer["IngredientsNeeded"]</p>
+
+                @if (ingredientPercentage < 100)
+                {
+                <div class="mt-3">
+                    <a asp-controller="ShoppingLists" asp-action="Create" class="btn btn-outline-success">
+                        <i class="bi bi-cart-plus"></i> @FinderLocalizer["CreateShoppingList"]
+                    </a>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle"></i> @FinderLocalizer["AllIngredientsSuccess"]
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>@FinderLocalizer["RecipeIngredients"]</h5>
+            </div>
+            <div class="card-body">
+                @if (Model?.RecipeIngredients != null && Model.RecipeIngredients.Any())
+                {
+                <ul class="list-group list-group-flush">
+                    @foreach (var ingredient in Model.RecipeIngredients)
+                    {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-bold">@(ingredient?.Amount ?? 0) @(ingredient?.Unit ?? "")</span>
+                            <span class="@(ingredient?.IsAvailable == true ? "text-success" : "")">
+                                @(ingredient?.IngredientName ?? FinderLocalizer["Unknown"])
+                                @if (ingredient?.IsAvailable == true)
+                                {
+                                <i class="bi bi-check-circle-fill text-success ms-1"></i>
+                                }
+                                else
+                                {
+                                <span class="badge bg-warning text-dark ms-1">@FinderLocalizer["Missing"]</span>
+                                }
+                            </span>
+                        </div>
+                    </li>
+                    }
+                </ul>
+
+                <div class="mt-3 text-end">
+                    <div class="input-group" style="max-width: 200px; margin-left: auto;">
+                        <span class="input-group-text">@FinderLocalizer["Servings"]</span>
+                        <input type="number" id="servingAdjuster" class="form-control" value="@(Model?.Recipe?.DefaultServings ?? 1)" min="1" max="100">
+                        <button class="btn btn-outline-secondary" type="button" id="adjustServingsBtn">@FinderLocalizer["Adjust"]</button>
+                    </div>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-warning">
+                    <p>@FinderLocalizer["NoIngredientsSelected"]</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>@FinderLocalizer["Instructions"]</h5>
+            </div>
+            <div class="card-body">
+                @if (Model?.Recipe != null && !string.IsNullOrEmpty(Model.Recipe.Instructions))
+                {
+                <div class="recipe-instructions">
+                    @Html.Raw(Model.Recipe.Instructions.Replace(Environment.NewLine, "<br>"))
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-warning">
+                    <p>@FinderLocalizer["NoInstructionsAdded"]</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (Model?.Recipe?.CookingSteps != null && Model.Recipe.CookingSteps.Any())
+        {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>@FinderLocalizer["StepByStepInstructions"]</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    @foreach (var step in Model.Recipe.CookingSteps.OrderBy(s => s?.StepNumber ?? 0))
+                    {
+                    <div class="list-group-item">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <span class="badge bg-primary rounded-pill">@(step?.StepNumber ?? 0)</span>
+                            </div>
+                            <div>
+                                <p class="mb-1">@(step?.Instruction ?? "")</p>
+                                @if (step?.TimingMinutes > 0)
+                                {
+                                <small class="text-muted">
+                                    <i class="bi bi-clock"></i> @(step.TimingMinutes) minutes
+                                </small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+
+        <div class="card">
+            <div class="card-header">
+                <h5>@FinderLocalizer["Actions"]</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    <a asp-controller="Recipes" asp-action="Details" asp-route-id="@(Model?.Recipe?.Id ?? 0)" class="btn btn-outline-primary">
+                        <i class="bi bi-eye"></i> @FinderLocalizer["ViewFullRecipeDetails"]
+                    </a>
+                    <a asp-controller="MealPlans" asp-action="AddItem" asp-route-recipeId="@(Model?.Recipe?.Id ?? 0)" class="btn btn-outline-success">
+                        <i class="bi bi-calendar-plus"></i> @FinderLocalizer["AddToMealPlan"]
+                    </a>
+                    @if (ingredientPercentage < 100)
+                    {
+                    <button type="button" class="btn btn-outline-warning" id="addMissingToCartBtn">
+                        <i class="bi bi-cart-plus"></i> @FinderLocalizer["AddMissingIngredientsToShoppingList"]
+                    </button>
+                    }
+                    <button type="button" class="btn btn-outline-secondary" id="printRecipeBtn">
+                        <i class="bi bi-printer"></i> @FinderLocalizer["PrintRecipe"]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Print recipe functionality
+        $("#printRecipeBtn").click(function() {
+            window.print();
+        });
+
+        // Serving adjuster functionality
+        $("#adjustServingsBtn").click(function() {
+            // Safely handle null Recipe
+            const originalServings = @(Model?.Recipe?.DefaultServings ?? 1);
+            const newServings = parseInt($("#servingAdjuster").val());
+
+            if (newServings > 0) {
+                const ratio = newServings / originalServings;
+
+                // Update all ingredient amounts
+                $(".list-group-item").each(function() {
+                    const originalText = $(this).data("original-text");
+
+                    if (!originalText) {
+                        // First time adjusting, store original values
+                        const amountEl = $(this).find(".fw-bold");
+                        const originalAmountText = amountEl.text();
+                        const parts = originalAmountText.trim().split(" ");
+
+                        if (parts.length) {
+                            const originalAmount = parseFloat(parts[0]);
+
+                            if (!isNaN(originalAmount)) {
+                                $(this).data("original-text", originalAmountText);
+                                $(this).data("original-amount", originalAmount);
+
+                                // Calculate new amount
+                                const newAmount = (originalAmount * ratio).toFixed(1).replace(/\.0$/, '');
+                                const unit = parts.slice(1).join(" ");
+                                amountEl.text(newAmount + " " + unit);
+                            }
+                        }
+                    } else {
+                        // Use stored original values for calculation
+                        const originalAmount = $(this).data("original-amount");
+                        const originalText = $(this).data("original-text");
+
+                        if (originalAmount !== undefined && originalText) {
+                            const parts = originalText.trim().split(" ");
+                            const unit = parts.length > 1 ? parts.slice(1).join(" ") : "";
+
+                            // Calculate new amount
+                            const newAmount = (originalAmount * ratio).toFixed(1).replace(/\.0$/, '');
+                            $(this).find(".fw-bold").text(newAmount + " " + unit);
+                        }
+                    }
+                });
+            }
+        });
+
+        // Handle "Add Missing Ingredients to Shopping List" button
+        $("#addMissingToCartBtn").click(function() {
+            var form = $('<form></form>');
+            form.attr('method', 'post');
+            form.attr('action', '@Url.Action("AddMissingIngredientsToShoppingList", "RecipeFinder")');
+
+            // Add anti-forgery token
+            var antiForgeryToken = $('input[name="__RequestVerificationToken"]').clone();
+            form.append(antiForgeryToken);
+
+            // Add recipe ID (with null check)
+            form.append($('<input>').attr({
+                type: 'hidden',
+                name: 'recipeId',
+                value: '@(Model?.Recipe?.Id ?? 0)'
+            }));
+
+            // Add available ingredient IDs as an array
+            @if (Model?.RecipeIngredients != null)
+            {
+                <text>
+                // Get available ingredient IDs
+                var availableIngredientIds = [];
+                @foreach (var ingredient in Model.RecipeIngredients.Where(ri => ri?.IsAvailable == true))
+                {
+                    if (ingredient != null)
+                    {
+                        <text>
+            availableIngredientIds.push(@(ingredient.IngredientId));
+                        </text>
+                    }
+                }
+                
+                // Add each available ingredient ID to the form
+                availableIngredientIds.forEach(function(id) {
+                    form.append($('<input>').attr({
+                        type: 'hidden',
+                        name: 'availableIngredientIds',
+                        value: id
+                    }));
+                });
+                </text>
+            }
+
+            // Append form to body and submit
+            $('body').append(form);
+            form.submit();
+        });
+    });
+</script>
+}
+
+@section Styles {
+<style>
+    /* Print styles */
+    @@media print {
+        nav, footer, .card-header, .btn, .actions {
+            display: none !important;
+        }
+
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .recipe-instructions {
+            font-size: 14px;
+        }
+    }
+</style>
+}

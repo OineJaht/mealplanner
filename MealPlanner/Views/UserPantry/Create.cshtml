@@ -1,0 +1,189 @@
+﻿@model MealPlanner.Models.ViewModels.UserPantry.UserPantryCreateViewModel
+
+<h2>Create Pantry Item</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@PantryLocalizer["AddToPantry"]</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @PantryLocalizer["BackToPantry"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["PantryItemDetails"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" id="addToPantryForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="PantryItem.IngredientId" class="form-label">@PantryLocalizer["Ingredient"]</label>
+                        <select asp-for="PantryItem.IngredientId" class="form-select" asp-items="Model.AvailableIngredients" required>
+                            <option value="">@PantryLocalizer["SelectIngredient"]</option>
+                        </select>
+                        <span asp-validation-for="PantryItem.IngredientId" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.AmountInStock" class="form-label">@PantryLocalizer["Amount"]</label>
+                                <input asp-for="PantryItem.AmountInStock" class="form-control" type="number" step="0.01" min="0" required />
+                                <span asp-validation-for="PantryItem.AmountInStock" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.Unit" class="form-label">@PantryLocalizer["Unit"]</label>
+                                <input asp-for="PantryItem.Unit" class="form-control" list="unitOptions" required />
+                                <datalist id="unitOptions">
+                                    <option value="g"/>
+                                    <option value="kg"/>
+                                    <option value="ml"/>
+                                    <option value="l"/>
+                                    <option value="tsp"/>
+                                    <option value="tbsp"/>
+                                    <option value="cup"/>
+                                    <option value="oz"/>
+                                    <option value="lb"/>
+                                    <option value="piece"/>
+                                    <option value="package"/>
+                                    <option value="can"/>
+                                </datalist>
+                                <span asp-validation-for="PantryItem.Unit" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.Location" class="form-label">@PantryLocalizer["StorageLocation"]</label>
+                                <input asp-for="PantryItem.Location" class="form-control" list="locationOptions" placeholder="Refrigerator, Pantry, Freezer, etc." required />
+                                <datalist id="locationOptions">
+                                    <option value="Refrigerator"/>
+                                    <option value="Freezer"/>
+                                    <option value="Pantry"/>
+                                    <option value="Cupboard"/>
+                                    <option value="Spice Rack"/>
+                                    <option value="Countertop"/>
+                                </datalist>
+                                <span asp-validation-for="PantryItem.Location" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PantryItem.ExpiryDate" class="form-label">@PantryLocalizer["ExpiryDate"]</label>
+                                <input asp-for="PantryItem.ExpiryDate" class="form-control" type="date" required />
+                                <span asp-validation-for="PantryItem.ExpiryDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> @PantryLocalizer["AddToPantry"]
+                        </button>
+                        <button type="button" id="ajaxSubmitBtn" class="btn btn-success">
+                            <i class="bi bi-plus-circle"></i> @PantryLocalizer["AddToPantryAjax"]
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">@PantryLocalizer["Cancel"]</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["PantryManagementTips"]</h4>
+            </div>
+            <div class="card-body">
+                <p>@PantryLocalizer["TipsHeader"]:</p>
+                <ul>
+                    <li>@PantryLocalizer["AccurateExpiryDatesTip"]</li>
+                    <li>@PantryLocalizer["AddStorageLocationsTip"]</li>
+                    <li>@PantryLocalizer["UpdateQuantitiesTip"]</li>
+                    <li>@PantryLocalizer["RegularInventoryChecksTip"]</li>
+                </ul>
+
+                <div class="alert alert-info mt-3">
+                    <h5><i class="bi bi-lightbulb"></i> @PantryLocalizer["DidYouKnow"]</h5>
+                    <p>
+                        @PantryLocalizer["DidYouKnowPantry"]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Log regular form submissions
+        $('form').submit(function(e) {
+            // Don't prevent default form submission, but log the submission
+            console.log('Form submitted');
+            console.log('Form data:', $(this).serialize());
+
+            // Monitor for any errors after submission
+            setTimeout(function() {
+                if ($('.text-danger').length > 0) {
+                    console.log('Validation errors detected:', $('.text-danger').text());
+                }
+            }, 100);
+        });
+
+        // Handle Ajax button click
+        $('#ajaxSubmitBtn').click(function(e) {
+            e.preventDefault();
+
+            // Get the form
+            var form = $('#addToPantryForm');
+
+            // Check client-side validation first
+            if (!form[0].checkValidity()) {
+                // Trigger default HTML5 validation
+                form[0].reportValidity();
+                return;
+            }
+
+            // Gather form data
+            var formData = {
+                IngredientId: $('#IngredientId').val(),
+                AmountInStock: $('#AmountInStock').val(),
+                Unit: $('#Unit').val(),
+                Location: $('#Location').val(),
+                ExpiryDate: $('#ExpiryDate').val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+
+            console.log('Submitting data via Ajax:', formData);
+
+            // Submit via Ajax
+            $.ajax({
+                url: '@Url.Action("CreateAjax")',
+                type: 'POST',
+                data: formData,
+                success: function(result) {
+                    console.log('Ajax response:', result);
+                    if (result.success) {
+                        alert('Item added to pantry successfully!');
+                        window.location.href = '@Url.Action("Index")';
+                    } else {
+                        alert('Error: ' + (result.message || "Unknown error"));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax error:', xhr, status, error);
+                    console.error('Response text:', xhr.responseText);
+                    alert('An error occurred: ' + error);
+                }
+            });
+        });
+    });
+</script>

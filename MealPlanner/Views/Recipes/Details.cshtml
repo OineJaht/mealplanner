@@ -1,0 +1,367 @@
+﻿@model MealPlanner.Dto.RecipeDetailDto
+@{
+ViewData["Title"] = Model.Name;
+
+// Helper method to display time in human-readable format
+string FormatTime(int minutes)
+{
+if (minutes < 60)
+{
+return $"{minutes} min";
+}
+else
+{
+int hours = minutes / 60;
+int remainingMinutes = minutes % 60;
+return remainingMinutes > 0 ? $"{hours} hr {remainingMinutes} min" : $"{hours} hr";
+}
+}
+
+decimal proteinPercentage = 0;
+decimal carbPercentage = 0;
+decimal fatPercentage = 0;
+
+if (Model.Nutrition != null && Model.Nutrition.CaloriesPerServing > 0)
+{
+proteinPercentage = Math.Round((Model.Nutrition.TotalProteinG * 4 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+carbPercentage = Math.Round((Model.Nutrition.TotalCarbsG * 4 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+fatPercentage = Math.Round((Model.Nutrition.TotalFatG * 9 / Model.Nutrition.CaloriesPerServing) * 100, 0);
+}
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@Model.Name</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
+            <i class="bi bi-pencil"></i> @Localizer["Edit"]
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @Localizer["BackToList"]
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card mb-4">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+            <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name" style="max-height: 350px; object-fit: cover;">
+            }
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h4 class="card-title">@RecipeLocalizer["AboutThisRecipe"]</h4>
+                    @if (Model.IsFavorite)
+                    {
+                    <span class="badge bg-warning text-dark">
+                            <i class="bi bi-star-fill"></i> @Localizer["Favorite"]
+                        </span>
+                    }
+                </div>
+                <p class="card-text">@Model.Description</p>
+
+                <div class="row text-center mt-4">
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-clock" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@RecipeLocalizer["PrepTime"]</strong></div>
+                            <div>@FormatTime(Model.PrepTimeMinutes)</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-people" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@RecipeLocalizer["Servings"]</strong></div>
+                            <div>@Model.DefaultServings</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded">
+                            <div><i class="bi bi-calendar3" style="font-size: 1.5rem;"></i></div>
+                            <div><strong>@RecipeLocalizer["Created"]</strong></div>
+                            <div>@Model.CreatedAt.ToShortDateString()</div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
+                <div class="mt-4">
+                    <h5>@RecipeLocalizer["Categories"]</h5>
+                    <div>
+                        @foreach (var category in Model.Categories)
+                        {
+                        <span class="badge bg-secondary me-1 p-2">@category.Name</span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (Model.Nutrition != null)
+        {
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@RecipeLocalizer["NutritionFacts"]</h5>
+                <a asp-controller="Nutrition" asp-action="RecipeNutrition" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-info">
+                    <i class="bi bi-pencil"></i> @Localizer["Edit"]
+                </a>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">@RecipeLocalizer["PerServing"]</h6>
+                <div class="row text-center">
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Calories"]</div>
+                        <div>@Model.Nutrition.CaloriesPerServing kcal</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Protein"]</div>
+                        <div>@Model.Nutrition.TotalProteinG g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Carbs"]</div>
+                        <div>@Model.Nutrition.TotalCarbsG g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Fat"]</div>
+                        <div>@Model.Nutrition.TotalFatG g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Fiber"]</div>
+                        <div>@Model.Nutrition.TotalFiberG g</div>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <div class="fw-bold">@RecipeLocalizer["Sugar"]</div>
+                        <div>@Model.Nutrition.TotalSugarG g</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <div class="progress mb-2" style="height: 25px;">
+                        <div class="progress-bar bg-success" role="progressbar"
+                             style="width: @proteinPercentage%">
+                            @RecipeLocalizer["Protein"] @proteinPercentage%
+                        </div>
+                        <div class="progress-bar bg-warning" role="progressbar"
+                             style="width: @carbPercentage%">
+                            @RecipeLocalizer["Carbs"] @carbPercentage%
+                        </div>
+                        <div class="progress-bar bg-danger" role="progressbar"
+                             style="width: @fatPercentage%">
+                            @RecipeLocalizer["Fat"] @fatPercentage%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        else
+        {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">@RecipeLocalizer["NutritionInformation"]</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-0">
+                    <p>@RecipeLocalizer["NoNutritionAvailable"]</p>
+                    <a asp-controller="Nutrition" asp-action="CalculateRecipeNutrition" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">
+                        <i class="bi bi-calculator"></i> @RecipeLocalizer["CalculateNutrition"]
+                    </a>
+                </div>
+            </div>
+        </div>
+        }
+
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@RecipeLocalizer["RelatedActions"]</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-controller="MealPlans" asp-action="AddItem" asp-route-recipeId="@Model.Id" class="btn btn-outline-primary">
+                        <i class="bi bi-calendar-plus"></i> @RecipeLocalizer["AddToMealPlan"]
+                    </a>
+                    <button type="button" class="btn btn-outline-secondary" id="printRecipeBtn">
+                        <i class="bi bi-printer"></i> @RecipeLocalizer["PrintRecipe"]
+                    </button>
+                    <a asp-controller="CookingSteps" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-outline-info">
+                        <i class="bi bi-list-check"></i> @RecipeLocalizer["ManageCookingSteps"]
+                    </a>
+                    <a asp-controller="Nutrition" asp-action="CalculateRecipeNutrition" asp-route-id="@Model.Id" class="btn btn-outline-success">
+                        <i class="bi bi-calculator"></i> @RecipeLocalizer["UpdateNutrition"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">@RecipeLocalizer["Ingredients"]</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.Ingredients != null && Model.Ingredients.Any())
+                {
+                <ul class="list-group list-group-flush">
+                    @foreach (var ingredient in Model.Ingredients)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="fw-bold">@ingredient.Amount @ingredient.Unit</span>
+                                <span>@ingredient.IngredientName</span>
+                            </div>
+                            <div>
+                                <a asp-controller="Ingredients" asp-action="Details" asp-route-id="@ingredient.IngredientId" class="btn btn-sm btn-outline-info">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+                <div class="mt-3 text-end">
+                    <div class="input-group" style="max-width: 200px; margin-left: auto;">
+                        <span class="input-group-text">@RecipeLocalizer["Servings"]</span>
+                        <input type="number" id="servingAdjuster" class="form-control" value="@Model.DefaultServings" min="1" max="100">
+                        <button class="btn btn-outline-secondary" type="button" id="adjustServingsBtn">@RecipeLocalizer["AdjustServings"]</button>
+                    </div>
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-warning">
+                    <p>No ingredients have been added to this recipe.</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@RecipeLocalizer["Instructions"]</h5>
+                <a asp-controller="CookingSteps" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-list-check"></i> @RecipeLocalizer["StepByStepInstructions"]
+                </a>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.Instructions))
+                {
+                <div class="recipe-instructions">
+                    @Html.Raw(Model.Instructions.Replace(Environment.NewLine, "<br>"))
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-warning">
+                    <p>No instructions have been added to this recipe.</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        @if (Model.CookingSteps != null && Model.CookingSteps.Any())
+        {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">@RecipeLocalizer["StepByStepInstructions"]</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    @foreach (var step in Model.CookingSteps.OrderBy(s => s.StepNumber))
+                    {
+                    <div class="list-group-item">
+                        <div class="d-flex">
+                            <div class="me-3">
+                                <span class="badge bg-primary rounded-pill">@step.StepNumber</span>
+                            </div>
+                            <div>
+                                <p class="mb-1">@step.Instruction</p>
+                                @if (step.TimingMinutes > 0)
+                                {
+                                <small class="text-muted">
+                                    <i class="bi bi-clock"></i> @step.TimingMinutes minutes
+                                </small>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Print recipe functionality
+        $("#printRecipeBtn").click(function() {
+            window.print();
+        });
+
+        // Serving adjuster functionality
+        $("#adjustServingsBtn").click(function() {
+            const originalServings = @Model.DefaultServings;
+            const newServings = parseInt($("#servingAdjuster").val());
+
+            if (newServings > 0) {
+                const ratio = newServings / originalServings;
+
+                // Update all ingredient amounts
+                $(".list-group-item").each(function() {
+                    const originalText = $(this).data("original-text");
+
+                    if (!originalText) {
+                        // First time adjusting, store original values
+                        const amountEl = $(this).find(".fw-bold");
+                        const originalAmount = parseFloat(amountEl.text().split(" ")[0]);
+
+                        if (!isNaN(originalAmount)) {
+                            $(this).data("original-text", amountEl.text());
+                            $(this).data("original-amount", originalAmount);
+
+                            // Calculate new amount
+                            const newAmount = (originalAmount * ratio).toFixed(1).replace(/\.0$/, '');
+                            const unit = amountEl.text().split(" ").slice(1).join(" ");
+                            amountEl.text(newAmount + " " + unit);
+                        }
+                    } else {
+                        // Use stored original values for calculation
+                        const originalAmount = $(this).data("original-amount");
+                        const originalText = $(this).data("original-text");
+                        const unit = originalText.split(" ").slice(1).join(" ");
+
+                        // Calculate new amount
+                        const newAmount = (originalAmount * ratio).toFixed(1).replace(/\.0$/, '');
+                        $(this).find(".fw-bold").text(newAmount + " " + unit);
+                    }
+                });
+            }
+        });
+    });
+</script>
+}
+
+@section Styles {
+<style>
+    /* Print styles */
+    @@media print {
+        nav, footer, .card-header, .btn, .actions {
+            display: none !important;
+        }
+
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .recipe-instructions {
+            font-size: 14px;
+        }
+    }
+</style>
+}

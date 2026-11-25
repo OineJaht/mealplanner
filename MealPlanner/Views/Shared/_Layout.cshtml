@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - @Localizer["MealPlanner"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/MealPlanner.styles.css" asp-append-version="true"/>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["MealPlanner"]</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @Localizer["Food"]
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-controller="Recipes" asp-action="Index">@Localizer["Recipes"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="RecipeFinder" asp-action="Index">@Localizer["WhatCanICook"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Ingredients" asp-action="Index">@Localizer["Ingredients"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Nutrition" asp-action="NutritionSummary">@Localizer["Nutrition"]</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="planningDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @Localizer["Planning"]
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="planningDropdown">
+                            <li><a class="dropdown-item" asp-controller="MealPlans" asp-action="Index">@Localizer["MealPlans"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="UserPantry" asp-action="Index">@Localizer["Pantry"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="ShoppingLists" asp-action="Index">@Localizer["ShoppingLists"]</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="planningDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">@Localizer["Privacy"]</a>
+                        <ul class="dropdown-menu" aria-labelledby="planningDropdown">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="About">@Localizer["About"]</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- JWT Authentication UI -->
+                <ul class="navbar-nav">
+                    <!-- Shown when logged in -->
+                    <li class="nav-item dropdown" id="accountDropdownItem" style="display: none;">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span id="navUsername">Account</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/Identity/Account/Manage">Profile</a></li>
+                            <li><a class="dropdown-item" href="/Identity/Account/Manage/ChangePassword">Change Password</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><button class="dropdown-item text-danger" onclick="jwtLogout()">Logout</button></li>
+                        </ul>
+                    </li>
+
+                    <!-- Shown when logged out -->
+                    <li class="nav-item" id="loginItem" style="display: none;">
+                        <a class="nav-link text-dark" href="/JwtLogin">Login</a>
+                    </li>
+                    <li class="nav-item" id="registerItem" style="display: none;">
+                        <a class="nav-link text-dark" href="/Identity/Account/Register">Register</a>
+                    </li>
+                </ul>
+                <partial name="_LanguageSwitcher" />
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2025 - @Localizer["MealPlanner"] - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+<form id="__AjaxAntiForgeryForm" action="#" method="post">
+    @Html.AntiForgeryToken()
+</form>
+<script>
+    // Add a global AJAX setup to include the anti-forgery token
+    $.ajaxSetup({
+        headers: {
+            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+        }
+    });
+</script>
+<script>
+    // JWT Authentication helper functions
+    function isJwtLoggedIn() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            // Check if token is still valid
+            return payload.exp * 1000 > Date.now();
+        } catch {
+            return false;
+        }
+    }
+
+    function getJwtUsername() {
+        try {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) return null;
+
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.name || payload.unique_name || payload.email;
+        } catch {
+            return null;
+        }
+    }
+
+    async function jwtLogout() {
+        const token = localStorage.getItem('jwt_token');
+
+        if (token) {
+            try {
+                await fetch('/api/Account/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        // Clear tokens regardless of API success
+        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('refresh_token');
+
+        // Redirect to home
+        window.location.href = '/';
+    }
+
+    // Update UI based on auth state
+    function updateAuthUI() {
+        const loggedIn = isJwtLoggedIn();
+        const username = getJwtUsername();
+
+        // Elements for logged in users
+        document.querySelectorAll('.jwt-auth-loggedin').forEach(el => {
+            el.style.display = loggedIn ? '' : 'none';
+        });
+
+        // Elements for logged out users
+        document.querySelectorAll('.jwt-auth-loggedout').forEach(el => {
+            el.style.display = loggedIn ? 'none' : '';
+        });
+
+        // Update username display
+        document.querySelectorAll('.jwt-username').forEach(el => {
+            el.textContent = username || 'User';
+        });
+    }
+
+    // Check token expiration and refresh if needed
+    async function checkAndRefreshToken() {
+        const token = localStorage.getItem('jwt_token');
+        const refreshToken = localStorage.getItem('refresh_token');
+
+        if (!token || !refreshToken) return;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const expiration = payload.exp * 1000; // Convert to milliseconds
+            const now = Date.now();
+            const fiveMinutes = 5 * 60 * 1000;
+
+            // If token expires in less than 5 minutes, refresh it
+            if (expiration - now < fiveMinutes) {
+                console.log('Token about to expire, refreshing...');
+
+                const response = await fetch('/api/Account/refresh-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        accessToken: token,
+                        refreshToken: refreshToken
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    console.log('Token refreshed successfully');
+                    localStorage.setItem('jwt_token', result.data.accessToken);
+                    localStorage.setItem('refresh_token', result.data.refreshToken);
+                } else {
+                    console.warn('Token refresh failed:', result.message);
+                    // Clear tokens if refresh failed
+                    localStorage.removeItem('jwt_token');
+                    localStorage.removeItem('refresh_token');
+                    updateAuthUI();
+                }
+            }
+        } catch (error) {
+            console.error('Error checking token:', error);
+        }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        updateAuthUI();
+        checkAndRefreshToken();
+
+        // Check token every minute
+        setInterval(checkAndRefreshToken, 60000);
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // For Bootstrap 5
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl)
+        });
+    });
+</script>
+
+<script>
+    // JWT Authentication Helper Functions
+    function isJwtLoggedIn() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) return false;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.exp * 1000 > Date.now(); // Check if token is expired
+        } catch {
+            return false;
+        }
+    }
+
+    function getJwtUsername() {
+        try {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) return 'Account';
+
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return payload.name || payload.unique_name || payload.email || 'Account';
+        } catch {
+            return 'Account';
+        }
+    }
+
+    function jwtLogout() {
+        const token = localStorage.getItem('jwt_token');
+        if (token) {
+            fetch('/api/Account/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }).catch(err => console.error('Logout error:', err))
+                .finally(() => {
+                    // Clear tokens and cookies
+                    localStorage.removeItem('jwt_token');
+                    localStorage.removeItem('refresh_token');
+                    document.cookie = 'jwt_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+                    // Update UI
+                    updateNavAuth();
+
+                    // Redirect to home
+                    window.location.href = '/';
+                });
+        } else {
+            window.location.href = '/';
+        }
+    }
+
+    // Update navigation bar based on auth state
+    function updateNavAuth() {
+        const isLoggedIn = isJwtLoggedIn();
+        const username = getJwtUsername();
+
+        // Update dropdown text
+        document.getElementById('navUsername').textContent = username;
+
+        // Show/hide elements based on login state
+        document.getElementById('accountDropdownItem').style.display = isLoggedIn ? 'block' : 'none';
+        document.getElementById('loginItem').style.display = isLoggedIn ? 'none' : 'block';
+        document.getElementById('registerItem').style.display = isLoggedIn ? 'none' : 'block';
+
+        // Ensure JWT cookie is set for server-side auth
+        if (isLoggedIn) {
+            const token = localStorage.getItem('jwt_token');
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const expirySeconds = payload.exp - Math.floor(Date.now() / 1000);
+                document.cookie = `jwt_auth=${token}; path=/; max-age=${expirySeconds}; SameSite=Lax`;
+            } catch (e) {
+                console.error('Error setting JWT cookie:', e);
+            }
+        }
+    }
+
+    // Initialize auth UI when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateNavAuth();
+
+        // Check auth status every minute to handle token expiration
+        setInterval(updateNavAuth, 60000);
+    });
+</script>
+
+</body>
+</html>

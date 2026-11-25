@@ -1,0 +1,105 @@
+﻿@model MealPlanner.Models.ViewModels.CookingSteps.CookingStepCreateViewModel
+@{
+    ViewData["Title"] = StepsLocalizer["AddCookingStep"];
+
+    var recipeId = ViewData["RecipeId"];
+    var recipeName = ViewData["RecipeName"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@StepsLocalizer["AddStepFor"] @recipeName</h1>
+    <a asp-action="Index" asp-route-id="@recipeId" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @StepsLocalizer["BackToSteps"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@StepsLocalizer["NewCookingStep"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="RecipeId" value="@recipeId" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.StepNumber" class="form-label">@StepsLocalizer["StepNumber"]</label>
+                        <input asp-for="CookingStep.StepNumber" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="CookingStep.StepNumber" class="text-danger"></span>
+                        <small class="form-text text-muted">@StepsLocalizer["StepNumberHelp"]</small>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.Instruction" class="form-label">@StepsLocalizer["Instruction"]</label>
+                        <textarea asp-for="CookingStep.Instruction" class="form-control" rows="4" placeholder="@StepsLocalizer["Instruction"]..."></textarea>
+                        <span asp-validation-for="CookingStep.Instruction" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.TimingMinutes" class="form-label">@StepsLocalizer["TimingMinutes"]</label>
+                        <input asp-for="CookingStep.TimingMinutes" class="form-control" type="number" min="0" placeholder="@StepsLocalizer["TimingMinutes"]?" />
+                        <span asp-validation-for="CookingStep.TimingMinutes" class="text-danger"></span>
+                        <small class="form-text text-muted">@StepsLocalizer["TimingHelp"]</small>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Index" asp-route-id="@recipeId" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> @StepsLocalizer["AddStep"]
+                            </button>
+                            <button type="submit" name="continueAdding" value="true" class="btn btn-success">
+                                <i class="bi bi-plus-circle"></i> @StepsLocalizer["AddAndCreateAnother"]
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@StepsLocalizer["TipsForInstructions"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>@StepsLocalizer["Tip1"]</li>
+                    <li>@StepsLocalizer["Tip2"]</li>
+                    <li>@StepsLocalizer["Tip3"]</li>
+                    <li>@StepsLocalizer["Tip4"]</li>
+                    <li>@StepsLocalizer["Tip5"]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@StepsLocalizer["ExampleStepInstructions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="example-step mb-3">
+                    <p class="mb-1"><strong>@StepsLocalizer["GoodExample"]</strong></p>
+                    <p class="example-text">"@StepsLocalizer["Example1"]"</p>
+                </div>
+
+                <div class="example-step mb-3">
+                    <p class="mb-1"><strong>@StepsLocalizer["GoodExample"]</strong></p>
+                    <p class="example-text">"@StepsLocalizer["Example2"]"</p>
+                </div>
+
+                <div class="example-step">
+                    <p class="mb-1"><strong>@StepsLocalizer["GoodExample"]</strong></p>
+                    <p class="example-text">"@StepsLocalizer["Example3"]"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,97 @@
+﻿@model MealPlanner.Models.ViewModels.CookingSteps.CookingStepEditViewModel
+@{
+    ViewData["Title"] = StepsLocalizer["EditCookingStep"];
+
+    var recipeId = ViewData["RecipeId"];
+    var recipeName = ViewData["RecipeName"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@StepsLocalizer["EditStepFor"] @recipeName</h1>
+    <a asp-action="Index" asp-route-id="@Model.RecipeId" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @StepsLocalizer["BackToSteps"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@StepsLocalizer["EditStep"] #@Model.CookingStep.StepNumber</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="CookingStep.Id" />
+                    <input type="hidden" asp-for="RecipeId" />
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.StepNumber" class="form-label">@StepsLocalizer["StepNumber"]</label>
+                        <input asp-for="CookingStep.StepNumber" class="form-control" type="number" min="1" />
+                        <span asp-validation-for="CookingStep.StepNumber" class="text-danger"></span>
+                        <small class="form-text text-muted">@StepsLocalizer["StepNumberReorderHelp"]</small>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.Instruction" class="form-label">@StepsLocalizer["Instruction"]</label>
+                        <textarea asp-for="CookingStep.Instruction" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="CookingStep.Instruction" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="CookingStep.TimingMinutes" class="form-label">@StepsLocalizer["TimingMinutes"]</label>
+                        <input asp-for="CookingStep.TimingMinutes" class="form-control" type="number" min="0" />
+                        <span asp-validation-for="CookingStep.TimingMinutes" class="text-danger"></span>
+                        <small class="form-text text-muted">@StepsLocalizer["TimingHelp"]</small>
+                    </div>
+
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <a asp-action="Index" asp-route-id="@Model.RecipeId" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> @StepsLocalizer["SaveChanges"]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@StepsLocalizer["TipsForInstructions"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>@StepsLocalizer["Tip1"]</li>
+                    <li>@StepsLocalizer["Tip2"]</li>
+                    <li>@StepsLocalizer["Tip3"]</li>
+                    <li>@StepsLocalizer["Tip4"]</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@StepsLocalizer["QuickActions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-action="Index" asp-route-id="@Model.RecipeId" class="btn btn-outline-secondary">
+                        <i class="bi bi-list"></i> @StepsLocalizer["ViewAllSteps"]
+                    </a>
+                    <a asp-controller="Recipes" asp-action="Details" asp-route-id="@Model.RecipeId" class="btn btn-outline-info">
+                        <i class="bi bi-eye"></i> @StepsLocalizer["ViewRecipe"]
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.CookingStep.Id" class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> @StepsLocalizer["DeleteThisStep"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

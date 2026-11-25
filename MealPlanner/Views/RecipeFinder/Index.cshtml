@@ -1,0 +1,177 @@
+﻿@model MealPlanner.BLL.DTO.RecipeFinderViewModel
+@{
+ViewData["Title"] = FinderLocalizer["WhatCanICook"];
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@FinderLocalizer["WhatCanICook"]</h1>
+    <a asp-controller="Recipes" asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> @FinderLocalizer["BackToRecipes"]
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>@FinderLocalizer["FindRecipesWithIngredients"]</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="FindRecipes" method="post">
+                    <div class="mb-4">
+                        <h5>@FinderLocalizer["SelectIngredients"]</h5>
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> @FinderLocalizer["SelectIngredientsInfo"]
+                        </div>
+
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="matchAll" name="matchAll">
+                            <label class="form-check-label" for="matchAll">@FinderLocalizer["MatchAllIngredients"]</label>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <button type="button" id="selectAllPantry" class="btn btn-outline-primary btn-sm">@FinderLocalizer["SelectAllFromPantry"]</button>
+                                <button type="button" id="clearAll" class="btn btn-outline-secondary btn-sm">@FinderLocalizer["ClearAll"]</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchIngredients" placeholder="@FinderLocalizer["SearchIngredients"]">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row" id="ingredientsList">
+                            @foreach (var ingredient in Model.AllIngredients)
+                            {
+                            bool isInPantry = Model.PantryIngredients.Any(p => p.Id == ingredient.Id);
+                            bool isSelected = Model.SelectedIngredientIds.Contains(ingredient.Id);
+
+                            <div class="col-md-4 mb-2 ingredient-item" data-name="@ingredient.Name.ToLower()" data-category="@ingredient.Category.ToLower()">
+                                <div class="form-check">
+                                    <input class="form-check-input ingredient-checkbox" type="checkbox" name="ingredientIds" id="ingredient_@ingredient.Id"
+                                           value="@ingredient.Id" @(isSelected ? "checked" : "")>
+                                    <label class="form-check-label @(isInPantry ? "text-success fw-bold" : "")" for="ingredient_@ingredient.Id">
+                                        @ingredient.Name
+                                        @if (isInPantry)
+                                        {
+                                        <span class="badge bg-success">@FinderLocalizer["InPantry"]</span>
+                                        }
+                                    </label>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i> @FinderLocalizer["FindRecipes"]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@FinderLocalizer["YourPantryIngredients"]</h4>
+            </div>
+            <div class="card-body">
+                @if (Model.PantryIngredients.Any())
+                {
+                <div class="list-group">
+                    @foreach (var category in Model.PantryIngredients.Select(i => i.Category).Distinct().OrderBy(c => c))
+                    {
+                    if (!string.IsNullOrEmpty(category))
+                    {
+                    <div class="list-group-item bg-light">
+                        <strong>@category</strong>
+                    </div>
+
+                    @foreach (var ingredient in Model.PantryIngredients.Where(i => i.Category == category).OrderBy(i => i.Name))
+                    {
+                    <div class="list-group-item">
+                        @ingredient.Name
+                    </div>
+                    }
+                    }
+                    }
+                </div>
+                }
+                else
+                {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i> @FinderLocalizer["NoPantryIngredients"]
+                    <div class="mt-2">
+                        <a asp-controller="UserPantry" asp-action="Index" class="btn btn-sm btn-outline-primary">@FinderLocalizer["ManagePantry"]</a>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@FinderLocalizer["FindingRecipesTips"]</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>@FinderLocalizer["SelectPantryItemsTip"]</strong></li>
+                    <li><strong>@FinderLocalizer["MatchTypeTip"]</strong></li>
+                    <li><strong>@FinderLocalizer["ConsiderStaplesTip"]</strong></li>
+                    <li><strong>@FinderLocalizer["KeepPantryUpdatedTip"]</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        // Search functionality
+        $("#searchIngredients").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".ingredient-item").filter(function() {
+                var nameMatch = $(this).data("name").indexOf(value) > -1;
+                var categoryMatch = $(this).data("category").indexOf(value) > -1;
+                $(this).toggle(nameMatch || categoryMatch);
+            });
+        });
+
+        // Select all pantry items
+        $("#selectAllPantry").click(function() {
+            $(".form-check-label").each(function() {
+                if ($(this).hasClass("text-success")) {
+                    $(this).siblings(".ingredient-checkbox").prop('checked', true);
+                }
+            });
+        });
+
+        // Clear all selections
+        $("#clearAll").click(function() {
+            $(".ingredient-checkbox").prop('checked', false);
+        });
+
+        // Track selection count
+        $(".ingredient-checkbox").change(function() {
+            updateSelectionCount();
+        });
+
+        function updateSelectionCount() {
+            var count = $(".ingredient-checkbox:checked").length;
+            $("#selectionCount").text(count);
+        }
+
+        // Initialize
+        updateSelectionCount();
+    });
+</script>
+}

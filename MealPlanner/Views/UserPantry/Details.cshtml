@@ -1,0 +1,289 @@
+﻿@model MealPlanner.Models.ViewModels.UserPantry.UserPantryDetailsViewModel
+
+<h2>Pantry Item Details</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@PantryLocalizer["PantryDetails"]</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PantryItem.Id" class="btn btn-outline-primary me-2">
+            <i class="bi bi-pencil"></i> @Localizer["Edit"]
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> @PantryLocalizer["BackToList"]
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@Model.PantryItem.IngredientName</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">@PantryLocalizer["AmountInStock"]</dt>
+                    <dd class="col-sm-8">@Model.PantryItem.AmountInStock @Model.PantryItem.Unit</dd>
+
+                    <dt class="col-sm-4">@PantryLocalizer["StorageLocation"]</dt>
+                    <dd class="col-sm-8">@Model.PantryItem.Location</dd>
+
+                    <dt class="col-sm-4">@PantryLocalizer["ExpiryDate"]</dt>
+                    <dd class="col-sm-8">
+                        @Model.PantryItem.ExpiryDate.ToShortDateString()
+                        @{
+                        var daysUntilExpiry = (Model.PantryItem.ExpiryDate - DateTime.Today).Days;
+
+                        if (daysUntilExpiry < 0)
+                        {
+                        <span class="badge bg-danger ms-2">@PantryLocalizer["Expired"]</span>
+                        }
+                        else if (daysUntilExpiry <= 7)
+                        {
+                        <span class="badge bg-warning text-dark ms-2">@PantryLocalizer["ExpiringSoon"]</span>
+                        }
+                        else
+                        {
+                        <span class="badge bg-success ms-2">@string.Format(PantryLocalizer["DaysLeft"], daysUntilExpiry)</span>
+                        }
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4">@PantryLocalizer["IngredientCategory"]</dt>
+                    <dd class="col-sm-8">@(Model.PantryItem.IngredientCategory ?? "Uncategorized")</dd>
+                </dl>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.PantryItem.Id" class="btn btn-primary">
+                        <i class="bi bi-pencil"></i> @PantryLocalizer["EditItem"]
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@Model.PantryItem.Id" class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> @Localizer["Delete"]
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["QuickActions"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a asp-controller="Ingredients" asp-action="Details" asp-route-id="@Model.PantryItem.IngredientId" class="btn btn-outline-info w-100 mb-2">
+                            <i class="bi bi-info-circle"></i> @PantryLocalizer["ViewIngredientInfo"]
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addToShoppingListModal">
+                            <i class="bi bi-cart-plus"></i> @PantryLocalizer["AddToShoppingList"]
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <a asp-controller="Recipes" asp-action="Index" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-search"></i> @PantryLocalizer["FindRecipesUsingThis"]
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <form asp-action="UpdateAmount" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@Model.PantryItem.Id" />
+                            <input type="hidden" name="amount" value="0" />
+                            <button type="submit" class="btn btn-outline-warning w-100" onclick="return confirm('@PantryLocalizer["ConfirmMarkAsUsedUp"]')">
+                                <i class="bi bi-dash-circle"></i> @PantryLocalizer["MarkAsUsedUp"]
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        @if (Model.PantryItem.Nutrition != null)
+        {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>@PantryLocalizer["NutritionInformation"]</h4>
+            </div>
+            <div class="card-body">
+                <h5>@PantryLocalizer["Per100g"] @Model.PantryItem.IngredientName</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>@PantryLocalizer["Calories"]:</th>
+                            <td>@Model.PantryItem.Nutrition.CaloriesPer100g kcal</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Protein"]:</th>
+                            <td>@Model.PantryItem.Nutrition.ProteinG g</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Carbohydrates"]:</th>
+                            <td>@Model.PantryItem.Nutrition.CarbsG g</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Fat"]:</th>
+                            <td>@Model.PantryItem.Nutrition.FatG g</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Fiber"]:</th>
+                            <td>@Model.PantryItem.Nutrition.FiberG g</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Sugar"]:</th>
+                            <td>@Model.PantryItem.Nutrition.SugarG g</td>
+                        </tr>
+                        <tr>
+                            <th>@PantryLocalizer["Sodium"]:</th>
+                            <td>@Model.PantryItem.Nutrition.SodiumMg mg</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="progress mt-3 mb-2" style="height: 25px;">
+                    @{
+                    decimal calories = Model.PantryItem.Nutrition.CaloriesPer100g;
+                    decimal proteinCalories = Model.PantryItem.Nutrition.ProteinG * 4;
+                    decimal carbCalories = Model.PantryItem.Nutrition.CarbsG * 4;
+                    decimal fatCalories = Model.PantryItem.Nutrition.FatG * 9;
+
+                    // Using explicit cast to avoid ambiguous method call
+                    int proteinPercentage = calories > 0 ? (int)Math.Round((double)(proteinCalories / calories * 100)) : 0;
+                    int carbPercentage = calories > 0 ? (int)Math.Round((double)(carbCalories / calories * 100)) : 0;
+                    int fatPercentage = calories > 0 ? (int)Math.Round((double)(fatCalories / calories * 100)) : 0;
+                    }
+
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: @proteinPercentage%">
+                        @PantryLocalizer["Protein"]
+                    </div>
+                    <div class="progress-bar bg-warning" role="progressbar"
+                         style="width: @carbPercentage%">
+                        @PantryLocalizer["Carbohydrates"]
+                    </div>
+                    <div class="progress-bar bg-danger" role="progressbar"
+                         style="width: @fatPercentage%">
+                        @PantryLocalizer["Fat"]
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <small>@PantryLocalizer["Protein"]: @proteinPercentage%</small>
+                    <small>@PantryLocalizer["Carbohydrates"]: @carbPercentage%</small>
+                    <small>@PantryLocalizer["Fat"]: @fatPercentage%</small>
+                </div>
+            </div>
+        </div>
+        }
+
+        <div class="card">
+            <div class="card-header">
+                <h4>@PantryLocalizer["StorageTips"]</h4>
+            </div>
+            <div class="card-body">
+                @{
+                var category = Model.PantryItem.IngredientCategory?.ToString()?.ToLower() ?? "";
+                var tips = new List<string>();
+
+                if (category.Contains("vegetable") || category.Contains("vegetables"))
+                {
+                tips.Add(PantryLocalizer["VegetableTip1"]);
+                tips.Add(PantryLocalizer["VegetableTip2"]);
+                }
+                else if (category.Contains("fruit") || category.Contains("fruits"))
+                {
+                tips.Add(PantryLocalizer["FruitTip1"]);
+                tips.Add(PantryLocalizer["FruitTip2"]);
+                }
+                else if (category.Contains("meat") || category.Contains("poultry") || category.Contains("seafood"))
+                {
+                tips.Add(PantryLocalizer["MeatTip1"]);
+                tips.Add(PantryLocalizer["MeatTip2"]);
+                }
+                else if (category.Contains("dairy"))
+                {
+                tips.Add(PantryLocalizer["DairyTip1"]);
+                tips.Add(PantryLocalizer["DairyTip2"]);
+                }
+                else if (category.Contains("grain") || category.Contains("pasta") || category.Contains("rice"))
+                {
+                tips.Add(PantryLocalizer["GrainTip1"]);
+                tips.Add(PantryLocalizer["GrainTip2"]);
+                }
+                else if (category.Contains("herb") || category.Contains("spice"))
+                {
+                tips.Add(PantryLocalizer["HerbTip1"]);
+                tips.Add(PantryLocalizer["HerbTip2"]);
+                }
+                else
+                {
+                tips.Add(PantryLocalizer["GeneralTip1"]);
+                tips.Add(PantryLocalizer["GeneralTip2"]);
+                }
+                }
+
+                <h5>@PantryLocalizer["For"] @Model.PantryItem.IngredientName</h5>
+                <ul>
+                    @foreach (var tip in tips)
+                    {
+                    <li>@tip</li>
+                    }
+                    <li>@string.Format(PantryLocalizer["StoreInForOptimalFreshness"], Model.PantryItem.Location)</li>
+                    <li>@string.Format(PantryLocalizer["UseBeforeForBestQuality"], Model.PantryItem.ExpiryDate.ToShortDateString())</li>
+                </ul>
+
+                @if (daysUntilExpiry < 7 && daysUntilExpiry >= 0)
+                {
+                <div class="alert alert-warning">
+                    <p><strong>@PantryLocalizer["ExpiringSoon"]!</strong> @PantryLocalizer["ConsiderUsingInUpcomingMeals"]</p>
+                </div>
+                }
+                else if (daysUntilExpiry < 0)
+                {
+                <div class="alert alert-danger">
+                    <p><strong>@PantryLocalizer["Expired"]!</strong> @PantryLocalizer["ItemHasExpired"]</p>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Shopping List Modal -->
+<div class="modal fade" id="addToShoppingListModal" tabindex="-1" aria-labelledby="addToShoppingListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addToShoppingListModalLabel">@PantryLocalizer["AddToShoppingList"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="AddToShoppingList" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.PantryItem.Id" />
+
+                    <div class="mb-3">
+                        <label for="shoppingListId" class="form-label">@PantryLocalizer["SelectShoppingList"]</label>
+                        <select name="shoppingListId" id="shoppingListId" class="form-select" required>
+                            <option value="">@PantryLocalizer["SelectShoppingList"]</option>
+                            @foreach (var shoppingList in Model.AvailableShoppingLists)
+                            {
+                            <option value="@shoppingList.Value">@shoppingList.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <p>@string.Format(Localizer["This will add {0} to your selected shopping list."], Model.PantryItem.IngredientName)</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@PantryLocalizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@PantryLocalizer["AddToList"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

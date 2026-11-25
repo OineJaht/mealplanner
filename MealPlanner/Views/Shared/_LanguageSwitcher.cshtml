@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Builder
+@using System.Globalization
+@using Microsoft.Extensions.Options
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var currentCulture = requestCulture?.RequestCulture.Culture.Name;
+    var currentUICulture = requestCulture?.RequestCulture.UICulture.Name;
+
+    var cultureItems = LocalizationOptions.Value.SupportedUICultures
+        .Select(c => new
+        {
+            Value = c.Name,
+            Text = c.NativeName,
+            IsSelected = currentUICulture == c.Name
+        })
+        .ToList();
+
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+}
+
+<div class="dropdown language-selector">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <span>@(currentUICulture == "en" ? "English" : "Русский")</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+        @foreach (var culture in cultureItems)
+        {
+            <li>
+                <form asp-controller="Home" asp-action="SetLanguage" method="post">
+                    <input type="hidden" name="culture" value="@culture.Value" />
+                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                    <button type="submit" class="dropdown-item @(culture.IsSelected ? "active" : "")">
+                        @culture.Text
+                    </button>
+                </form>
+            </li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page Titles -->
+    <data name="MealPlans" xml:space="preserve">
+    <value>Планы питания</value>
+  </data>
+    <data name="CreateMealPlan" xml:space="preserve">
+    <value>Создать план питания</value>
+  </data>
+    <data name="EditMealPlan" xml:space="preserve">
+    <value>Редактировать план питания</value>
+  </data>
+    <data name="DeleteMealPlan" xml:space="preserve">
+    <value>Удалить план питания</value>
+  </data>
+    <data name="MealPlanDetails" xml:space="preserve">
+    <value>Детали плана питания</value>
+  </data>
+    <data name="AddMealToPlan" xml:space="preserve">
+    <value>Добавить блюдо в план</value>
+  </data>
+    <data name="EditMeal" xml:space="preserve">
+    <value>Редактировать блюдо</value>
+  </data>
+
+    <!-- MealPlan Properties -->
+    <data name="PlanName" xml:space="preserve">
+    <value>Название плана</value>
+  </data>
+    <data name="StartDate" xml:space="preserve">
+    <value>Дата начала</value>
+  </data>
+    <data name="EndDate" xml:space="preserve">
+    <value>Дата окончания</value>
+  </data>
+    <data name="Duration" xml:space="preserve">
+    <value>Продолжительность</value>
+  </data>
+    <data name="Days" xml:space="preserve">
+    <value>дней</value>
+  </data>
+    <data name="CreatedBy" xml:space="preserve">
+    <value>Создано пользователем</value>
+  </data>
+    <data name="PlanDetails" xml:space="preserve">
+    <value>Детали плана</value>
+  </data>
+    <data name="PlanOverview" xml:space="preserve">
+    <value>Обзор плана</value>
+  </data>
+    <data name="TotalMealsPlanned" xml:space="preserve">
+    <value>Всего запланировано блюд</value>
+  </data>
+
+    <!-- Meal Properties -->
+    <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+    <data name="MealType" xml:space="preserve">
+    <value>Тип блюда</value>
+  </data>
+    <data name="Recipe" xml:space="preserve">
+    <value>Рецепт</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Порции</value>
+  </data>
+    <data name="NumberOfServings" xml:space="preserve">
+    <value>Количество порций</value>
+  </data>
+    <data name="MealDetails" xml:space="preserve">
+    <value>Детали блюда</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Детали рецепта</value>
+  </data>
+    <data name="PlannedMeals" xml:space="preserve">
+    <value>Запланированные блюда</value>
+  </data>
+
+    <!-- Meal Types -->
+    <data name="Breakfast" xml:space="preserve">
+    <value>Завтрак</value>
+  </data>
+    <data name="MorningSnack" xml:space="preserve">
+    <value>Утренний перекус</value>
+  </data>
+    <data name="Lunch" xml:space="preserve">
+    <value>Обед</value>
+  </data>
+    <data name="AfternoonSnack" xml:space="preserve">
+    <value>Полдник</value>
+  </data>
+    <data name="Dinner" xml:space="preserve">
+    <value>Ужин</value>
+  </data>
+    <data name="Dessert" xml:space="preserve">
+    <value>Десерт</value>
+  </data>
+    <data name="EveningSnack" xml:space="preserve">
+    <value>Вечерний перекус</value>
+  </data>
+    <data name="SelectMealType" xml:space="preserve">
+    <value>-- Выберите тип блюда --</value>
+  </data>
+
+    <!-- Buttons and Actions -->
+    <data name="CreatePlan" xml:space="preserve">
+    <value>Создать план</value>
+  </data>
+    <data name="EditPlan" xml:space="preserve">
+    <value>Редактировать план</value>
+  </data>
+    <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+    <data name="AddMeal" xml:space="preserve">
+    <value>Добавить блюдо</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Добавить в план</value>
+  </data>
+    <data name="GenerateShoppingList" xml:space="preserve">
+    <value>Создать список покупок</value>
+  </data>
+    <data name="CreateNewRecipe" xml:space="preserve">
+    <value>Создать новый рецепт</value>
+  </data>
+    <data name="SelectRecipe" xml:space="preserve">
+    <value>-- Выберите рецепт --</value>
+  </data>
+    <data name="ViewFullRecipe" xml:space="preserve">
+    <value>Просмотреть полный рецепт</value>
+  </data>
+    <data name="BackToDetails" xml:space="preserve">
+    <value>Вернуться к деталям</value>
+  </data>
+    <data name="AddFirstMeal" xml:space="preserve">
+    <value>Добавить первое блюдо</value>
+  </data>
+
+    <!-- Status Messages -->
+    <data name="ActiveNow" xml:space="preserve">
+    <value>Активен сейчас</value>
+  </data>
+    <data name="ActivePlan" xml:space="preserve">
+    <value>Активный план</value>
+  </data>
+    <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+    <data name="MealsCount" xml:space="preserve">
+    <value>блюд</value>
+  </data>
+    <data name="RecipeNotFound" xml:space="preserve">
+    <value>Рецепт не найден</value>
+  </data>
+    <data name="NoMealsYet" xml:space="preserve">
+    <value>В этот план еще не добавлены блюда.</value>
+  </data>
+    <data name="NoMealPlansFound" xml:space="preserve">
+    <value>Планы питания не найдены. Создайте свой первый план питания, чтобы начать.</value>
+  </data>
+
+    <!-- Templates -->
+    <data name="QuickTemplates" xml:space="preserve">
+    <value>Быстрые шаблоны</value>
+  </data>
+    <data name="WeeklyPlan" xml:space="preserve">
+    <value>Недельный план</value>
+  </data>
+    <data name="BiweeklyPlan" xml:space="preserve">
+    <value>Двухнедельный план</value>
+  </data>
+    <data name="WeekendPlan" xml:space="preserve">
+    <value>План на выходные</value>
+  </data>
+    <data name="MonthlyPlan" xml:space="preserve">
+    <value>Месячный план</value>
+  </data>
+    <data name="StandardWeek" xml:space="preserve">
+    <value>Стандартный недельный план питания, начиная с сегодняшнего дня</value>
+  </data>
+    <data name="TwoWeekPlan" xml:space="preserve">
+    <value>Двухнедельный план питания для лучшей подготовки</value>
+  </data>
+    <data name="WeekendOnly" xml:space="preserve">
+    <value>Планирование питания только на выходные</value>
+  </data>
+    <data name="LongTermPlan" xml:space="preserve">
+    <value>Долгосрочное планирование питания на месяц</value>
+  </data>
+
+    <!-- Tips and Messages -->
+    <data name="Tips" xml:space="preserve">
+    <value>Советы</value>
+  </data>
+    <data name="QuickActions" xml:space="preserve">
+    <value>Быстрые действия</value>
+  </data>
+    <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить этот план питания?</value>
+  </data>
+    <data name="DeleteWarning" xml:space="preserve">
+    <value>Это действие нельзя отменить. Все блюда в этом плане будут удалены навсегда.</value>
+  </data>
+    <data name="ActivePlanWarning" xml:space="preserve">
+    <value>Этот план сейчас активен! Удаление его удалит ваш текущий план питания.</value>
+  </data>
+    <data name="EndDateAfterStartDate" xml:space="preserve">
+    <value>Дата окончания должна быть после даты начала</value>
+  </data>
+    <data name="RemoveMealConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить это блюдо из плана?</value>
+  </data>
+    <data name="PlanUpdated" xml:space="preserve">
+    <value>План питания успешно обновлен!</value>
+  </data>
+    <data name="Tip1" xml:space="preserve">
+    <value>Планируйте приемы пищи в соответствии с вашим ежедневным распорядком</value>
+  </data>
+    <data name="Tip2" xml:space="preserve">
+    <value>Учитывайте остатки пищи при планировании последовательных дней</value>
+  </data>
+    <data name="Tip3" xml:space="preserve">
+    <value>Регулируйте количество порций в зависимости от количества людей</value>
+  </data>
+    <data name="Tip4" xml:space="preserve">
+    <value>Вы всегда можете отредактировать или удалить блюда позже</value>
+  </data>
+    <data name="PlanTip1" xml:space="preserve">
+    <value>Создайте план с описательным названием, которое поможет вам легко его идентифицировать</value>
+  </data>
+    <data name="PlanTip2" xml:space="preserve">
+    <value>Выберите реалистичный временной период - многие люди считают недельное планирование наиболее удобным</value>
+  </data>
+    <data name="PlanTip3" xml:space="preserve">
+    <value>После создания плана вы сможете добавлять конкретные блюда на каждый день</value>
+  </data>
+    <data name="PlanTip4" xml:space="preserve">
+    <value>Вы можете создать список покупок непосредственно из вашего плана питания</value>
+  </data>
+
+    <!-- Warnings -->
+    <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+    <data name="PlanContainsMeals" xml:space="preserve">
+    <value>Этот план содержит {0} запланированных блюд. Удаление этого плана также удалит все эти блюда из вашего расписания.</value>
+  </data>
+</root>

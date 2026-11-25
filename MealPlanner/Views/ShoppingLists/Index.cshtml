@@ -1,0 +1,99 @@
+@model MealPlanner.Models.ViewModels.ShoppingLists.ShoppingListIndexViewModel
+@inject IViewLocalizer Localizer
+
+@{
+    var title = Localizer["ShoppingLists"];
+    ViewData["Title"] = title;
+}
+
+<h2>@title</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>@ShoppingLocalizer["ShoppingLists"]</h1>
+    <div>
+        <a asp-action="Create" class="btn btn-primary me-2">
+            <i class="bi bi-plus-circle"></i> @ShoppingLocalizer["CreateNew"]
+        </a>
+        <a asp-action="CreateFromMealPlan" class="btn btn-success">
+            <i class="bi bi-calendar-plus"></i> @ShoppingLocalizer["CreateFromMealPlanBtn"]
+        </a>
+    </div>
+</div>
+
+@if (Model.Lists.Any())
+{
+    <div class="row">
+        @foreach (var item in Model.Lists)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">@item.Name</h5>
+                        <span
+                            class="badge bg-secondary">@String.Format(ShoppingLocalizer["ItemsCount"], Model.TotalItemsPerList[item.Id])</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <small
+                                class="text-muted">@ShoppingLocalizer["CreatedDate"]: @item.CreatedDate.ToShortDateString()</small>
+                        </p>
+
+                        @if (Model.TopItems.ContainsKey(item.Id) && Model.TopItems[item.Id].Any())
+                        {
+                            <p>@ShoppingLocalizer["TopItems"]</p>
+                            <ul class="list-group list-group-flush">
+                                @foreach (var listItem in Model.TopItems[item.Id])
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
+                                        <span>@listItem.IngredientName</span>
+                                        <span>
+                                            @listItem.Amount @(listItem.Purchased ? "(✓)" : "")
+                                        </span>
+                                    </li>
+                                }
+                                @if (Model.TotalItemsPerList.ContainsKey(item.Id) && Model.TotalItemsPerList[item.Id] > 3)
+                                {
+                                    <li class="list-group-item py-1 px-2 text-center">
+                                        <small
+                                            class="text-muted">@String.Format(ShoppingLocalizer["AndMore"], Model.TotalItemsPerList[item.Id] - 3)</small>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-muted">@ShoppingLocalizer["NoItemsInList"]</p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group btn-group-sm w-100">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">
+                                <i class="bi bi-eye"></i> @ShoppingLocalizer["View"]
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> @Localizer["Edit"]
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> @Localizer["Delete"]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>@ShoppingLocalizer["NoShoppingLists"]</p>
+        <div class="mt-3">
+            <a asp-action="Create" class="btn btn-primary me-2">
+                <i class="bi bi-plus-circle"></i> @ShoppingLocalizer["CreateNew"]
+            </a>
+            <a asp-action="CreateFromMealPlan" class="btn btn-success">
+                <i class="bi bi-calendar-plus"></i> @ShoppingLocalizer["CreateFromMealPlanBtn"]
+            </a>
+        </div>
+    </div>
+}

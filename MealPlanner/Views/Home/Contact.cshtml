@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container">
+    <h1 class="mb-4">Contact Us</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Get in Touch</h2>
+                    <p class="card-text">
+                        Have questions or feedback about Meal Planner? We'd love to hear from you!
+                        Fill out the form below or reach out to us through any of the contact methods listed.
+                    </p>
+                    
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" placeholder="What's this about?">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Tell us what's on your mind..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Contact Information</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong><i class="bi bi-envelope"></i> Email:</strong>
+                            <p>support@mealplanner.example.com</p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong><i class="bi bi-telephone"></i> Phone:</strong>
+                            <p>+372 123 4567</p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong><i class="bi bi-geo-alt"></i> Address:</strong>
+                            <p>Tallinn University of Technology<br>
+                            Ehitajate tee 5<br>
+                            19086 Tallinn, Estonia</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Office Hours</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Monday - Friday: 9:00 AM - 5:00 PM</li>
+                        <li class="list-group-item">Saturday - Sunday: Closed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

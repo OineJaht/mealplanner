@@ -1,0 +1,52 @@
+# Build stage
+FROM node:18-alpine AS build
+WORKDIR /app
+
+# Copy package files
+COPY React/package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY React/ ./
+
+# Set build argument for API URL
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+
+# Build the React app (Vite outputs to dist/)
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine AS runtime
+
+# Copy built app from build stage (Vite uses dist/ not build/)
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Create nginx config for React SPA with LOCAL backend proxy
+RUN echo 'server { \
+    listen 80; \
+    server_name localhost; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+    # Proxy API calls to the local backend service \
+    location /api/ { \
+        proxy_pass http://host.docker.internal:5001/api/; \
+        proxy_set_header Host $host; \
+        proxy_set_header X-Real-IP $remote_addr; \
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; \
+        proxy_set_header X-Forwarded-Proto $scheme; \
+        proxy_set_header X-Forwarded-Host $host; \
+        proxy_set_header X-Forwarded-Port $server_port; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

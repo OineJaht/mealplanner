@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Page titles -->
+    <data name="WhatCanICook" xml:space="preserve">
+    <value>What Can I Cook?</value>
+  </data>
+    <data name="RecipeSearchResults" xml:space="preserve">
+    <value>Recipe Search Results</value>
+  </data>
+    <data name="RecipeDetails" xml:space="preserve">
+    <value>Recipe Details</value>
+  </data>
+    <data name="BackToRecipes" xml:space="preserve">
+    <value>Back to Recipes</value>
+  </data>
+    <data name="ModifySearch" xml:space="preserve">
+    <value>Modify Search</value>
+  </data>
+
+    <!-- Main finder page -->
+    <data name="FindRecipesWithIngredients" xml:space="preserve">
+    <value>Find Recipes with Your Ingredients</value>
+  </data>
+    <data name="SelectIngredients" xml:space="preserve">
+    <value>Select Ingredients</value>
+  </data>
+    <data name="SelectIngredientsInfo" xml:space="preserve">
+    <value>Select the ingredients you have and we'll find recipes you can make.</value>
+  </data>
+    <data name="MatchAllIngredients" xml:space="preserve">
+    <value>Match all ingredients (stricter matching)</value>
+  </data>
+    <data name="SelectAllFromPantry" xml:space="preserve">
+    <value>Select All From Pantry</value>
+  </data>
+    <data name="ClearAll" xml:space="preserve">
+    <value>Clear All</value>
+  </data>
+    <data name="SearchIngredients" xml:space="preserve">
+    <value>Search ingredients...</value>
+  </data>
+    <data name="FindRecipes" xml:space="preserve">
+    <value>Find Recipes</value>
+  </data>
+    <data name="YourPantryIngredients" xml:space="preserve">
+    <value>Your Pantry Ingredients</value>
+  </data>
+    <data name="InPantry" xml:space="preserve">
+    <value>In Pantry</value>
+  </data>
+    <data name="NoPantryIngredients" xml:space="preserve">
+    <value>You don't have any ingredients in your pantry.</value>
+  </data>
+    <data name="ManagePantry" xml:space="preserve">
+    <value>Manage Pantry</value>
+  </data>
+    <data name="FindingRecipesTips" xml:space="preserve">
+    <value>Finding Recipes Tips</value>
+  </data>
+    <data name="SelectPantryItemsTip" xml:space="preserve">
+    <value>Select Pantry Items: Choose ingredients you already have</value>
+  </data>
+    <data name="MatchTypeTip" xml:space="preserve">
+    <value>Match Type: "Any" finds recipes with at least one selected ingredient, "All" requires all selected ingredients</value>
+  </data>
+    <data name="ConsiderStaplesTip" xml:space="preserve">
+    <value>Consider Staples: Basic ingredients like salt, pepper, and oil are often assumed</value>
+  </data>
+    <data name="KeepPantryUpdatedTip" xml:space="preserve">
+    <value>Keep Pantry Updated: Regularly update your pantry for accurate results</value>
+  </data>
+
+    <!-- Search results page -->
+    <data name="RecipesYouCanMake" xml:space="preserve">
+    <value>Recipes You Can Make</value>
+  </data>
+    <data name="Found" xml:space="preserve">
+    <value>Found</value>
+  </data>
+    <data name="RecipesUsing" xml:space="preserve">
+    <value>recipes using</value>
+  </data>
+    <data name="AllOf" xml:space="preserve">
+    <value>all</value>
+  </data>
+    <data name="SomeOf" xml:space="preserve">
+    <value>some of</value>
+  </data>
+    <data name="YourSelectedIngredients" xml:space="preserve">
+    <value>your selected ingredients.</value>
+  </data>
+    <data name="YouHaveAllIngredients" xml:space="preserve">
+    <value>You have all ingredients!</value>
+  </data>
+    <data name="Missing" xml:space="preserve">
+    <value>Missing</value>
+  </data>
+    <data name="Ingredients" xml:space="preserve">
+    <value>ingredients</value>
+  </data>
+    <data name="More" xml:space="preserve">
+    <value>more</value>
+  </data>
+    <data name="ViewRecipe" xml:space="preserve">
+    <value>View Recipe</value>
+  </data>
+    <data name="FullDetails" xml:space="preserve">
+    <value>Full Details</value>
+  </data>
+    <data name="NoRecipesFound" xml:space="preserve">
+    <value>No recipes found with your selected ingredients.</value>
+  </data>
+    <data name="TryDifferentIngredients" xml:space="preserve">
+    <value>Try selecting different or more ingredients, or switch to the "Any" matching mode.</value>
+  </data>
+    <data name="SelectedIngredients" xml:space="preserve">
+    <value>Selected Ingredients</value>
+  </data>
+    <data name="YouSelected" xml:space="preserve">
+    <value>You selected</value>
+  </data>
+    <data name="IngredientsColon" xml:space="preserve">
+    <value>ingredients:</value>
+  </data>
+    <data name="MatchMode" xml:space="preserve">
+    <value>Match Mode:</value>
+  </data>
+    <data name="AllIngredientsRequired" xml:space="preserve">
+    <value>All ingredients required</value>
+  </data>
+    <data name="AnyIngredientMatch" xml:space="preserve">
+    <value>Any ingredient match</value>
+  </data>
+    <data name="ModifyIngredients" xml:space="preserve">
+    <value>Modify Ingredients</value>
+  </data>
+    <data name="NoIngredientsSelected" xml:space="preserve">
+    <value>No ingredients selected.</value>
+  </data>
+    <data name="SuggestedActions" xml:space="preserve">
+    <value>Suggested Actions</value>
+  </data>
+    <data name="UpdatePantry" xml:space="preserve">
+    <value>Update Pantry</value>
+  </data>
+    <data name="CreateShoppingList" xml:space="preserve">
+    <value>Create Shopping List</value>
+  </data>
+    <data name="AddNewRecipe" xml:space="preserve">
+    <value>Add New Recipe</value>
+  </data>
+
+    <!-- Recipe details page -->
+    <data name="BackToResults" xml:space="preserve">
+    <value>Back to Results</value>
+  </data>
+    <data name="AboutThisRecipe" xml:space="preserve">
+    <value>About This Recipe</value>
+  </data>
+    <data name="Favorite" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+    <data name="NoDescriptionAvailable" xml:space="preserve">
+    <value>No description available</value>
+  </data>
+    <data name="PrepTime" xml:space="preserve">
+    <value>Prep Time</value>
+  </data>
+    <data name="Servings" xml:space="preserve">
+    <value>Servings</value>
+  </data>
+    <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+    <data name="Uncategorized" xml:space="preserve">
+    <value>Uncategorized</value>
+  </data>
+    <data name="NutritionFacts" xml:space="preserve">
+    <value>Nutrition Facts</value>
+  </data>
+    <data name="PerServing" xml:space="preserve">
+    <value>Per Serving</value>
+  </data>
+    <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+    <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+    <data name="Carbs" xml:space="preserve">
+    <value>Carbs</value>
+  </data>
+    <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
+    <data name="Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+    <data name="Sugar" xml:space="preserve">
+    <value>Sugar</value>
+  </data>
+    <data name="IngredientStatus" xml:space="preserve">
+    <value>Ingredient Status</value>
+  </data>
+    <data name="YouHaveOfIngredients" xml:space="preserve">
+    <value>You have</value>
+  </data>
+    <data name="OfTheTotal" xml:space="preserve">
+    <value>of</value>
+  </data>
+    <data name="IngredientsNeeded" xml:space="preserve">
+    <value>ingredients needed for this recipe.</value>
+  </data>
+    <data name="AllIngredientsSuccess" xml:space="preserve">
+    <value>You have all the ingredients needed for this recipe!</value>
+  </data>
+    <data name="RecipeIngredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+    <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+    <data name="Missing" xml:space="preserve">
+    <value>Missing</value>
+  </data>
+    <data name="Adjust" xml:space="preserve">
+    <value>Adjust</value>
+  </data>
+    <data name="Instructions" xml:space="preserve">
+    <value>Instructions</value>
+  </data>
+    <data name="NoInstructionsAdded" xml:space="preserve">
+    <value>No instructions have been added to this recipe.</value>
+  </data>
+    <data name="StepByStepInstructions" xml:space="preserve">
+    <value>Step-by-Step Instructions</value>
+  </data>
+    <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+    <data name="ViewFullRecipeDetails" xml:space="preserve">
+    <value>View Full Recipe Details</value>
+  </data>
+    <data name="AddToMealPlan" xml:space="preserve">
+    <value>Add to Meal Plan</value>
+  </data>
+    <data name="AddMissingIngredientsToShoppingList" xml:space="preserve">
+    <value>Add Missing Ingredients to Shopping List</value>
+  </data>
+    <data name="PrintRecipe" xml:space="preserve">
+    <value>Print Recipe</value>
+  </data>
+</root>
