@@ -41,7 +41,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<MealPlanner.Services.IAdminPasswordResetService, MealPlanner.Services.AdminPasswordResetService>();
 
 // Configure AutoMapper
-builder.Services.AddAutoMapper(typeof(MappingProfiles),typeof(ApiV1MappingProfile));
+builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfiles).Assembly);
 
 // Configure DbContext with Postgres
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

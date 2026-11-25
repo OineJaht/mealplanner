@@ -57,7 +57,7 @@ namespace MealPlanner.Tests.Utilities
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfiles.MappingProfiles>();
-            });
+            }, Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Instance);
             return config.CreateMapper();
         }
 

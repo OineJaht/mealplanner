@@ -12,8 +12,8 @@ RUN npm ci
 COPY React/ ./
 
 # Set build argument for API URL
-ARG REACT_APP_API_BASE_URL
-ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
 # Build the React app (Vite outputs to dist/)
 RUN npm run build
