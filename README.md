@@ -32,18 +32,28 @@ docker compose up --build
 
 Requires .NET 8 SDK, PostgreSQL and Node.js 18+.
 
+Create `MealPlanner/.env` (it is git-ignored):
+
+```
+ConnectionStrings__DefaultConnection=Host=localhost;Port=5432;Database=mealplanner;Username=postgres;Password=<your-password>
+JwtSettings__SecretKey=<random string, at least 32 characters>
+ADMIN_PASSWORD=<optional, creates admin@mealplanner.com>
+```
+
+Then:
+
 ```bash
-# Backend: create MealPlanner/.env from ../.env.example (set DB_HOST=localhost), then
+# Backend (the database is created and migrated on startup)
 cd MealPlanner
 dotnet run                          # http://localhost:5001/swagger
 
 # Vue client (in another terminal)
 cd meal-planner-client
-cp .env.example .env
+cp .env.example .env                # PowerShell: Copy-Item .env.example .env
 npm ci && npm run dev               # http://localhost:3000
 ```
 
-Register a user via `POST /api/Account/register` (or the client's sign-up page) and log in via `POST /api/Account/login`. The admin user `admin@mealplanner.com` is created on startup only when `ADMIN_PASSWORD` is set (it must satisfy the ASP.NET Identity password rules).
+Register a user via `POST /api/Account/register` (or the client's sign-up page) and log in via `POST /api/Account/login`. The admin user is created on startup only when `ADMIN_PASSWORD` is set; it must satisfy the ASP.NET Identity password rules.
 
 ## Tests
 
